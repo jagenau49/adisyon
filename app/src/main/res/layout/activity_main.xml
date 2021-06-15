@@ -46,6 +46,12 @@
 
         android:text="Siparisi Kaydet" />
 
+    <Button
+        android:id="@+id/btSifirla"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SIFIRLA" />
+
     <TextView
         android:id="@+id/tvSiparisDokumu"
         android:layout_width="match_parent"

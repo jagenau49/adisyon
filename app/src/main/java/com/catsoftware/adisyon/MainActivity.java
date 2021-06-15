@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     //Layout nesneleri tanimlandi
     EditText etSiparisSaati, etSurucuNo, etOdemeYontemi, etUcret;
     TextView tvSaat, tvSurucuNo, tvOdemeYontemi, tvUcret, tvSiparisDokumu;
-    Button btSiparisKaydet;
+    Button btSiparisKaydet, btSifirla;
 
     SharedPreferences mSharedPreferences;
 
@@ -38,23 +38,52 @@ public class MainActivity extends AppCompatActivity {
         tvOdemeYontemi=findViewById(R.id.tvOdemeYontemi);
         tvUcret=findViewById(R.id.tvUcret);
         tvSiparisDokumu=findViewById(R.id.tvSiparisDokumu);
+
+        /*
+        Burada tüm butonlar ve islevleri tanimlaniyor
+         */
+
+        //Kayit butonu
         btSiparisKaydet=findViewById(R.id.btKaydet);
-        btSiparisKaydet.setOnClickListener(new View.OnClickListener() {
+        btSiparisKaydet.setOnClickListener(new View.OnClickListener() { //yeni siparis kaydediliyor
             @Override
             public void onClick(View v) {
                 siparisKaydet();
+
             }
         });
 
+        //Sifirla butonu
+        btSifirla=findViewById(R.id.btSifirla);
+        btSifirla.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verileriSifirla();
+            }
+        });
+
+        tvSiparisDokumu.setText(siparisleriDok());//siparisler ekrana yazdiriliyor
+
+
+    }
+
+    public void verileriSifirla(){
+        mSharedPreferences.edit().clear().apply();
+        //TODO:sifirlama sonrasi mutlaka sharedpreferences da olmasi gerekenleri tekrar ekle
+        tvSiparisDokumu.setText(siparisleriDok());//siparisler ekrana yazdiriliyor
+        System.out.println("veriler sifirlandi");//TODO:test icin yazildi sil
+    }
+
+    public String siparisleriDok(){
         //Kayitli siparisler ekrana yazdiriliyor
         int kayitliSiparisSayisi=mSharedPreferences.getInt(KEY_SIPARIS_SAYISI,0);
         String SiparisDokumu="";
         if (kayitliSiparisSayisi==0){
             SiparisDokumu="KAYITLI SIPARIS BULUNAMADI!";
         }else{
-            for (int i=1;i<=kayitliSiparisSayisi;i++){
+            for (int i=kayitliSiparisSayisi;i>0;i--){
                 String siparisOnEki="S"+i;
-                for(int j=0;j<4;j++){
+
                     SiparisDokumu+=mSharedPreferences.getString(siparisOnEki+"Saat","Saat bulunamadi!");
                     SiparisDokumu+=" ";
                     SiparisDokumu+=mSharedPreferences.getString(siparisOnEki+"SurucuNo","Surucu No bulunamadi!");
@@ -62,14 +91,15 @@ public class MainActivity extends AppCompatActivity {
                     SiparisDokumu+=mSharedPreferences.getString(siparisOnEki+"OdemeYontemi","Odeme Yontemi bulunamadi!");
                     SiparisDokumu+=" ";
                     SiparisDokumu+=mSharedPreferences.getInt(siparisOnEki+"Ucret",-1);
-                    SiparisDokumu+="/n";
-                }
+                    SiparisDokumu+="\n";
+
             }
 
         }
-        tvSiparisDokumu.setText(SiparisDokumu);
+        return SiparisDokumu;
     }
     public void siparisKaydet(){
+        //TODO: saati verinin girildigi saat olarak kaydet
         String saat=etSiparisSaati.getText().toString();
         String surucu=etSurucuNo.getText().toString();
         String odemeYontemi=etOdemeYontemi.getText().toString();
@@ -100,6 +130,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
-
+        tvSiparisDokumu.setText(siparisleriDok());//siparisler ekrana yazdiriliyor
     }
 }
