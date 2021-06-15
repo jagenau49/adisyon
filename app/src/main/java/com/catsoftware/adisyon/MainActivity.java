@@ -38,36 +38,17 @@ public class MainActivity extends AppCompatActivity {
         tvOdemeYontemi=findViewById(R.id.tvOdemeYontemi);
         tvUcret=findViewById(R.id.tvUcret);
         tvSiparisDokumu=findViewById(R.id.tvSiparisDokumu);
-
-        /*
-        Burada tüm butonlar ve islevleri tanimlaniyor
-         */
-
-        //Kayit butonu
-        btSiparisKaydet=findViewById(R.id.btKaydet);
-        btSiparisKaydet.setOnClickListener(new View.OnClickListener() { //yeni siparis kaydediliyor
-            @Override
-            public void onClick(View v) {
-                siparisKaydet();
-
-            }
-        });
-
-        //Sifirla butonu
         btSifirla=findViewById(R.id.btSifirla);
-        btSifirla.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verileriSifirla();
-            }
-        });
+        btSiparisKaydet=findViewById(R.id.btKaydet);
+
+
 
         tvSiparisDokumu.setText(siparisleriDok());//siparisler ekrana yazdiriliyor
 
 
     }
 
-    public void verileriSifirla(){
+    public void verileriSifirla(View mView){
         mSharedPreferences.edit().clear().apply();
         //TODO:sifirlama sonrasi mutlaka sharedpreferences da olmasi gerekenleri tekrar ekle
         tvSiparisDokumu.setText(siparisleriDok());//siparisler ekrana yazdiriliyor
@@ -98,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return SiparisDokumu;
     }
-    public void siparisKaydet(){
+    public void siparisKaydet(View mView1){
         //TODO: saati verinin girildigi saat olarak kaydet
         String saat=etSiparisSaati.getText().toString();
         String surucu=etSurucuNo.getText().toString();

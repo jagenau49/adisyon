@@ -44,12 +44,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
+        android:onClick="siparisKaydet"
         android:text="Siparisi Kaydet" />
 
     <Button
         android:id="@+id/btSifirla"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="verileriSifirla"
         android:text="SIFIRLA" />
 
     <TextView
