@@ -79,12 +79,13 @@ public class MainActivity extends AppCompatActivity {
                 String siparisSatiri="";
 
                 siparisSatiri+=mSharedPreferences.getString(siparisOnEki+"Saat","Saat bulunamadi!");
-                siparisSatiri+=" ";
+                siparisSatiri+=" -> Surucu: ";
                 siparisSatiri+=mSharedPreferences.getString(siparisOnEki+"SurucuNo","Surucu No bulunamadi!");
-                siparisSatiri+=" ";
-                siparisSatiri+=mSharedPreferences.getString(siparisOnEki+"OdemeYontemi","Odeme Yontemi bulunamadi!");
-                siparisSatiri+=" ";
+                siparisSatiri+=" -> ";
                 siparisSatiri+=mSharedPreferences.getInt(siparisOnEki+"Ucret",-1);
+                siparisSatiri+="€(";
+                siparisSatiri+=mSharedPreferences.getString(siparisOnEki+"OdemeYontemi","Odeme Yontemi bulunamadi!");
+                siparisSatiri+=")";
                 siparisListesi.add(siparisSatiri);
 
 
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                //vazgecildigi icin hicbir islem yapilmiyor
-                Toast.makeText(MainActivity.this,"Herhangibir degisiklik yapilmadi.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"Hicbir veri silinmedi.",Toast.LENGTH_SHORT).show();
             }
         });
         mAlert.show();
