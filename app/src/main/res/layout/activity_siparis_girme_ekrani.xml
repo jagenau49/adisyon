@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SiparisGirmeEkrani"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/etSiparisSaati"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="siparis saati"
+        android:inputType="time" />
+
+    <EditText
+        android:id="@+id/etSurucuNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="sürücü no"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/etOdemeYontemi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="odeme yöntemi"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/etUcret"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="ücret"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/btKaydet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:onClick="siparisKaydet"
+        android:text="Siparisi Kaydet" />
+
+    <Button
+        android:id="@+id/btVazgec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="anaEkranaGit"
+        android:text="Vazgec" />
+
+</LinearLayout>

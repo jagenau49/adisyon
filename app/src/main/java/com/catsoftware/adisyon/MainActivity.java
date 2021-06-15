@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -14,19 +15,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences mSharedPreferences;
     public final String  KEY_SIPARIS_SAYISI="toplamSiparisSayisi";
-    int kayitOncesiSiparisSayisi;//onceki siparis sayilari kontrol ediliyor
-    ArrayAdapter mArrayAdapter;
+
+
 
     //Layout nesneleri tanimlandi
-    EditText etSiparisSaati, etSurucuNo, etOdemeYontemi, etUcret;
-    Button btSiparisKaydet, btSifirla;
+
+    Button  btSifirla;
     ListView lvSiparisListesi;
+    ArrayAdapter mArrayAdapter;
 
 
 
@@ -40,14 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Layout nesneleri degiskenlere atandi
-        etSiparisSaati=findViewById(R.id.etSiparisSaati);
-        etSurucuNo=findViewById(R.id.etSurucuNo);
-        etOdemeYontemi=findViewById(R.id.etOdemeYontemi);
-        etUcret=findViewById(R.id.etUcret);
-
 
         btSifirla=findViewById(R.id.btSifirla);
-        btSiparisKaydet=findViewById(R.id.btKaydet);
+
         lvSiparisListesi=findViewById(R.id.lvSiparisler);
 
 
@@ -57,6 +57,19 @@ public class MainActivity extends AppCompatActivity {
         //siparisler listview seklinde yazdiriliyor
        mArrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,siparisleriListele());
         lvSiparisListesi.setAdapter(mArrayAdapter);
+
+
+//FAB ayrintilari
+        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Siparis ekleme hazirlaniyor...", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                Intent intent=new Intent(MainActivity.this, SiparisGirmeEkrani.class);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -128,33 +141,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void siparisKaydet(View mView1){
-        //TODO: saati verinin girildigi saat olarak kaydet
-        String saat=etSiparisSaati.getText().toString();
-        String surucu=etSurucuNo.getText().toString();
-        String odemeYontemi=etOdemeYontemi.getText().toString();
-        String ucretGirdisi=etUcret.getText().toString();
-        if(!(saat.equals("")&&surucu.equals("")&&odemeYontemi.equals("")&&(ucretGirdisi.equals("")))){//verilerin bos olup olmadigi kontrol ediliyor
 
-        int ucret=Integer.parseInt( ucretGirdisi);
-        kayitOncesiSiparisSayisi=mSharedPreferences.getInt(KEY_SIPARIS_SAYISI,0);//onceki siparis sayilari kontrol ediliyor
-        System.out.println("Kayit oncesi siparis sayisi= "+kayitOncesiSiparisSayisi); //TODO:test icin yazildi sil
-        String siparisOnEki="S"+(kayitOncesiSiparisSayisi+1);//siparis verilerinin essiz key degerleriyle kaydedilmesi icin on ek olusturuldu
-
-            //Veriler siparis one ekiyle sisteme kaydediliyor
-            mSharedPreferences.edit().putString(siparisOnEki+"Saat",saat).apply();
-            mSharedPreferences.edit().putString(siparisOnEki+"SurucuNo",surucu).apply();
-            mSharedPreferences.edit().putString(siparisOnEki+"OdemeYontemi",odemeYontemi).apply();
-            mSharedPreferences.edit().putInt(siparisOnEki+"Ucret",ucret).apply();
-            mSharedPreferences.edit().putInt(KEY_SIPARIS_SAYISI,kayitOncesiSiparisSayisi+1).apply();
-
-
-
-
-
-        }
-
-        mArrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,siparisleriListele());
-        lvSiparisListesi.setAdapter(mArrayAdapter);
-    }
 }

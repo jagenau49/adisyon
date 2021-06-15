@@ -7,46 +7,6 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/etSiparisSaati"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="siparis saati"
-        android:inputType="time" />
-
-    <EditText
-        android:id="@+id/etSurucuNo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="sürücü no"
-        android:inputType="number" />
-
-    <EditText
-        android:id="@+id/etOdemeYontemi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="odeme yöntemi"
-        android:inputType="text" />
-
-    <EditText
-        android:id="@+id/etUcret"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="ücret"
-        android:inputType="number" />
-
-    <Button
-        android:id="@+id/btKaydet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:onClick="siparisKaydet"
-        android:text="Siparisi Kaydet" />
-
     <Button
         android:id="@+id/btSifirla"
         android:layout_width="match_parent"
@@ -54,9 +14,18 @@
         android:onClick="verileriSifirla"
         android:text="SIFIRLA" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_input_add" />
     <ListView
         android:id="@+id/lvSiparisler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+
+
+    </ListView>
 
 </LinearLayout>
