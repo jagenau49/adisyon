@@ -1,13 +1,16 @@
 package com.catsoftware.adisyon;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     public final String  KEY_SIPARIS_SAYISI="toplamSiparisSayisi";
@@ -49,10 +52,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void verileriSifirla(View mView){
-        mSharedPreferences.edit().clear().apply();
-        //TODO:sifirlama sonrasi mutlaka sharedpreferences da olmasi gerekenleri tekrar ekle
-        tvSiparisDokumu.setText(siparisleriDok());//siparisler ekrana yazdiriliyor
-        System.out.println("veriler sifirlandi");//TODO:test icin yazildi sil
+
+        //kullaniciya emin olup olmadigi soruluyor
+        AlertDialog.Builder mAlert=new AlertDialog.Builder(this);
+        mAlert.setTitle("TUM SIPARISLER SILINECEK");
+        mAlert.setMessage("Tüm siparislerin silinmesini onayliyor musunuz? Bu islem geri alinamaz.");
+        mAlert.setPositiveButton("Onayliyorum", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mSharedPreferences.edit().clear().apply();
+                //TODO:sifirlama sonrasi mutlaka sharedpreferences da olmasi gerekenleri tekrar ekle
+                tvSiparisDokumu.setText(siparisleriDok());//siparisler ekrana yazdiriliyor
+                System.out.println("veriler sifirlandi");//TODO:test icin yazildi sil
+                Toast.makeText(MainActivity.this,"Tüm siparisler silindi.",Toast.LENGTH_LONG).show();
+
+            }
+        });
+        mAlert.setNegativeButton("Vazgec", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               //vazgecildigi icin hicbir islem yapilmiyor
+            }
+        });
+        mAlert.show();
+
     }
 
     public String siparisleriDok(){
