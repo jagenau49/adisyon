@@ -1,5 +1,6 @@
 package com.catsoftware.adisyon;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +8,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -29,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Layout nesneleri tanimlandi
 
-    Button  btSifirla;
+
     ListView lvSiparisListesi;
     ArrayAdapter mArrayAdapter;
 
@@ -46,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Layout nesneleri degiskenlere atandi
 
-        btSifirla=findViewById(R.id.btSifirla);
+
 
         lvSiparisListesi=findViewById(R.id.lvSiparisler);
 
@@ -80,6 +84,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.ayarlar_menusu,menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.mnSifirla){
+            //Tum siparisleri sifirliyoruz
+            verileriSifirla();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private ArrayList siparisleriListele() {
         int kayitliSiparisSayisi=mSharedPreferences.getInt(KEY_SIPARIS_SAYISI,0);
         ArrayList<String> siparisListesi=new ArrayList<String>();
@@ -111,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         return siparisListesi;
     }
 
-    public void verileriSifirla(View mView){
+    public void verileriSifirla(){
 
         //kullaniciya emin olup olmadigi soruluyor
         AlertDialog.Builder mAlert=new AlertDialog.Builder(this);

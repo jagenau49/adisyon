@@ -7,13 +7,6 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btSifirla"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="verileriSifirla"
-        android:text="SIFIRLA" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="match_parent"
