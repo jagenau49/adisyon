@@ -43,8 +43,16 @@
         android:id="@+id/btKaydet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="siparisKaydet"
+
         android:text="Siparisi Kaydet" />
+
+    <TextView
+        android:id="@+id/tvSiparisDokumu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Burada verilen siparisler gozukecek"
+        android:textColor="#3F51B5"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/textView"
