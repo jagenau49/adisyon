@@ -1,40 +1,30 @@
 package com.catsoftware.adisyon;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.catsoftware.adisyon.db.AppDatabase;
-import com.catsoftware.adisyon.db.Siparis;
+import com.catsoftware.adisyon.db.SiparisSatiri;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    RecyclerView recyclerView;
 
 
 
@@ -49,9 +39,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        recyclerView=findViewById(R.id.recyclerView);
+        SiparisAdapter siparisAdapter= new SiparisAdapter(this,verileriCekListele());//TODO: verileriCekListele() metodu veritabanini Arraylist<Siparis> olarak dondursun
+recyclerView.setAdapter(siparisAdapter);
 
 
-        loadSiparisList();
+loadSiparisList();//TODO:sil
+
+
         
 
 
@@ -86,9 +81,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadSiparisList() {
         AppDatabase db=AppDatabase.getDbInstance(this.getApplicationContext());
-        List<Siparis> listSiparis= db.siparisDao().getAll();
+        List<SiparisSatiri> listSiparis= db.siparisDao().getAll();
+
         System.out.println("loadSiparisList calisti. Veriler: ");
-        System.out.println(listSiparis.toString());
+        System.out.println(listSiparis.toArray().toString());
+
+
     }
 
     @Override

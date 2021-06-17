@@ -11,11 +11,11 @@ import java.util.List;
 
 @Dao
 public interface SiparisDao {
-    @Query("SELECT * FROM siparislerTablosu")
-    List<Siparis> getAll();
+    @Query("SELECT * FROM SiparisSatiri")
+    List<SiparisSatiri> getAll();
 
-    @Query("SELECT * FROM siparislerTablosu WHERE sId IN (:sIds)")
-    List<Siparis> loadAllByIds(int[] sIds);
+    @Query("SELECT * FROM SiparisSatiri WHERE sId IN (:sIds)")
+    List<SiparisSatiri> loadAllByIds(int[] sIds);
 
 
         /*  //TODO: kendine uyarla
@@ -26,10 +26,10 @@ public interface SiparisDao {
 
 
     @Insert
-    void insertSiparis(Siparis... siparislerTablosu);
+    void insertSiparis(SiparisSatiri... siparislerTablosu);
 
     @Delete
-    void delete(Siparis siparislerTablosu);
+    void delete(SiparisSatiri siparislerTablosu);
 
 
 }

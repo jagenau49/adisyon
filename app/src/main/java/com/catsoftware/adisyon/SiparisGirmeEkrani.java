@@ -1,21 +1,8 @@
 package com.catsoftware.adisyon;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.ColumnInfo;
-import androidx.room.Dao;
-import androidx.room.Database;
-import androidx.room.Delete;
-import androidx.room.Entity;
-import androidx.room.Insert;
-import androidx.room.PrimaryKey;
-import androidx.room.Query;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -27,11 +14,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.catsoftware.adisyon.db.AppDatabase;
-import com.catsoftware.adisyon.db.Siparis;
-import com.google.android.material.snackbar.Snackbar;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.catsoftware.adisyon.db.SiparisSatiri;
 
 public class SiparisGirmeEkrani extends AppCompatActivity {
 
@@ -121,7 +104,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
 
             //veritabani islemleri
             AppDatabase db=AppDatabase.getDbInstance(this.getApplicationContext());
-            Siparis siparis= new Siparis();
+            SiparisSatiri siparis= new SiparisSatiri();
             siparis.setDakika(dakika);
             siparis.setSaat(saat);
             siparis.setSurucu(surucuNo);

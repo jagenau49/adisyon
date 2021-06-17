@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp"
+    app:cardCornerRadius="5dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvUcret"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="7dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text=" 100€"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvOdemeYontemi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="(Nakit)"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvSurucuNo"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="7dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="5 Nolu Surucu"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvSaatDakika"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="7dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="21:30" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivDuzenle"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_margin="7dp"
+                android:tint="@color/design_default_color_primary_variant"
+                app:srcCompat="@android:drawable/ic_menu_edit" />
+
+            <ImageView
+                android:id="@+id/ivSil"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_margin="7dp"
+                android:tint="@color/design_default_color_error"
+                app:srcCompat="@android:drawable/ic_menu_delete" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
