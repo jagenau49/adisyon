@@ -1,6 +1,16 @@
 package com.catsoftware.adisyon;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.ColumnInfo;
+import androidx.room.Dao;
+import androidx.room.Database;
+import androidx.room.Delete;
+import androidx.room.Entity;
+import androidx.room.Insert;
+import androidx.room.PrimaryKey;
+import androidx.room.Query;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,125 +26,114 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.catsoftware.adisyon.db.AppDatabase;
+import com.catsoftware.adisyon.db.Siparis;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SiparisGirmeEkrani extends AppCompatActivity {
 
-    SharedPreferences mSharedPreferences;
-    public final String KEY_SIPARIS_SAYISI = "toplamSiparisSayisi";
-    public final int NAKIT=0;
-    public final int KART=1;
-    public final Integer SURUCU_SAYISI=10;
-    int kayitOncesiSiparisSayisi;//onceki siparis sayilari kontrol ediliyor
 
-
-
-    //Layout nesneleri tanimlandi
-    EditText etSiparisSaati, etSurucuNo, etOdemeYontemi, etUcret;
-    Button btSiparisKaydet;
-    TimePicker picker;
-    Spinner spSurucuNolari, spOdemeYontemi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_siparis_girme_ekrani);
-        mSharedPreferences = this.getSharedPreferences("com.catsoftware.adisyon", MODE_PRIVATE);//TODO:dqlite sonrasi kaldir
 
-        /*
-        Veritabani hazirlaniyor
-         */
-
-
-
-
-
+        //Layout nesneleri tanimlandi ve atandi
+        final EditText etUcret= findViewById(R.id.etUcret);
+        Button btSiparisKaydet= findViewById(R.id.btKaydet);
+        Button btVazgec=findViewById(R.id.btVazgec);
+        TimePicker picker =findViewById(R.id.timePicker1);
+        Spinner spSurucuNolari = findViewById(R.id.spSurucuNo);
+        Spinner spOdemeYontemi=findViewById(R.id.spOdemeYontemi);
 
 
+        //Layout nesneleri duzenleniyor
+        picker.setIs24HourView(true);//saatler 24 saat duzenine gore ayarlaniyor
 
-        /*
-        Veritabani hazir
-         */
-
-        //Layout nesneleri degiskenlere atandi
-
-        etUcret = findViewById(R.id.etUcret);
-        btSiparisKaydet = findViewById(R.id.btKaydet);
-
-
-        /*
-        * Time picker olusturuluyor
-        */
-        picker=(TimePicker)findViewById(R.id.timePicker1);
-        picker.setIs24HourView(true);
-
-        /*
-        SurucuNo icin spinner verileri olusturuluyor
-         */
-         spSurucuNolari = (Spinner) findViewById(R.id.spSurucuNo);
         ArrayAdapter<CharSequence> adapterSurucuNo = ArrayAdapter.createFromResource(this,// Create an ArrayAdapter using the string array and a default spinner layout
                 R.array.surucu_nolari, R.layout.spinner_item);
-
-        // Apply the adapter to the spinner
         spSurucuNolari.setAdapter(adapterSurucuNo);
 
-        /*
-        OdemeYontemi icin spinner verileri olusturuluyor
-
-         */
-
-         spOdemeYontemi = (Spinner) findViewById(R.id.spOdemeYontemi);
         ArrayAdapter<CharSequence> adapterOdemeYontemi = ArrayAdapter.createFromResource(this,// Create an ArrayAdapter using the string array and a default spinner layout
                 R.array.odeme_yontemi, R.layout.spinner_item);
-
-        // Apply the adapter to the spinner
         spOdemeYontemi.setAdapter(adapterOdemeYontemi);
 
+          btSiparisKaydet.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  siparisKaydet(pickerSaatCek(picker),pickerDakikaCek(picker),spSurucuNolari.getSelectedItem().toString(),spOdemeYontemi.getSelectedItem().toString(),etUcret.getText().toString());
+              }
+          });
 
-
-
+          btVazgec.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  anaEkranaGit();
+              }
+          });
 
 
     }
-
-    public void siparisKaydet(View mView) {
-        int saat, dakika;
-        double ucret=0.0;
-        String surucuNo, odemeYontemi;
-/*
-kullanicinin girdigi veriler cekiliyor
- */
-
+    public int pickerSaatCek(TimePicker timePicker){
         if (Build.VERSION.SDK_INT >= 23 ){
-            saat = picker.getHour();
-            dakika = picker.getMinute();
+            return timePicker.getHour();
+
         }
         else{
-            saat = picker.getCurrentHour();
-            dakika = picker.getCurrentMinute();
-        }
+            return timePicker.getCurrentHour();
 
-        surucuNo= spSurucuNolari.getSelectedItem().toString();
-        odemeYontemi=spOdemeYontemi.getSelectedItem().toString();
-        if (!etUcret.getText().toString().equals("")){
-            ucret=Double.parseDouble(etUcret.getText().toString());
         }
+    }
+    public int pickerDakikaCek(TimePicker timePicker){
+        if (Build.VERSION.SDK_INT >= 23 ){
+            return timePicker.getMinute();
+
+        }
+        else{
+            return timePicker.getCurrentMinute();
+
+        }
+    }
+
+
+
+
+
+    public void siparisKaydet(int saat,int dakika,String surucuNo,String odemeYontemi, String stUcret ) {
+
+
+        System.out.println("Butona basildi. Gelen veriler:");//TODO: SIL
         System.out.println("Saat : "+saat);//TODO: SIL
         System.out.println("Dakika : "+dakika);//TODO: SIL
         System.out.println("Surucu No : "+surucuNo);//TODO: SIL
         System.out.println("Odeme Yontemi : "+odemeYontemi);//TODO: SIL
-        System.out.println("Tutar : "+ucret);//TODO: SIL
+        System.out.println("Tutar : "+stUcret);//TODO: SIL
 
-        if ((surucuNo.equals("") || odemeYontemi.equals("") || (ucret==0.0))) {//verilerin bos olup olmadigi kontrol ediliyor
+        if ((surucuNo.equals("") || odemeYontemi.equals("") || (stUcret.equals("")))) {//eksik bilgiler varsa
             //Eksik veriler var
             Toast.makeText(SiparisGirmeEkrani.this,"Siparisiniz kaydedilemedi! Lütfen eksik bilgileri giriniz.",Toast.LENGTH_LONG).show();
-        }else{//TODO: verilerin bos oldugunda gosterilecek toasti ekle
-            verileriVeritabaninaYaz(saat,dakika,surucuNo,odemeYontemi,ucret);
+        }else{//tüm bilgiler girilmis
+            Double ucret=Double.parseDouble(stUcret);//ucret islemlerde kullanilabilmek icin double a cevriliyor
 
-            Intent intent = new Intent(SiparisGirmeEkrani.this, MainActivity.class);
-            startActivity(intent);
+            //veritabani islemleri
+            AppDatabase db=AppDatabase.getDbInstance(this.getApplicationContext());
+            Siparis siparis= new Siparis();
+            siparis.setDakika(dakika);
+            siparis.setSaat(saat);
+            siparis.setSurucu(surucuNo);
+            siparis.setOdemeYontemi(odemeYontemi);
+            siparis.setUcret(ucret);
+            db.siparisDao().insertSiparis(siparis);
+
+            anaEkranaGit();
+
+
+
+
 
         }
 
@@ -145,40 +144,9 @@ kullanicinin girdigi veriler cekiliyor
 
     }
 
-    private void verileriVeritabaninaYaz(int saat, int dakika, String surucuNo, String odemeYontemi, double ucret) {
-        try {
-
-            SQLiteDatabase veritabani=this.openOrCreateDatabase("SiparislerVeritabani",MODE_PRIVATE,null);
-            veritabani.execSQL("CREATE TABLE IF NOT EXISTS siparisDetaylari (id INTEGER PRIMARY KEY, saat INT, dakika INT, surucu VARCHAR, odemeYontemi VARCHAR, ucret REAL)");
-            System.out.println("153.satir calisti");
-            veritabani.execSQL("INSERT INTO siparisDetaylari (saat, dakika, surucu, odemeYontemi, ucret) " +
-        "VALUES ("+saat+","+dakika+","+surucuNo+","+odemeYontemi+","+ucret+")");
-
-            //veri sorgulaniyor
-            Cursor cursor=veritabani.rawQuery("SELECT * FROM siparisDetaylari",null);
-            int idIx=cursor.getColumnIndex("id");
-            int saatIx=cursor.getColumnIndex("saat");
-            int dakikaIx=cursor.getColumnIndex("dakika");
-            int surucuIx=cursor.getColumnIndex("surucu");
-            int odemeYontemiIx=cursor.getColumnIndex("odemeYontemi");
-            int ucretIx=cursor.getColumnIndex("ucret");
-            while (cursor.moveToNext()){//TODO:test icin yazmistim
-                System.out.println("Id: "+cursor.getString(idIx));
-                System.out.println("Saat: "+cursor.getString(saatIx));
-                System.out.println("Dakika: "+cursor.getString(dakikaIx));
-                System.out.println("Surucu: "+cursor.getString(surucuIx));
-                System.out.println("Odeme Yontemi: "+cursor.getInt(odemeYontemiIx));
-                System.out.println("Ucret: "+cursor.getDouble(ucretIx));
-            }
 
 
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public void anaEkranaGit(View view) {
+    public void anaEkranaGit() {
         Intent intent = new Intent(SiparisGirmeEkrani.this, MainActivity.class);
         startActivity(intent);
     }

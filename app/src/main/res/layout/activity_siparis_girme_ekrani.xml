@@ -111,7 +111,6 @@
 
         android:layout_row="4"
         android:layout_marginTop="24dp"
-        android:onClick="siparisKaydet"
         android:padding="10dp"
         android:text="Siparisi Kaydet"
         app:layout_constraintEnd_toEndOf="parent"
@@ -125,7 +124,7 @@
         android:layout_row="4"
         android:layout_column="0"
         android:layout_marginTop="8dp"
-        android:onClick="anaEkranaGit"
+
         android:padding="10dp"
         android:text="Vazgec"
         app:layout_constraintEnd_toEndOf="parent"

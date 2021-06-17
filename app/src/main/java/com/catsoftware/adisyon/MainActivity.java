@@ -1,13 +1,19 @@
 package com.catsoftware.adisyon;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,23 +25,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.catsoftware.adisyon.db.AppDatabase;
+import com.catsoftware.adisyon.db.Siparis;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    SharedPreferences mSharedPreferences;
-    public final String  KEY_SIPARIS_SAYISI="toplamSiparisSayisi";
 
 
 
-    //Layout nesneleri tanimlandi
 
-
-    ListView lvSiparisListesi;
-    ArrayAdapter mArrayAdapter;
 
 
 
@@ -45,22 +48,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mSharedPreferences=this.getSharedPreferences("com.catsoftware.adisyon",MODE_PRIVATE);
-
-
-        //Layout nesneleri degiskenlere atandi
 
 
 
-        lvSiparisListesi=findViewById(R.id.lvSiparisler);
+        loadSiparisList();
+        
 
 
 
 
-
-        //siparisler listview seklinde yazdiriliyor
-       mArrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,siparisleriListele());
-        lvSiparisListesi.setAdapter(mArrayAdapter);
 
 
 //FAB ayrintilari
@@ -84,6 +80,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+
+
+    private void loadSiparisList() {
+        AppDatabase db=AppDatabase.getDbInstance(this.getApplicationContext());
+        List<Siparis> listSiparis= db.siparisDao().getAll();
+        System.out.println("loadSiparisList calisti. Veriler: ");
+        System.out.println(listSiparis.toString());
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater=getMenuInflater();
@@ -96,41 +103,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.mnSifirla){
             //Tum siparisleri sifirliyoruz
-            verileriSifirla();
+            //verileriSifirla(); //TODO: güncelle
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private ArrayList siparisleriListele() {
-        int kayitliSiparisSayisi=mSharedPreferences.getInt(KEY_SIPARIS_SAYISI,0);
-        ArrayList<String> siparisListesi=new ArrayList<String>();
-        if (kayitliSiparisSayisi==0){
-            Toast.makeText(MainActivity.this,"KAYITLI SIPARIS BULUNAMADI!",Toast.LENGTH_LONG).show();
 
-        }else{
-            for (int i=kayitliSiparisSayisi;i>0;i--){
-                String siparisOnEki="S"+i;
-                String siparisSatiri="";
-
-                siparisSatiri+=mSharedPreferences.getString(siparisOnEki+"Saat","Saat bulunamadi!");
-                siparisSatiri+=" -> Surucu: ";
-                siparisSatiri+=mSharedPreferences.getString(siparisOnEki+"SurucuNo","Surucu No bulunamadi!");
-                siparisSatiri+=" -> ";
-                siparisSatiri+=mSharedPreferences.getInt(siparisOnEki+"Ucret",-1);
-                siparisSatiri+="€(";
-                siparisSatiri+=mSharedPreferences.getString(siparisOnEki+"OdemeYontemi","Odeme Yontemi bulunamadi!");
-                siparisSatiri+=")";
-                siparisListesi.add(siparisSatiri);
-
-
-            }
-
-        }
-
-
-
-        return siparisListesi;
-    }
 
     public void verileriSifirla(){
 
@@ -141,10 +119,9 @@ public class MainActivity extends AppCompatActivity {
         mAlert.setPositiveButton("Onayliyorum", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                mSharedPreferences.edit().clear().apply();
-                //TODO:sifirlama sonrasi mutlaka sharedpreferences da olmasi gerekenleri tekrar ekle
-                mArrayAdapter=new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,siparisleriListele());
-                lvSiparisListesi.setAdapter(mArrayAdapter);
+
+                //TODO:güncelle
+
                 System.out.println("veriler sifirlandi");//TODO:test icin yazildi sil
                 Toast.makeText(MainActivity.this,"Tüm siparisler silindi.",Toast.LENGTH_LONG).show();
 
