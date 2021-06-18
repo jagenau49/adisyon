@@ -1,32 +1,34 @@
 package com.catsoftware.adisyon;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.catsoftware.adisyon.db.AppDatabase;
-import com.catsoftware.adisyon.db.AppDatabase_Impl;
 import com.catsoftware.adisyon.db.SiparisSatiri;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHolder> {
+    public static final String SIPARIS_ID = "siparisId";
+    public static final String DUZENLEME_MI="duzenlemeMi";
     List<SiparisSatiri> mDataList;
     LayoutInflater layoutInflater;
     AppDatabase db;
+    Context context;
+
 
     public SiparisAdapter(Context context, List<SiparisSatiri> siparisList){
         layoutInflater=LayoutInflater.from(context);
         this.mDataList=siparisList;
+        this.context=context;
     }
 
 
@@ -82,6 +84,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
                 @Override
                 public void onClick(View v) {
                     //veri duzenleme islemi yapilacak
+                    duzenlemeEkraninaGit(siparisId);
                 }
             });
 
@@ -98,11 +101,22 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
             this.tvUcret.setText(tiklanilanSiparis.getUcret().toString()+" €");
             this.tvOdemeYontemi.setText(tiklanilanSiparis.getOdemeYontemi());
             this.tvSurucuNo.setText(tiklanilanSiparis.getSurucu()+" nolu sürücü");
-            this.tvSaatDakika.setText(tiklanilanSiparis.getSaat()+":"+tiklanilanSiparis.getDakika());
+            this.tvSaatDakika.setText(ikiHaneliOlsun(tiklanilanSiparis.getSaat())+":"+ikiHaneliOlsun(tiklanilanSiparis.getDakika()));
             siparisId=tiklanilanSiparis.getsId();
             tiklanilanPosition=position;
             System.out.println("Silindi mi:"+tiklanilanSiparis.getSilindiMi());//TODO: SIL
 
         }
+        public String ikiHaneliOlsun(int sayi){
+            DecimalFormat formatter = new DecimalFormat("00");
+            return formatter.format(sayi);
+        }
+    }
+
+    private void duzenlemeEkraninaGit(int siparisId) {
+        Intent intent=new Intent(context, SiparisGirmeEkrani.class);
+        intent.putExtra(DUZENLEME_MI,true);
+        intent.putExtra(SIPARIS_ID,siparisId);
+        context.startActivity(intent);
     }
 }

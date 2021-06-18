@@ -51,27 +51,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
 
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
