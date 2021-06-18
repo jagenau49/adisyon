@@ -18,6 +18,9 @@ public interface SiparisDao {
     @Query("SELECT * FROM siparislerTablosu WHERE sId=:sId ")
     List<SiparisSatiri> siparisDetayGetir(int sId); //id ye ait siparis detaylarini donduruyor
 
+    @Query("SELECT * FROM siparislerTablosu WHERE surucu=:surucu AND silindiMi=:silinmisMi ")
+    List<SiparisSatiri> surucununSiparisleriniGetir(String surucu, boolean silinmisMi); //id ye ait siparis detaylarini donduruyor
+
 
     @Query("SELECT * FROM siparislerTablosu WHERE sId IN (:sIds)")
     List<SiparisSatiri> loadAllByIds(int[] sIds);

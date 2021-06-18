@@ -34,14 +34,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {//TODO:sharedpreferences sistemiyle gun sonu takibi yap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db=AppDatabase.getDbInstance(this.getApplicationContext());
 
         //recyclerView ayarlaniyor
         recyclerView=findViewById(R.id.recyclerView);
-        SiparisAdapter siparisAdapter= new SiparisAdapter(this,loadSiparisList());
+        SiparisAdapter siparisAdapter= new SiparisAdapter(this,loadSiparisList(),"MainActivity");
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         recyclerView.setAdapter(siparisAdapter);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //TODO:güncelle
 
-                System.out.println("veriler sifirlandi");//TODO:test icin yazildi sil
+
                 Toast.makeText(MainActivity.this,"Tüm siparisler silindi.",Toast.LENGTH_LONG).show();
 
             }

@@ -33,18 +33,9 @@
             <Spinner
                 android:id="@+id/spSurucuNoHesaplik"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_row="1"
-                android:layout_column="1"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginStart="16dp"
-                android:layout_weight="1"
-                android:padding="10dp"
-                android:scrollbarSize="28dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView"
-                app:layout_constraintStart_toEndOf="@+id/textView"
-                app:layout_constraintTop_toTopOf="@+id/textView"
-                app:layout_constraintVertical_bias="0.47000003" />
+                android:layout_height="match_parent"
+
+                android:layout_weight="1" />
 
         </LinearLayout>
 
@@ -135,7 +126,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sorgulama Sonuclari:"
+            android:textColor="#2196F3"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -146,14 +147,21 @@
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Surucunun teslim ettigi paketin toplami: " />
+                android:text="Teslim edilen paketin toplami: "
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvTeslimEttigiPaketUcreti"
+                android:id="@+id/tvTeslimEttigiPaketKartUcreti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-€(KART)" />
+
+            <TextView
+                android:id="@+id/tvTeslimEttigiPaketNakitUcreti"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right|center_vertical"
-                android:text="1000 €" />
+                android:text="-€(NAKIT)" />
 
         </LinearLayout>
 
@@ -166,7 +174,8 @@
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sürücünün calisma ücreti:" />
+                android:text="Sürücünün calisma ücreti:"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvHakEttigiCalismaUcreti"
@@ -174,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right|center_vertical"
-                android:text="70€" />
+                android:text="-€" />
         </LinearLayout>
 
         <LinearLayout
@@ -187,7 +196,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Sürücünün iade etmesi gereken tutar : " />
+                android:text="Sürücünün iade etmesi gereken nakit tutar : "
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvIadeEtmesiGerekenTutar"
@@ -195,11 +205,24 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="right|center_vertical"
-                android:text="930€" />
+                android:text="-€"
+                android:textColor="#E91E63"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="DETAYLAR"
+            android:textColor="#FF5722"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHesapDokumuRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

@@ -23,12 +23,14 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
     LayoutInflater layoutInflater;
     AppDatabase db;
     Context context;
+    String className;
 
 
-    public SiparisAdapter(Context context, List<SiparisSatiri> siparisList){
+    public SiparisAdapter(Context context, List<SiparisSatiri> siparisList, String className){
         layoutInflater=LayoutInflater.from(context);
         this.mDataList=siparisList;
         this.context=context;
+        this.className=className;
     }
 
 
@@ -77,6 +79,14 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
                 public void onClick(View v) {
                     //veri silme islemi yapilacak
                     siparisSil(siparisId);
+                    if (className.equals("MainActivity")) {
+                        anaListeyiGuncelle();
+
+                    } else if (className.equals("surucuHesapDokumu")){
+                        hesapDokumuListesiniGuncelle();
+                        Intent intent=new Intent(context, MainActivity.class);
+                        context.startActivity(intent);
+                    }
                 }
             });
 
@@ -89,10 +99,13 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
             });
 
         }
-        private void  siparisSil(int siparisId){//satirin silindiMi degeri true yapiliyor
+        private void anaListeyiGuncelle(){
+           mDataList=db.siparisDao().siparisleriGetir(false);
+        }
+        private void  siparisSil(int siparisId){
+            //TODO: kullanicidan onay iste alertdialog
             db.siparisDao().silindiIsaretle(siparisId,true);
-            mDataList=db.siparisDao().siparisleriGetir(false);//liste silinmisten ayiklanarak güncellendi
-            notifyItemRemoved(tiklanilanPosition); //TODO:aktif olmali mi
+            notifyItemRemoved(tiklanilanPosition);
 
 
 
@@ -104,13 +117,18 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
             this.tvSaatDakika.setText(ikiHaneliOlsun(tiklanilanSiparis.getSaat())+":"+ikiHaneliOlsun(tiklanilanSiparis.getDakika()));
             siparisId=tiklanilanSiparis.getsId();
             tiklanilanPosition=position;
-            System.out.println("Silindi mi:"+tiklanilanSiparis.getSilindiMi());//TODO: SIL
+
 
         }
         public String ikiHaneliOlsun(int sayi){
             DecimalFormat formatter = new DecimalFormat("00");
             return formatter.format(sayi);
         }
+    }
+
+    private void hesapDokumuListesiniGuncelle() {
+        mDataList=db.siparisDao().surucununSiparisleriniGetir(surucuHesapDokumu.statikSurucuNo,false);
+
     }
 
     private void duzenlemeEkraninaGit(int siparisId) {

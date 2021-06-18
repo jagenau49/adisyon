@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,8 +64,8 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             btSiparisKaydet.setText("Degisiklikleri Kaydet");
             pickerSetDakika(picker,duzenlenecekDakika);
             pickerSetSaat(picker,duzenlenecekSaat);
-            spSurucuNolari.setSelection(Integer.parseInt(duzenlenecekSurucu)-1);
-            spOdemeYontemi.setSelection(idOdemeYontemi);
+            spSurucuNolari.setSelection(Integer.parseInt(duzenlenecekSurucu)-1);//TODO: bu satir dogru calismiyor
+            spOdemeYontemi.setSelection(idOdemeYontemi);//TODO: bu satir dogru calismiyor
             etUcret.setText(""+duzenlenecekUcret);
 
 
@@ -88,7 +89,9 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
               public void onClick(View v) {
 
                       siparisKaydet(duzenlemeMi,pickerGetSaat(picker), pickerGetDakika(picker), spSurucuNolari.getSelectedItem().toString(), spOdemeYontemi.getSelectedItem().toString(), etUcret.getText().toString());
-
+                  //klavye gizleniyor
+                  InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                  inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
                   }
           });
 
@@ -150,12 +153,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
     public void siparisKaydet(boolean duzenlemeMi,int saat,int dakika,String surucuNo,String odemeYontemi, String stUcret ) {
 
 
-        System.out.println("Butona basildi. Gelen veriler:");//TODO: SIL
-        System.out.println("Saat : "+saat);//TODO: SIL
-        System.out.println("Dakika : "+dakika);//TODO: SIL
-        System.out.println("Surucu No : "+surucuNo);//TODO: SIL
-        System.out.println("Odeme Yontemi : "+odemeYontemi);//TODO: SIL
-        System.out.println("Tutar : "+stUcret);//TODO: SIL
+
 
         if ((surucuNo.equals("") || odemeYontemi.equals("") || (stUcret.equals("")))) {//eksik bilgiler varsa
             //Eksik veriler var
