@@ -3,6 +3,7 @@ package com.catsoftware.adisyon;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
@@ -40,11 +41,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView=findViewById(R.id.recyclerView);
-        SiparisAdapter siparisAdapter= new SiparisAdapter(this,verileriCekListele());//TODO: verileriCekListele() metodu veritabanini Arraylist<Siparis> olarak dondursun
+        SiparisAdapter siparisAdapter= new SiparisAdapter(this,loadSiparisList());//TODO: verileriCekListele() metodu veritabanini Arraylist<Siparis> olarak dondursun
 recyclerView.setAdapter(siparisAdapter);
 
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
-loadSiparisList();//TODO:sil
+
+
 
 
         
@@ -79,13 +84,11 @@ loadSiparisList();//TODO:sil
 
 
 
-    private void loadSiparisList() {
+    private List<SiparisSatiri> loadSiparisList() {
         AppDatabase db=AppDatabase.getDbInstance(this.getApplicationContext());
         List<SiparisSatiri> listSiparis= db.siparisDao().getAll();
 
-        System.out.println("loadSiparisList calisti. Veriler: ");
-        System.out.println(listSiparis.toArray().toString());
-
+        return  listSiparis;
 
     }
 

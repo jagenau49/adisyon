@@ -10,17 +10,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.catsoftware.adisyon.db.SiparisSatiri;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHolder> {
-    ArrayList<Siparis> mDataList;
+    List<SiparisSatiri> mDataList;
     LayoutInflater layoutInflater;
 
-    public SiparisAdapter(Context context, ArrayList<Siparis> siparislerArrayList){
+    public SiparisAdapter(Context context, List<SiparisSatiri> siparisList){
         layoutInflater=LayoutInflater.from(context);
-        this.mDataList=siparislerArrayList;
+        this.mDataList=siparisList;
     }
 
 
@@ -34,14 +37,14 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
     @Override
     public void onBindViewHolder( SiparisAdapter.MyViewHolder holder, int position) {
 
-        Siparis tiklanilanSiparis=mDataList.get(position);
+        SiparisSatiri tiklanilanSiparis=mDataList.get(position);
         holder.setData(tiklanilanSiparis,position);
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return this.mDataList.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
@@ -61,8 +64,8 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
 
         }
 
-        public void setData(Siparis tiklanilanSiparis, int position) {
-            this.tvUcret.setText(tiklanilanSiparis.getUcret());
+        public void setData(SiparisSatiri tiklanilanSiparis, int position) {
+            this.tvUcret.setText(tiklanilanSiparis.getUcret().toString()+" €");
             this.tvOdemeYontemi.setText(tiklanilanSiparis.getOdemeYontemi());
             this.tvSurucuNo.setText(tiklanilanSiparis.getSurucu()+" nolu sürücü");
             this.tvSaatDakika.setText(tiklanilanSiparis.getSaat()+":"+tiklanilanSiparis.getDakika());

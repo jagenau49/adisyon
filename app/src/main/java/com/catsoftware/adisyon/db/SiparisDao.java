@@ -11,10 +11,10 @@ import java.util.List;
 
 @Dao
 public interface SiparisDao {
-    @Query("SELECT * FROM SiparisSatiri")
+    @Query("SELECT * FROM siparislerTablosu")
     List<SiparisSatiri> getAll();
 
-    @Query("SELECT * FROM SiparisSatiri WHERE sId IN (:sIds)")
+    @Query("SELECT * FROM siparislerTablosu WHERE sId IN (:sIds)")
     List<SiparisSatiri> loadAllByIds(int[] sIds);
 
 
