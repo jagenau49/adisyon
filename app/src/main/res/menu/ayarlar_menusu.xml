@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:title="Tüm siparisleri sifirla" android:id="@+id/mnSifirla"></item>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--TODO: + sembolünü buraya al-->
+<item android:id="@+id/btSiparisEkle" app:showAsAction="always"  android:title="Siparis Ekle"/>
+<item android:title="Tüm siparisleri sifirla" android:id="@+id/mnSifirla"/>
 </menu>

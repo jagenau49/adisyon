@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "siparislerTablosu")
 public class SiparisSatiri {
+
     @PrimaryKey(autoGenerate = true)
     public int sId;
 
@@ -24,7 +25,16 @@ public class SiparisSatiri {
     @ColumnInfo(name = "ucret")
     public Double ucret;
 
-    //TODO: getter ve setterlar gerekli mi?
+
+
+    @ColumnInfo(name="silindiMi")
+    public boolean silindiMi;
+
+
+    public int getsId() {
+        return sId;
+    }
+
     public int getSaat() {
         return saat;
     }
@@ -63,5 +73,12 @@ public class SiparisSatiri {
 
     public void setUcret(Double ucret) {
         this.ucret = ucret;
+    }
+    public boolean getSilindiMi() {//TODO: default false ayarla
+        return silindiMi;
+    }
+
+    public void setSilindiMi(boolean silindiMi) {
+        this.silindiMi = silindiMi;
     }
 }

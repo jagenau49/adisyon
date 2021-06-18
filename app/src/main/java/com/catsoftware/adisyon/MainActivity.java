@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.catsoftware.adisyon.db.AppDatabase;
@@ -27,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
+    AppDatabase db;
+
 
 
 
@@ -39,14 +40,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        db=AppDatabase.getDbInstance(this.getApplicationContext());
 
+        //recyclerView ayarlaniyor
         recyclerView=findViewById(R.id.recyclerView);
-        SiparisAdapter siparisAdapter= new SiparisAdapter(this,loadSiparisList());//TODO: verileriCekListele() metodu veritabanini Arraylist<Siparis> olarak dondursun
-recyclerView.setAdapter(siparisAdapter);
-
+        SiparisAdapter siparisAdapter= new SiparisAdapter(this,loadSiparisList());
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        recyclerView.setAdapter(siparisAdapter);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+
 
 
 
@@ -59,17 +63,7 @@ recyclerView.setAdapter(siparisAdapter);
 
 
 
-//FAB ayrintilari
-        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Siparis ekleme hazirlaniyor...", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                Intent intent=new Intent(MainActivity.this, SiparisGirmeEkrani.class);
-                startActivity(intent);
-            }
-        });
+
 
 
 
@@ -79,18 +73,18 @@ recyclerView.setAdapter(siparisAdapter);
 
 
     }
-
 
 
 
 
     private List<SiparisSatiri> loadSiparisList() {
-        AppDatabase db=AppDatabase.getDbInstance(this.getApplicationContext());
-        List<SiparisSatiri> listSiparis= db.siparisDao().getAll();
+
+        List<SiparisSatiri> listSiparis= db.siparisDao().siparisleriGetir(false);
 
         return  listSiparis;
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -105,6 +99,10 @@ recyclerView.setAdapter(siparisAdapter);
         if(item.getItemId()==R.id.mnSifirla){
             //Tum siparisleri sifirliyoruz
             //verileriSifirla(); //TODO: güncelle
+        }else if (item.getItemId()==R.id.btSiparisEkle){
+            //siparis ekleme ekranina gidilecek
+            Intent intent=new Intent(MainActivity.this, SiparisGirmeEkrani.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

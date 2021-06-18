@@ -110,6 +110,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             siparis.setSurucu(surucuNo);
             siparis.setOdemeYontemi(odemeYontemi);
             siparis.setUcret(ucret);
+            siparis.setSilindiMi(false);
             db.siparisDao().insertSiparis(siparis);
 
             anaEkranaGit();
