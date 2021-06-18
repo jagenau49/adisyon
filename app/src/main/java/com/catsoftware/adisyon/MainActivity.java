@@ -12,13 +12,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.SiparisSatiri;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -78,9 +75,12 @@ public class MainActivity extends AppCompatActivity {
         if(item.getItemId()==R.id.mnSifirla){
             //Tum siparisleri sifirliyoruz
             //verileriSifirla(); //TODO: güncelle
-        }else if (item.getItemId()==R.id.btSiparisEkle){
+        }else if (item.getItemId()==R.id.mnSiparisEkle){
             //siparis ekleme ekranina gidilecek
             Intent intent=new Intent(MainActivity.this, SiparisGirmeEkrani.class);
+            startActivity(intent);
+        }else if(item.getItemId()==R.id.mnHesapDokumu){
+            Intent intent=new Intent(MainActivity.this, surucuHesapDokumu.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
