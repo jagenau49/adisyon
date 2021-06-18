@@ -9,10 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Adisyon">
-        <activity android:name=".SiparisGirmeEkrani"
-            android:noHistory="true" ></activity><!-- ana ekrandan geri gelme etkisizlestirildi -->
-        <activity android:name=".MainActivity"
-            android:noHistory="true"><!-- geri gelme etkisizlestirildi -->
+        <activity android:name=".surucuHesapDokumu"></activity>
+        <activity
+            android:name=".SiparisGirmeEkrani"
+            android:noHistory="true" /> <!-- ana ekrandan geri gelme etkisizlestirildi -->
+        <activity
+            android:name=".MainActivity"
+            android:noHistory="true"> <!-- geri gelme etkisizlestirildi -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
