@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,7 +39,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {//TODO:sharedpreferences sistemiyle gun sonu takibi yap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        db=AppDatabase.getDbInstance(this.getApplicationContext());
+        db=AppDatabase.getDbInstance(this.getApplicationContext());//veritabani baglaniyor
+
+        //sharedPreferences ayarlari yapiliyor
+        SharedPreferences sharedPref = this.getSharedPreferences(
+                this.getClass().getName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        int sonDbIslemiSaati=sharedPref.getString(get(R.string.sonAcilmaSaati),-1);//TODO: BURADAN DEVAM ET
+        switch (sonDbIslemiSaati){
+            case -1:
+                System.out.println("uygulama ilk defa aciliyor");//TODO:sil
+                editor.putInt(getString(String.valueOf(R.string.sonAcilmaSaati), 0);
+                editor.apply();
+        }
 
         //recyclerView ayarlaniyor
         recyclerView=findViewById(R.id.recyclerView);

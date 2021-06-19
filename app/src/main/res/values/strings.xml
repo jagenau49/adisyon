@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">adisyon</string>
+    <string name="sonAcilmaSaati">Son acilma saati</string>
 </resources>
