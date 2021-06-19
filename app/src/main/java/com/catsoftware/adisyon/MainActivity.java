@@ -82,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
         }else if(item.getItemId()==R.id.mnHesapDokumu){
             Intent intent=new Intent(MainActivity.this, surucuHesapDokumu.class);
             startActivity(intent);
+        }else if(item.getItemId()==R.id.mnSilinmisSiparisler){
+            Intent intent=new Intent(MainActivity.this, silinmisSiparisler.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
