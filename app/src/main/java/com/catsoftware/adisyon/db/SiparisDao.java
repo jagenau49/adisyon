@@ -28,7 +28,7 @@ public interface SiparisDao {
     void guncelleSiparis(int duzenlenecekSiparisId,int saat,int dakika,String surucu,String odemeYontemi, double ucret);//siparisi gelen verilerle guncelliyor
 
 
-    @Query("UPDATE siparislerTablosu SET silindiMi=:silinmisMi WHERE sId=:sId") void silindiIsaretle(int sId,boolean silinmisMi);//siparisi silindi olarak isaretliyor
+    @Query("UPDATE siparislerTablosu SET silindiMi=:silinmisMi WHERE sId=:sId") void setSilindiMi(int sId, boolean silinmisMi);//siparisi silindi olarak isaretliyor
 
 
         /*  //TODO: kendine uyarla
