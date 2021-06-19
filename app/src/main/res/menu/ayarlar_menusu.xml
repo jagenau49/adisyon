@@ -4,5 +4,6 @@
 
 <item android:id="@+id/mnSiparisEkle" app:showAsAction="always"  android:title="Siparis Ekle"/>
     <item android:title="Hesap Dökümü" android:id="@+id/mnHesapDokumu"/>
+    <item android:id="@+id/mnSilinmisSiparisler" android:title="Silinmis siparisler"/>
 <item android:title="Tüm siparisleri sifirla" android:id="@+id/mnSifirla"/>
 </menu>

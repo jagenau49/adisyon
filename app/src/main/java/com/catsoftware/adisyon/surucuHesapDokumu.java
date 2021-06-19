@@ -112,8 +112,8 @@ statikSurucuNo =spSurucuNo.getSelectedItem().toString();
             
         }
         double surucununIadeEtmesiGerekenTutar=surucudeToplananSiparisNakitUcreti-surucununCalismaUcreti;
-        tvTeslimEttigiPaketNakitUcreti.setText(surucudeToplananSiparisNakitUcreti+" €(Nakit)");
-        tvTeslimEttigiPaketKartUcreti.setText(surucudeToplananSiparisKartUcreti+"€ (Kart) + ");
+        tvTeslimEttigiPaketNakitUcreti.setText(surucudeToplananSiparisNakitUcreti+"€");
+        tvTeslimEttigiPaketKartUcreti.setText(surucudeToplananSiparisKartUcreti+"€");
         tvHakEttigiCalismaUcreti.setText(surucununCalismaUcreti+" €");
         tvIadeEtmesiGerekenTutar.setText(surucununIadeEtmesiGerekenTutar+" €");
 
