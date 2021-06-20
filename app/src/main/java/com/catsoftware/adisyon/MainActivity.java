@@ -19,13 +19,18 @@ import android.widget.Toast;
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.SiparisSatiri;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
+import static com.catsoftware.adisyon.ZamanAsimi.getDate;
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
     AppDatabase db;
+    public static final String SON_ISLEM_SAATI="sonIslemSaati";
 
 
 
@@ -46,13 +51,21 @@ public class MainActivity extends AppCompatActivity {
                 this.getClass().getName(), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        int sonDbIslemiSaati=sharedPref.getString(get(R.string.sonAcilmaSaati),-1);//TODO: BURADAN DEVAM ET
-        switch (sonDbIslemiSaati){
-            case -1:
-                System.out.println("uygulama ilk defa aciliyor");//TODO:sil
-                editor.putInt(getString(String.valueOf(R.string.sonAcilmaSaati), 0);
-                editor.apply();
-        }
+        long sonDbIslemiSaati=sharedPref.getLong(SON_ISLEM_SAATI,-1);//TODO: DUZELT test icin kapatildi
+
+        System.out.println("Test edilen zaman: "+getDate(sonDbIslemiSaati, "dd/MM/yyyy HH:mm"));//TODO: sil
+        if(sonDbIslemiSaati==-1) {//uygulama ilk defa aciliyor
+            System.out.println("uygulama ilk defa aciliyor.");//TODO:sil
+            editor.putLong(SON_ISLEM_SAATI, guncelZaman());//TODO: tüm islem sayfalarina ekle
+            editor.apply();
+        }else if (zamanFarki(sonDbIslemiSaati)>5){//uygulama daha önce acilmis
+                System.out.println("5 saatten fazladir islem yapilmamis");//TODO: sil
+                //TODO: 5saatten fazladir islem yapilmadi sayfasina gonder
+            zamanAsimiSayfasinaGit();
+            }
+
+
+
 
         //recyclerView ayarlaniyor
         recyclerView=findViewById(R.id.recyclerView);
@@ -62,6 +75,32 @@ public class MainActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+
+    }
+
+    private void zamanAsimiSayfasinaGit() {
+        Intent intent = new Intent(this, ZamanAsimi.class);
+        this.startActivity(intent);
+    }
+
+    public static long guncelZaman() {
+        //getting the current time in milliseconds, and creating a Date object from it:
+        Date date = new Date(System.currentTimeMillis()); //or simply new Date();
+
+//converting it back to a milliseconds representation:
+        return date.getTime();
+    }
+    private int zamanFarki(long kayitliZaman){
+        Date dateKayitliZaman=new Date(kayitliZaman);
+        Date dateSuAn=new Date(System.currentTimeMillis());
+
+        long diff = dateSuAn.getTime() - dateKayitliZaman.getTime();
+        long seconds = diff / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+        System.out.println("Zaman farki "+hours+" saat");
+        return (int) hours;
 
     }
 
