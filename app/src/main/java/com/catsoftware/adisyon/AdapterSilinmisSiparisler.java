@@ -2,12 +2,10 @@ package com.catsoftware.adisyon;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,12 +19,11 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilinmisSiparisler.MyViewHolder> {
-    public static final String SIPARIS_ID = "siparisId";
 
     List<SiparisSatiri> mDataList;
-    LayoutInflater layoutInflater;
+    final LayoutInflater layoutInflater;
     AppDatabase db;
-    Context context;
+    final Context context;
 
 
 
@@ -42,8 +39,7 @@ public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilin
     public AdapterSilinmisSiparisler.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         db = AppDatabase.getDbInstance(parent.getContext());
         View v= layoutInflater.inflate(R.layout.list_item_geri_alinabilir, parent, false);
-        AdapterSilinmisSiparisler.MyViewHolder myViewHolder = new AdapterSilinmisSiparisler.MyViewHolder(v);
-        return myViewHolder;
+        return new MyViewHolder(v);
     }
 
     @Override
@@ -61,8 +57,11 @@ public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilin
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvUcret, tvOdemeYontemi, tvSurucuNo, tvSaatDakika;
-        Button btGeriAl;
+        final TextView tvUcret;
+        final TextView tvOdemeYontemi;
+        final TextView tvSurucuNo;
+        final TextView tvSaatDakika;
+        final Button btGeriAl;
         int siparisId = -1;
         int tiklanilanPosition = -1;
 
@@ -75,35 +74,32 @@ public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilin
             tvSaatDakika = itemView.findViewById(R.id.tvSaatDakika);
 
             btGeriAl=itemView.findViewById(R.id.btSilinmisiGeriAl);
-            btGeriAl.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //kullaniciya emin olup olmadigi soruluyor
-                    AlertDialog.Builder mAlert = new AlertDialog.Builder(context);
-                    mAlert.setTitle("SILINMIS SIPARIS GERI ALINACAK");
-                    mAlert.setMessage("Sectiginiz siparisin tekrardan sürücünün hesabina eklenmesini onayliyor musunuz?");
-                    mAlert.setPositiveButton("Onayliyorum", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+            btGeriAl.setOnClickListener(v -> {
+                //kullaniciya emin olup olmadigi soruluyor
+                AlertDialog.Builder mAlert = new AlertDialog.Builder(context);
+                mAlert.setTitle("SILINMIS SIPARIS GERI ALINACAK");
+                mAlert.setMessage("Sectiginiz siparisin tekrardan sürücünün hesabina eklenmesini onayliyor musunuz?");
+                mAlert.setPositiveButton("Onayliyorum", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-                            silinmisiGeriAl(siparisId);
+                        silinmisiGeriAl(siparisId);
 
-                            notifyDataSetChanged();
-                            anaListeyiGuncelle();
+                        notifyDataSetChanged();
+                        anaListeyiGuncelle();
 
-                            Toast.makeText(context, "Siparis sürücünün hesabina yeniden eklendi.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Siparis sürücünün hesabina yeniden eklendi.", Toast.LENGTH_LONG).show();
 
-                        }
-                    }).setNegativeButton("Vazgec", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                    }
+                }).setNegativeButton("Vazgec", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-                        }
-                    });
+                    }
+                });
 
-                    mAlert.show();
+                mAlert.show();
 
-                }
             });
 
 

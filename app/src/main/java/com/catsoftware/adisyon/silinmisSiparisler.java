@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import com.catsoftware.adisyon.db.AppDatabase;
@@ -27,13 +26,7 @@ public class silinmisSiparisler extends AppCompatActivity {
 
         //layout nesneleri ataniyor
         Button btSiparislereGeriDon = findViewById(R.id.btSparislereDon);
-        btSiparislereGeriDon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                anaEkranaGit();
-
-            }
-        });
+        btSiparislereGeriDon.setOnClickListener(v -> anaEkranaGit());
 
         //recycleviewer ayarlaniyor
         recyclerView=findViewById(R.id.rvSilinmisSiparisler);
@@ -46,9 +39,8 @@ public class silinmisSiparisler extends AppCompatActivity {
     }
 
     private List<SiparisSatiri> getSilinmisSiparislerListesi() {
-        List<SiparisSatiri> listSilinmisSiparisler= db.siparisDao().siparisleriGetir(true);
 
-        return  listSilinmisSiparisler;
+        return db.siparisDao().siparisleriGetir(true);
 
     }
 

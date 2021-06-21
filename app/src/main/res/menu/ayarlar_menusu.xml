@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<item android:id="@+id/mnSiparisEkle" app:showAsAction="always"  android:title="Siparis Ekle"/>
-    <item android:title="Hesap Dökümü" android:id="@+id/mnHesapDokumu"/>
-    <item android:id="@+id/mnSilinmisSiparisler" android:title="Silinmis siparisler"/>
-<item android:title="Tüm siparisleri sifirla" android:id="@+id/mnSifirla"/>
+<item android:id="@+id/mnSiparisEkle" app:showAsAction="always"  android:title="@string/siparis_ekle"/>
+    <item android:title="@string/hesap_dokumu" android:id="@+id/mnHesapDokumu"/>
+    <item android:id="@+id/mnSilinmisSiparisler" android:title="@string/MN_silinmis_siparisler"/>
+<item android:title="@string/tum_siparisleri_sifirla" android:id="@+id/mnSifirla"/>
     <!-- test icin yazildi<item android:title="VERITABANINI SISIR" android:id="@+id/mnVeriTabaniniSisir"/>-->
 </menu>

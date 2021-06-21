@@ -1,4 +1,48 @@
 <resources>
     <string name="app_name">adisyon</string>
-    <string name="sonAcilmaSaati">Son acilma saati</string>
+
+    <string name="bugunun_siparisleri">Bugünün siparisleri :</string>
+    <string name="siparislere_geri_don">Siparislere Geri Dön</string>
+    <string name="silinmis_siparisler">Silinmis siparisler:</string>
+
+    <string name="tutar">TUTAR :</string>
+    <string name="_000_00">000,00</string>
+    <string name="odeme_yontemi">Ödeme Yöntemi :</string>
+    <string name="euro_symbol">€</string>
+    <string name="saat">Saat :</string>
+    <string name="vazgec">Vazgec</string>
+    <string name="siparisi_kaydet">Siparisi Kaydet</string>
+    <string name="surucu_no">Sürücü No :</string>
+    <string name="kac_saat_calisti">Kac saat calisti ?</string>
+    <string name="saatlik_ucret">Saatlik ücret :</string>
+    <string name="geri_don">Geri Dön</string>
+    <string name="hesapla">HESAPLA</string>
+    <string name="sorgulama_sonuclari">Sorgulama Sonuclari:</string>
+    <string name="kart_ile_odenen_paketlerin_toplami">Kart ile ödenen paketlerin toplami :</string>
+    <string name="eu_kart">-€(KART)</string>
+    <string name="nakit_odenen_paketlerin_toplami">Nakit ödenen paketlerin toplami :</string>
+    <string name="eu_nakit">-€(NAKIT)</string>
+    <string name="surucunun_calisma_ucreti">Sürücünün calisma ücreti:</string>
+
+    <string name="surucunun_iade_etmesi_gereken_nakit_tutar">Sürücünün iade etmesi gereken nakit tutar :</string>
+    <string name="eu">-€</string>
+    <string name="detaylar">DETAYLAR</string>
+    <string name="kapatilmamis_mesai_bulundu">Kapatilmamis mesai bulundu!</string>
+    <string name="son_islem_yaptiginiz_saat">Son islem yaptiginiz saat :</string>
+    <string name="_10_06_2021_15_30">10.06.2021 15:30</string>
+    <string name="yeni_mesai_baslat">Yeni mesai baslat</string>
+    <string name="mesaiye_kaldigim_yerden_devam_et">Mesaiye kaldigim yerden devam et</string>
+    <string name="siparis_ekle">Siparis Ekle</string>
+    <string name="hesap_dokumu">Hesap Dökümü</string>
+    <string name="MN_silinmis_siparisler">Silinmis siparisler</string>
+    <string name="tum_siparisleri_sifirla">Tüm siparisleri sifirla</string>
+
+
+
+
+    <string name="_100eu">100€</string>
+    <string name="nakit">(Nakit)</string>
+    <string name="_5_nolu_surucu">5 Nolu Surucu</string>
+    <string name="_21_30">21:30</string>
+    <string name="geri_al">Geri al</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.catsoftware.adisyon;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +22,10 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
     public static final String SIPARIS_ID = "siparisId";
     public static final String DUZENLEME_MI = "duzenlemeMi";
     List<SiparisSatiri> mDataList;
-    LayoutInflater layoutInflater;
+    final LayoutInflater layoutInflater;
     AppDatabase db;
-    Context context;
-    String className;
+    final Context context;
+    final String className;
 
 
     public SiparisAdapter(Context context, List<SiparisSatiri> siparisList, String className) {
@@ -42,8 +41,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
         db = AppDatabase.getDbInstance(parent.getContext());
         View v= layoutInflater.inflate(R.layout.list_item, parent, false);
 
-        MyViewHolder myViewHolder = new MyViewHolder(v);
-        return myViewHolder;
+        return new MyViewHolder(v);
     }
 
     @Override
@@ -61,8 +59,12 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tvUcret, tvOdemeYontemi, tvSurucuNo, tvSaatDakika;
-        ImageView ivDuzenle, ivSil;
+        final TextView tvUcret;
+        final TextView tvOdemeYontemi;
+        final TextView tvSurucuNo;
+        final TextView tvSaatDakika;
+        final ImageView ivDuzenle;
+        final ImageView ivSil;
         int siparisId = -1;
         int tiklanilanPosition = -1;
 
@@ -77,56 +79,42 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
             ivDuzenle = itemView.findViewById(R.id.ivDuzenle);
             ivSil = itemView.findViewById(R.id.ivSil);
 
-            ivSil.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    /////////////////
-                    //kullaniciya emin olup olmadigi soruluyor
-                    AlertDialog.Builder mAlert = new AlertDialog.Builder(context);
-                    mAlert.setTitle("SIPARIS SILINECEK");
-                    mAlert.setMessage("Sectiginiz siparisin silinmesini onayliyor musunuz?");
-                    mAlert.setPositiveButton("Onayliyorum", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            siparisSil(siparisId);
-                            if (className.equals("MainActivity")) {
-                                anaListeyiGuncelle();
+            ivSil.setOnClickListener(v -> {
+                /////////////////
+                //kullaniciya emin olup olmadigi soruluyor
+                AlertDialog.Builder mAlert = new AlertDialog.Builder(context);
+                mAlert.setTitle("SIPARIS SILINECEK");
+                mAlert.setMessage("Sectiginiz siparisin silinmesini onayliyor musunuz?");
+                mAlert.setPositiveButton("Onayliyorum", (dialog, which) -> {
+                    siparisSil(siparisId);
+                    if (className.equals("MainActivity")) {
+                        anaListeyiGuncelle();
 
-                            } else if (className.equals("surucuHesapDokumu")) {
-                                hesapDokumuListesiniGuncelle();
-                                Intent intent = new Intent(context, MainActivity.class);
-                                context.startActivity(intent);
-                            }
+                    } else if (className.equals("surucuHesapDokumu")) {
+                        hesapDokumuListesiniGuncelle();
+                        Intent intent = new Intent(context, MainActivity.class);
+                        context.startActivity(intent);
+                    }
 
 
+                    Toast.makeText(context, "Siparis silindi.", Toast.LENGTH_LONG).show();
 
-
-                            Toast.makeText(context, "Siparis silindi.", Toast.LENGTH_LONG).show();
-
-                        }
-                    });
-                    mAlert.setNegativeButton("Vazgec", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //vazgecildigi icin hicbir islem yapilmiyor
-                            Toast.makeText(context, "Hicbir veri silinmedi.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    mAlert.show();
+                });
+                mAlert.setNegativeButton("Vazgec", (dialog, which) -> {
+                    //vazgecildigi icin hicbir islem yapilmiyor
+                    Toast.makeText(context, "Hicbir veri silinmedi.", Toast.LENGTH_SHORT).show();
+                });
+                mAlert.show();
 
 
 
 
 
-                }
             });
 
-            ivDuzenle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //veri duzenleme islemi yapilacak
-                    duzenlemeEkraninaGit(siparisId);
-                }
+            ivDuzenle.setOnClickListener(v -> {
+                //veri duzenleme islemi yapilacak
+                duzenlemeEkraninaGit(siparisId);
             });
 
         }

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -61,7 +60,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             int duzenlenecekDakika=listIdDetay.get(0).getDakika();
             String duzenlenecekSurucu=listIdDetay.get(0).getSurucu();
             String duzenlenecekOdemeYontemi=listIdDetay.get(0).getOdemeYontemi();
-            int idOdemeYontemi=-1;
+            int idOdemeYontemi;
             if (duzenlenecekOdemeYontemi.equals("Nakit")){
                 idOdemeYontemi=0;
             }else{
@@ -86,23 +85,15 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
         //Layout nesneleri duzenleniyor
 
 
-          btSiparisKaydet.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
+          btSiparisKaydet.setOnClickListener(v -> {
 
-                      siparisKaydet(duzenlemeMi,pickerGetSaat(picker), pickerGetDakika(picker), spSurucuNolari.getSelectedItem().toString(), spOdemeYontemi.getSelectedItem().toString(), etUcret.getText().toString());
-                  //klavye gizleniyor
-                  InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-                  inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
-                  }
-          });
+                  siparisKaydet(duzenlemeMi,pickerGetSaat(picker), pickerGetDakika(picker), spSurucuNolari.getSelectedItem().toString(), spOdemeYontemi.getSelectedItem().toString(), etUcret.getText().toString());
+              //klavye gizleniyor
+              InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+              inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
+              });
 
-          btVazgec.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  anaEkranaGit();
-              }
-          });
+          btVazgec.setOnClickListener(v -> anaEkranaGit());
 
 
     }
@@ -112,6 +103,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
 
         }
         else{
+            //noinspection deprecation
             return timePicker.getCurrentHour();
 
         }
@@ -122,6 +114,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
 
         }
         else{
+            //noinspection deprecation
             return timePicker.getCurrentMinute();
 
         }
@@ -161,7 +154,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             //Eksik veriler var
             Toast.makeText(SiparisGirmeEkrani.this,"Siparisiniz kaydedilemedi! Lütfen eksik bilgileri giriniz.",Toast.LENGTH_LONG).show();
         }else{//tüm bilgiler girilmis
-            Double ucret=Double.parseDouble(stUcret);//ucret islemlerde kullanilabilmek icin double a cevriliyor
+            double ucret=Double.parseDouble(stUcret);//ucret islemlerde kullanilabilmek icin double a cevriliyor
             db = AppDatabase.getDbInstance(this.getApplicationContext());
             SiparisSatiri siparis = new SiparisSatiri();
             siparis.setDakika(dakika);

@@ -1,10 +1,8 @@
 package com.catsoftware.adisyon.db;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Update;
 
 
 import java.util.List;
@@ -40,14 +38,6 @@ public interface SiparisDao {
 
     @Insert
     void insertSiparis(SiparisSatiri... siparislerTablosu);
-
-
-
-    @Delete
-    void deleteSiparis(SiparisSatiri... siparislerTablosu);
-
-    @Delete
-    void delete(SiparisSatiri siparislerTablosu);
 
 
 }

@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -26,7 +27,7 @@
                 android:layout_margin="7dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text=" 100€"
+                android:text="@string/_100eu"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -36,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="(Nakit)"
+                android:text="@string/nakit"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -53,7 +54,7 @@
                 android:layout_margin="7dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="5 Nolu Surucu"
+                android:text="@string/_5_nolu_surucu"
                 android:textSize="18sp" />
 
             <TextView
@@ -63,7 +64,7 @@
                 android:layout_margin="7dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="21:30" />
+                android:text="@string/_21_30" />
         </LinearLayout>
 
         <LinearLayout
@@ -76,7 +77,7 @@
                 android:id="@+id/btSilinmisiGeriAl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Geri al" />
+                android:text="@string/geri_al" />
 
         </LinearLayout>
     </LinearLayout>

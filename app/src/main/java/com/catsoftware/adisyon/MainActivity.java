@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,10 +18,8 @@ import android.widget.Toast;
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.SiparisSatiri;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import static com.catsoftware.adisyon.ZamanAsimi.getDate;
 
@@ -98,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         long seconds = diff / 1000;
         long minutes = seconds / 60;
         long hours = minutes / 60;
+        //noinspection unused
         long days = hours / 24;
         System.out.println("Zaman farki " + hours + " saat");
         return (int) hours;
@@ -107,9 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List<SiparisSatiri> loadSiparisList() {
 
-        List<SiparisSatiri> listSiparis = db.siparisDao().siparisleriGetir(false);
-
-        return listSiparis;
+        return db.siparisDao().siparisleriGetir(false);
 
     }
 
@@ -208,24 +204,18 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder mAlert = new AlertDialog.Builder(this);
         mAlert.setTitle("TUM SIPARISLER SILINECEK");
         mAlert.setMessage("Tüm siparislerin silinmesini onayliyor musunuz? Bu islem geri alinamaz.");
-        mAlert.setPositiveButton("Onayliyorum", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        mAlert.setPositiveButton("Onayliyorum", (dialog, which) -> {
 
-                AppDatabase db = AppDatabase.getDbInstance(MainActivity.this);
-                db.clearAllTables();
-                updateRecyclerView();
+            AppDatabase db = AppDatabase.getDbInstance(MainActivity.this);
+            db.clearAllTables();
+            updateRecyclerView();
 
-                Toast.makeText(MainActivity.this, "Tüm siparisler silindi.", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "Tüm siparisler silindi.", Toast.LENGTH_LONG).show();
 
-            }
         });
-        mAlert.setNegativeButton("Vazgec", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //vazgecildigi icin hicbir islem yapilmiyor
-                Toast.makeText(MainActivity.this, "Hicbir veri silinmedi.", Toast.LENGTH_SHORT).show();
-            }
+        mAlert.setNegativeButton("Vazgec", (dialog, which) -> {
+            //vazgecildigi icin hicbir islem yapilmiyor
+            Toast.makeText(MainActivity.this, "Hicbir veri silinmedi.", Toast.LENGTH_SHORT).show();
         });
         mAlert.show();
 

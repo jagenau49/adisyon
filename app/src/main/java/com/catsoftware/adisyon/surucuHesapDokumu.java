@@ -62,36 +62,28 @@ public class surucuHesapDokumu extends AppCompatActivity {
         spSurucuNo.setAdapter(adapterSurucuNo);
 
         //butonlara fonksiyon veriliyor
-        btGeriDon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               anaEkranaGit();
-            }
-        });
+        btGeriDon.setOnClickListener(v -> anaEkranaGit());
 
-        btHesapla.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("gelenSurucuNo: "+spSurucuNo.getSelectedItem().toString());
-                System.out.println("gelenCalismaSaati bos mu "+etToplamCalismaSaati.getText().toString().equals(""));
-                System.out.println("gelenSaatlikUcret: "+etSaatlikUcreti.getText().toString().equals(""));
-                if (etToplamCalismaSaati.getText().toString().equals("") || etSaatlikUcreti.getText().toString().equals("")) {//eksik bilgiler var
-                    Toast.makeText(surucuHesapDokumu.this,"Sorgulama yapilamadi! Lütfen eksik bilgileri giriniz.",Toast.LENGTH_LONG).show();
+        btHesapla.setOnClickListener(v -> {
+            System.out.println("gelenSurucuNo: "+spSurucuNo.getSelectedItem().toString());
+            System.out.println("gelenCalismaSaati bos mu "+etToplamCalismaSaati.getText().toString().equals(""));
+            System.out.println("gelenSaatlikUcret: "+etSaatlikUcreti.getText().toString().equals(""));
+            if (etToplamCalismaSaati.getText().toString().equals("") || etSaatlikUcreti.getText().toString().equals("")) {//eksik bilgiler var
+                Toast.makeText(surucuHesapDokumu.this,"Sorgulama yapilamadi! Lütfen eksik bilgileri giriniz.",Toast.LENGTH_LONG).show();
 
 
 
-                    }else{//bilgiler tam girilmis
+                }else{//bilgiler tam girilmis
 
 
 statikSurucuNo =spSurucuNo.getSelectedItem().toString();
-                    odemeHesapla(spSurucuNo.getSelectedItem().toString(),Double.parseDouble(etToplamCalismaSaati.getText().toString()),Double.parseDouble(etSaatlikUcreti.getText().toString()));
+                odemeHesapla(spSurucuNo.getSelectedItem().toString(),Double.parseDouble(etToplamCalismaSaati.getText().toString()),Double.parseDouble(etSaatlikUcreti.getText().toString()));
 
-                //klavye gizleniyor
-                InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
-            }
+            //klavye gizleniyor
+            InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
         }
-        });
+    });
 
     }
 
