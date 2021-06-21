@@ -30,7 +30,7 @@ public class ZamanAsimi extends AppCompatActivity {
 
         //sharedPreferences ayarlari yapiliyor
         SharedPreferences sharedPref = this.getSharedPreferences(
-                this.getClass().getName(), Context.MODE_PRIVATE);
+                this.getPackageName(), Context.MODE_PRIVATE);
         editor = sharedPref.edit();
 
 
@@ -74,9 +74,10 @@ public class ZamanAsimi extends AppCompatActivity {
         btMesaiyeDevamEt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                editor.putLong(SON_ISLEM_SAATI, MainActivity.guncelZaman());//TODO: tüm islem sayfalarina ekle
+Long guncelZaman=MainActivity.guncelZaman();
+                editor.putLong(SON_ISLEM_SAATI,guncelZaman );//TODO: tüm islem sayfalarina ekle
                 editor.apply();
+                System.out.println("ZamanAsimi.java 80.satir calisti. spdeki güncel zaman: "+sharedPref.getLong(SON_ISLEM_SAATI,-1));
                 anaEkranaGit();
             }
         });

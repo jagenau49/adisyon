@@ -6,4 +6,5 @@
     <item android:title="Hesap Dökümü" android:id="@+id/mnHesapDokumu"/>
     <item android:id="@+id/mnSilinmisSiparisler" android:title="Silinmis siparisler"/>
 <item android:title="Tüm siparisleri sifirla" android:id="@+id/mnSifirla"/>
+    <!-- TODO: test icin yazildi sil--><item android:title="VERITABANINI SISIR" android:id="@+id/mnVeriTabaniniSisir"/>
 </menu>
