@@ -28,6 +28,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
     final String className;
 
 
+
     public SiparisAdapter(Context context, List<SiparisSatiri> siparisList, String className) {
         layoutInflater = LayoutInflater.from(context);
         this.mDataList = siparisList;
@@ -40,6 +41,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         db = AppDatabase.getDbInstance(parent.getContext());
         View v= layoutInflater.inflate(R.layout.list_item, parent, false);
+
 
         return new MyViewHolder(v);
     }
@@ -121,11 +123,18 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
 
         private void anaListeyiGuncelle() {
             mDataList = db.siparisDao().siparisleriGetir(false);
+
         }
 
         private void siparisSil(int siparisId) {
             db.siparisDao().setSilindiMi(siparisId, true);
             notifyItemRemoved(tiklanilanPosition);
+
+            /*
+            Siparis silindikten sonra mainactivity deki toplam sayiyi guncellemek icin bu cozum bulundu. TODO: daha iyisini bul
+             */
+            Intent intent=new Intent(context,MainActivity.class);
+            context.startActivity(intent);
 
         }
 
