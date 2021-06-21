@@ -22,6 +22,7 @@ import com.catsoftware.adisyon.db.SiparisSatiri;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import static com.catsoftware.adisyon.ZamanAsimi.getDate;
 
@@ -40,11 +41,11 @@ public class MainActivity extends AppCompatActivity {
         db = AppDatabase.getDbInstance(this.getApplicationContext());//veritabani baglaniyor
 
         //sharedPreferences ayarlari yapiliyor
-        SharedPreferences sharedPref = this.getSharedPreferences(this.getPackageName(),Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = this.getSharedPreferences(this.getPackageName(), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
         long sonDbIslemiSaati = sharedPref.getLong(SON_ISLEM_SAATI, -1);//TODO: DUZELT test icin kapatildi
-        System.out.println("MA sp son islem saati: "+sonDbIslemiSaati);
+        System.out.println("MA sp son islem saati: " + sonDbIslemiSaati);
         System.out.println("Test edilen zaman: " + getDate(sonDbIslemiSaati, "dd/MM/yyyy HH:mm"));//TODO: sil
 
         if (sonDbIslemiSaati == -1) {//uygulama ilk defa aciliyor
@@ -56,24 +57,23 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("5 saatten fazladir islem yapilmamis");//TODO: sil
             //TODO: 5saatten fazladir islem yapilmadi sayfasina gonder
             zamanAsimiSayfasinaGit();
-            System.out.println("MainActivity.java satir 59 calisti. zaman farki: "+zamanFarki(sonDbIslemiSaati)+" son islem saati: "+sonDbIslemiSaati);
+            System.out.println("MainActivity.java satir 59 calisti. zaman farki: " + zamanFarki(sonDbIslemiSaati) + " son islem saati: " + sonDbIslemiSaati);
         }
-
-
-
-
-
-
 
 
         //recyclerView ayarlaniyor
         recyclerView = findViewById(R.id.recyclerView);
+
+        updateRecyclerView();
+
+
+    }
+    public void updateRecyclerView(){
         SiparisAdapter siparisAdapter = new SiparisAdapter(this, loadSiparisList(), "MainActivity");
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setAdapter(siparisAdapter);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-
 
     }
 
@@ -124,22 +124,82 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.mnSifirla) {
-            //Tum siparisleri sifirliyoruz
-            //verileriSifirla(); //TODO: güncelle
-        } else if (item.getItemId() == R.id.mnSiparisEkle) {
-            //siparis ekleme ekranina gidilecek
-            Intent intent = new Intent(MainActivity.this, SiparisGirmeEkrani.class);
+        Intent intent;
+        if(item.getItemId()==R.id.mnSifirla) {
+
+            verileriSifirla(); //TODO: güncelle
+        }else if(item.getItemId()==R.id.mnSiparisEkle) {
+
+            intent = new Intent(MainActivity.this, SiparisGirmeEkrani.class);
             startActivity(intent);
-        } else if (item.getItemId() == R.id.mnHesapDokumu) {
-            Intent intent = new Intent(MainActivity.this, surucuHesapDokumu.class);
+        }else if(item.getItemId()==R.id.mnHesapDokumu) {
+
+            intent = new Intent(MainActivity.this, surucuHesapDokumu.class);
             startActivity(intent);
-        } else if (item.getItemId() == R.id.mnSilinmisSiparisler) {
-            Intent intent = new Intent(MainActivity.this, silinmisSiparisler.class);
-            startActivity(intent);
+        }else if(item.getItemId()==R.id.mnSilinmisSiparisler){
+
+                intent = new Intent(MainActivity.this, silinmisSiparisler.class);
+                startActivity(intent);
         }
+        /* //TEST ICIN YAZILDI
+
+        else if(item.getItemId()==R.id.mnVeriTabaniniSisir){
+
+        }
+        */
+
+
         return super.onOptionsItemSelected(item);
     }
+
+    /*private void veritabaniniSisir() {//test icin yazildi
+        db.clearAllTables();
+        Random random = new Random();
+        
+
+
+
+        db = AppDatabase.getDbInstance(this.getApplicationContext());
+        double surucu3nakitToplami = 0;
+        double surucu5kartToplami=0;
+        for (int i = 0; i < 100; i++) {
+
+            String rasgeleOdemeYontemi;
+            if (random.nextInt(2) == 0) {
+                rasgeleOdemeYontemi = "Nakit";
+            }else{
+                rasgeleOdemeYontemi="Kart";
+            }
+            int randomDakika=random.nextInt(60);
+            int randomSaat=random.nextInt(24) + 1;
+            String randomSurucu=""+(random.nextInt(10)+1);
+            double randomUcret = random.nextInt(100)+1;
+
+            SiparisSatiri siparis = new SiparisSatiri();
+            siparis.setDakika(randomDakika);
+            siparis.setSaat(randomSaat);
+            siparis.setSurucu(randomSurucu);
+            siparis.setOdemeYontemi(rasgeleOdemeYontemi);
+            siparis.setUcret(randomUcret);
+            siparis.setSilindiMi(false);
+            db.siparisDao().insertSiparis(siparis);//siparisler db ye girdi
+            if ((randomSurucu.equals("3")) && (rasgeleOdemeYontemi.equals("Nakit"))) {
+                surucu3nakitToplami += randomUcret;
+            }
+            if ((randomSurucu.equals("5")) && (rasgeleOdemeYontemi.equals("Kart"))) {
+                surucu5kartToplami += randomUcret;
+            }
+
+
+            System.out.println(randomSaat+":"+randomDakika+" -> "+randomSurucu+" nolu surucu = "+randomUcret+" "+rasgeleOdemeYontemi);
+
+
+
+        }
+        System.out.println("3.surucu nakit toplami: " + surucu3nakitToplami);
+        System.out.println("5.surucu kart toplami: " + surucu5kartToplami);
+        updateRecyclerView();
+    }*/
 
 
     public void verileriSifirla() {
@@ -152,8 +212,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                //TODO:güncelle
-
+                AppDatabase db = AppDatabase.getDbInstance(MainActivity.this);
+                db.clearAllTables();
+                updateRecyclerView();
 
                 Toast.makeText(MainActivity.this, "Tüm siparisler silindi.", Toast.LENGTH_LONG).show();
 

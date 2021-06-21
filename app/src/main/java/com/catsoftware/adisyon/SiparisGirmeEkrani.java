@@ -150,7 +150,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
 
 
 
-    public void siparisKaydet(boolean duzenlemeMi,int saat,int dakika,String surucuNo,String odemeYontemi, String stUcret ) {
+    public void siparisKaydet(boolean duzenlemeMi, int saat, int dakika, String surucuNo, String odemeYontemi, String stUcret) {
 
 
 
