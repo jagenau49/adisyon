@@ -1,11 +1,11 @@
 package com.catsoftware.adisyon;
 
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,34 +18,32 @@ import com.catsoftware.adisyon.db.SiparisSatiri;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHolder> {
-    public static final String SIPARIS_ID = "siparisId";
-    public static final String DUZENLEME_MI = "duzenlemeMi";
+public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilinmisSiparisler.MyViewHolder> {
+
     List<SiparisSatiri> mDataList;
     final LayoutInflater layoutInflater;
     AppDatabase db;
     final Context context;
-    final String className;
 
 
-    public SiparisAdapter(Context context, List<SiparisSatiri> siparisList, String className) {
+
+    public AdapterSilinmisSiparisler(Context context, List<SiparisSatiri> siparisList) {
         layoutInflater = LayoutInflater.from(context);
         this.mDataList = siparisList;
         this.context = context;
-        this.className = className;
+
     }
 
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AdapterSilinmisSiparisler.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         db = AppDatabase.getDbInstance(parent.getContext());
-        View v= layoutInflater.inflate(R.layout.list_item, parent, false);
-
+        View v= layoutInflater.inflate(R.layout.list_item_geri_alinabilir, parent, false);
         return new MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(SiparisAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(AdapterSilinmisSiparisler.MyViewHolder holder, int position) {
 
         SiparisSatiri tiklanilanSiparis = mDataList.get(position);
         holder.setData(tiklanilanSiparis, position);
@@ -63,68 +61,57 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
         final TextView tvOdemeYontemi;
         final TextView tvSurucuNo;
         final TextView tvSaatDakika;
-        final ImageView ivDuzenle;
-        final ImageView ivSil;
+        final Button btGeriAl;
         int siparisId = -1;
         int tiklanilanPosition = -1;
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
-
             tvUcret = itemView.findViewById(R.id.tvUcret);
             tvOdemeYontemi = itemView.findViewById(R.id.tvOdemeYontemi);
             tvSurucuNo = itemView.findViewById(R.id.tvSurucuNo);
             tvSaatDakika = itemView.findViewById(R.id.tvSaatDakika);
-            ivDuzenle = itemView.findViewById(R.id.ivDuzenle);
-            ivSil = itemView.findViewById(R.id.ivSil);
 
-            ivSil.setOnClickListener(v -> {
-                /////////////////
+            btGeriAl=itemView.findViewById(R.id.btSilinmisiGeriAl);
+            btGeriAl.setOnClickListener(v -> {
                 //kullaniciya emin olup olmadigi soruluyor
                 AlertDialog.Builder mAlert = new AlertDialog.Builder(context);
-                mAlert.setTitle("SIPARIS SILINECEK");
-                mAlert.setMessage("Sectiginiz siparisin silinmesini onayliyor musunuz?");
-                mAlert.setPositiveButton("Onayliyorum", (dialog, which) -> {
-                    siparisSil(siparisId);
-                    if (className.equals("MainActivity")) {
+                mAlert.setTitle("SILINMIS SIPARIS GERI ALINACAK");
+                mAlert.setMessage("Sectiginiz siparisin tekrardan sürücünün hesabina eklenmesini onayliyor musunuz?");
+                mAlert.setPositiveButton("Onayliyorum", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        silinmisiGeriAl(siparisId);
+
+                        notifyDataSetChanged();
                         anaListeyiGuncelle();
 
-                    } else if (className.equals("surucuHesapDokumu")) {
-                        hesapDokumuListesiniGuncelle();
-                        Intent intent = new Intent(context, MainActivity.class);
-                        context.startActivity(intent);
+                        Toast.makeText(context, "Siparis sürücünün hesabina yeniden eklendi.", Toast.LENGTH_LONG).show();
+
                     }
+                }).setNegativeButton("Vazgec", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-
-                    Toast.makeText(context, "Siparis silindi.", Toast.LENGTH_LONG).show();
-
+                    }
                 });
-                mAlert.setNegativeButton("Vazgec", (dialog, which) -> {
-                    //vazgecildigi icin hicbir islem yapilmiyor
-                    Toast.makeText(context, "Hicbir veri silinmedi.", Toast.LENGTH_SHORT).show();
-                });
+
                 mAlert.show();
 
-
-
-
-
             });
 
-            ivDuzenle.setOnClickListener(v -> {
-                //veri duzenleme islemi yapilacak
-                duzenlemeEkraninaGit(siparisId);
-            });
+
 
         }
 
         private void anaListeyiGuncelle() {
-            mDataList = db.siparisDao().siparisleriGetir(false);
+            mDataList = db.siparisDao().siparisleriGetir(true);
         }
 
-        private void siparisSil(int siparisId) {
-            db.siparisDao().setSilindiMi(siparisId, true);
+        private void silinmisiGeriAl(int siparisId) {
+            db.siparisDao().setSilindiMi(siparisId, false);
             notifyItemRemoved(tiklanilanPosition);
 
         }
@@ -146,15 +133,8 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
         }
     }
 
-    private void hesapDokumuListesiniGuncelle() {
-        mDataList = db.siparisDao().surucununSiparisleriniGetir(surucuHesapDokumu.statikSurucuNo, false);
 
-    }
 
-    private void duzenlemeEkraninaGit(int siparisId) {
-        Intent intent = new Intent(context, SiparisGirmeEkrani.class);
-        intent.putExtra(DUZENLEME_MI, true);
-        intent.putExtra(SIPARIS_ID, siparisId);
-        context.startActivity(intent);
-    }
 }
+
+

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,8 +24,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="left|center_vertical"
-                android:text="Sürücü No :"
+                android:gravity="start|center_vertical"
+                android:text="@string/surucu_no"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -52,8 +51,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:gravity="left|center_vertical"
-                android:text="Kac saat calisti ? "
+                android:gravity="start|center_vertical"
+                android:text="@string/kac_saat_calisti"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -63,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:gravity="left|center_vertical"
+                android:gravity="start|center_vertical"
                 android:inputType="number|numberDecimal"
                 android:padding="7dp" />
         </LinearLayout>
@@ -80,8 +79,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="left|center_vertical"
-                android:text="Saatlik ücret : "
+                android:gravity="start|center_vertical"
+                android:text="@string/saatlik_ucret"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -91,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:gravity="left|center_vertical"
+                android:gravity="start|center_vertical"
                 android:inputType="numberDecimal"
                 android:padding="7dp" />
         </LinearLayout>
@@ -109,7 +108,8 @@
             android:layout_margin="7dp"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="Geri Dön" />
+            android:text="@string/geri_don"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <Button
             android:id="@+id/btHesapla"
@@ -118,7 +118,8 @@
             android:layout_margin="7dp"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="HESAPLA" />
+            android:text="@string/hesapla"
+            style="?android:attr/buttonBarButtonStyle" />
     </LinearLayout>
 
     <LinearLayout
@@ -133,7 +134,7 @@
             android:id="@+id/textView13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sorgulama Sonuclari:"
+            android:text="@string/sorgulama_sonuclari"
             android:textColor="#2196F3"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -145,17 +146,17 @@
 
             <TextView
                 android:id="@+id/textView15"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Kart ile ödenen paketlerin toplami : "
+                android:text="@string/kart_ile_odenen_paketlerin_toplami"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvTeslimEttigiPaketKartUcreti"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-€(KART)" />
+                android:text="@string/eu_kart" />
         </LinearLayout>
 
         <LinearLayout
@@ -167,15 +168,15 @@
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nakit ödenen paketlerin toplami :"
+                android:text="@string/nakit_odenen_paketlerin_toplami"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvTeslimEttigiPaketNakitUcreti"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right|center_vertical"
-                android:text="-€(NAKIT)" />
+                android:gravity="end|center_vertical"
+                android:text="@string/eu_nakit" />
 
         </LinearLayout>
 
@@ -188,16 +189,16 @@
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sürücünün calisma ücreti:"
+                android:text="@string/surucunun_calisma_ucreti"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvHakEttigiCalismaUcreti"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="right|center_vertical"
-                android:text="-€" />
+                android:gravity="end|center_vertical"
+                android:text="@string/eu" />
         </LinearLayout>
 
         <LinearLayout
@@ -210,7 +211,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Sürücünün iade etmesi gereken nakit tutar : "
+                android:text="@string/surucunun_iade_etmesi_gereken_nakit_tutar"
                 android:textStyle="bold" />
 
             <TextView
@@ -218,8 +219,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="right|center_vertical"
-                android:text="-€"
+                android:gravity="end|center_vertical"
+                android:text="@string/eu"
                 android:textColor="#E91E63"
                 android:textSize="16sp" />
 
@@ -230,7 +231,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="DETAYLAR"
+            android:text="@string/detaylar"
             android:textColor="#FF5722"
             android:textSize="18sp"
             android:textStyle="bold" />

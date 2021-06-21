@@ -1,10 +1,8 @@
 package com.catsoftware.adisyon.db;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Update;
 
 
 import java.util.List;
@@ -28,7 +26,7 @@ public interface SiparisDao {
     void guncelleSiparis(int duzenlenecekSiparisId,int saat,int dakika,String surucu,String odemeYontemi, double ucret);//siparisi gelen verilerle guncelliyor
 
 
-    @Query("UPDATE siparislerTablosu SET silindiMi=:silinmisMi WHERE sId=:sId") void silindiIsaretle(int sId,boolean silinmisMi);//siparisi silindi olarak isaretliyor
+    @Query("UPDATE siparislerTablosu SET silindiMi=:silinmisMi WHERE sId=:sId") void setSilindiMi(int sId, boolean silinmisMi);//siparisi silindi olarak isaretliyor
 
 
         /*  //TODO: kendine uyarla
@@ -40,14 +38,6 @@ public interface SiparisDao {
 
     @Insert
     void insertSiparis(SiparisSatiri... siparislerTablosu);
-
-
-
-    @Delete
-    void deleteSiparis(SiparisSatiri... siparislerTablosu);
-
-    @Delete
-    void delete(SiparisSatiri siparislerTablosu);
 
 
 }

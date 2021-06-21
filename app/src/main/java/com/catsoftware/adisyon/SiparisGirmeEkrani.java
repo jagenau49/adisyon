@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -44,6 +43,15 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
         TimePicker picker =findViewById(R.id.timePicker1);
         Spinner spSurucuNolari = findViewById(R.id.spSurucuNo);
         Spinner spOdemeYontemi=findViewById(R.id.spOdemeYontemi);
+        picker.setIs24HourView(true);//saatler 24 saat duzenine gore ayarlaniyor
+
+        ArrayAdapter<CharSequence> adapterSurucuNo = ArrayAdapter.createFromResource(this,// Create an ArrayAdapter using the string array and a default spinner layout
+                R.array.surucu_nolari, R.layout.spinner_item);
+        spSurucuNolari.setAdapter(adapterSurucuNo);
+
+        ArrayAdapter<CharSequence> adapterOdemeYontemi = ArrayAdapter.createFromResource(this,// Create an ArrayAdapter using the string array and a default spinner layout
+                R.array.odeme_yontemi, R.layout.spinner_item);
+        spOdemeYontemi.setAdapter(adapterOdemeYontemi);
 
         if (duzenlemeMi) {//duzenleme yapmak icin acildiysa
         //duzenlenecek siparisin verileri cekiliyor
@@ -52,7 +60,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             int duzenlenecekDakika=listIdDetay.get(0).getDakika();
             String duzenlenecekSurucu=listIdDetay.get(0).getSurucu();
             String duzenlenecekOdemeYontemi=listIdDetay.get(0).getOdemeYontemi();
-            int idOdemeYontemi=-1;
+            int idOdemeYontemi;
             if (duzenlenecekOdemeYontemi.equals("Nakit")){
                 idOdemeYontemi=0;
             }else{
@@ -65,6 +73,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             pickerSetDakika(picker,duzenlenecekDakika);
             pickerSetSaat(picker,duzenlenecekSaat);
             spSurucuNolari.setSelection(Integer.parseInt(duzenlenecekSurucu)-1);//TODO: bu satir dogru calismiyor
+            System.out.println("Duzenlenecek surucu id: "+(Integer.parseInt(duzenlenecekSurucu)-1));
             spOdemeYontemi.setSelection(idOdemeYontemi);//TODO: bu satir dogru calismiyor
             etUcret.setText(""+duzenlenecekUcret);
 
@@ -74,33 +83,17 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
 
 
         //Layout nesneleri duzenleniyor
-        picker.setIs24HourView(true);//saatler 24 saat duzenine gore ayarlaniyor
 
-        ArrayAdapter<CharSequence> adapterSurucuNo = ArrayAdapter.createFromResource(this,// Create an ArrayAdapter using the string array and a default spinner layout
-                R.array.surucu_nolari, R.layout.spinner_item);
-        spSurucuNolari.setAdapter(adapterSurucuNo);
 
-        ArrayAdapter<CharSequence> adapterOdemeYontemi = ArrayAdapter.createFromResource(this,// Create an ArrayAdapter using the string array and a default spinner layout
-                R.array.odeme_yontemi, R.layout.spinner_item);
-        spOdemeYontemi.setAdapter(adapterOdemeYontemi);
+          btSiparisKaydet.setOnClickListener(v -> {
 
-          btSiparisKaydet.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
+                  siparisKaydet(duzenlemeMi,pickerGetSaat(picker), pickerGetDakika(picker), spSurucuNolari.getSelectedItem().toString(), spOdemeYontemi.getSelectedItem().toString(), etUcret.getText().toString());
+              //klavye gizleniyor
+              InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+              inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
+              });
 
-                      siparisKaydet(duzenlemeMi,pickerGetSaat(picker), pickerGetDakika(picker), spSurucuNolari.getSelectedItem().toString(), spOdemeYontemi.getSelectedItem().toString(), etUcret.getText().toString());
-                  //klavye gizleniyor
-                  InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-                  inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
-                  }
-          });
-
-          btVazgec.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  anaEkranaGit();
-              }
-          });
+          btVazgec.setOnClickListener(v -> anaEkranaGit());
 
 
     }
@@ -110,6 +103,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
 
         }
         else{
+            //noinspection deprecation
             return timePicker.getCurrentHour();
 
         }
@@ -120,6 +114,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
 
         }
         else{
+            //noinspection deprecation
             return timePicker.getCurrentMinute();
 
         }
@@ -150,7 +145,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
 
 
 
-    public void siparisKaydet(boolean duzenlemeMi,int saat,int dakika,String surucuNo,String odemeYontemi, String stUcret ) {
+    public void siparisKaydet(boolean duzenlemeMi, int saat, int dakika, String surucuNo, String odemeYontemi, String stUcret) {
 
 
 
@@ -159,7 +154,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             //Eksik veriler var
             Toast.makeText(SiparisGirmeEkrani.this,"Siparisiniz kaydedilemedi! Lütfen eksik bilgileri giriniz.",Toast.LENGTH_LONG).show();
         }else{//tüm bilgiler girilmis
-            Double ucret=Double.parseDouble(stUcret);//ucret islemlerde kullanilabilmek icin double a cevriliyor
+            double ucret=Double.parseDouble(stUcret);//ucret islemlerde kullanilabilmek icin double a cevriliyor
             db = AppDatabase.getDbInstance(this.getApplicationContext());
             SiparisSatiri siparis = new SiparisSatiri();
             siparis.setDakika(dakika);
