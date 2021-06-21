@@ -44,6 +44,15 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
         TimePicker picker =findViewById(R.id.timePicker1);
         Spinner spSurucuNolari = findViewById(R.id.spSurucuNo);
         Spinner spOdemeYontemi=findViewById(R.id.spOdemeYontemi);
+        picker.setIs24HourView(true);//saatler 24 saat duzenine gore ayarlaniyor
+
+        ArrayAdapter<CharSequence> adapterSurucuNo = ArrayAdapter.createFromResource(this,// Create an ArrayAdapter using the string array and a default spinner layout
+                R.array.surucu_nolari, R.layout.spinner_item);
+        spSurucuNolari.setAdapter(adapterSurucuNo);
+
+        ArrayAdapter<CharSequence> adapterOdemeYontemi = ArrayAdapter.createFromResource(this,// Create an ArrayAdapter using the string array and a default spinner layout
+                R.array.odeme_yontemi, R.layout.spinner_item);
+        spOdemeYontemi.setAdapter(adapterOdemeYontemi);
 
         if (duzenlemeMi) {//duzenleme yapmak icin acildiysa
         //duzenlenecek siparisin verileri cekiliyor
@@ -65,6 +74,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             pickerSetDakika(picker,duzenlenecekDakika);
             pickerSetSaat(picker,duzenlenecekSaat);
             spSurucuNolari.setSelection(Integer.parseInt(duzenlenecekSurucu)-1);//TODO: bu satir dogru calismiyor
+            System.out.println("Duzenlenecek surucu id: "+(Integer.parseInt(duzenlenecekSurucu)-1));
             spOdemeYontemi.setSelection(idOdemeYontemi);//TODO: bu satir dogru calismiyor
             etUcret.setText(""+duzenlenecekUcret);
 
@@ -74,15 +84,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
 
 
         //Layout nesneleri duzenleniyor
-        picker.setIs24HourView(true);//saatler 24 saat duzenine gore ayarlaniyor
 
-        ArrayAdapter<CharSequence> adapterSurucuNo = ArrayAdapter.createFromResource(this,// Create an ArrayAdapter using the string array and a default spinner layout
-                R.array.surucu_nolari, R.layout.spinner_item);
-        spSurucuNolari.setAdapter(adapterSurucuNo);
-
-        ArrayAdapter<CharSequence> adapterOdemeYontemi = ArrayAdapter.createFromResource(this,// Create an ArrayAdapter using the string array and a default spinner layout
-                R.array.odeme_yontemi, R.layout.spinner_item);
-        spOdemeYontemi.setAdapter(adapterOdemeYontemi);
 
           btSiparisKaydet.setOnClickListener(new View.OnClickListener() {
               @Override
