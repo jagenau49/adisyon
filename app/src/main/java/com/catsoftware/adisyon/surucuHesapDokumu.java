@@ -35,7 +35,9 @@ public class surucuHesapDokumu extends AppCompatActivity {
     Spinner spSurucuNo;
     EditText etSaatlikUcreti;
     Button btGeriDon, btHesapla;
-    TextView tvTeslimEttigiPaketNakitUcreti, tvTeslimEttigiPaketKartUcreti, tvHakEttigiCalismaUcreti, tvIadeEtmesiGerekenTutar, tvIsiBitirmeSaati, tvIseBaslamaSaati, tvSurucununToplamCalismaSaati, tvSurucununTeslimEttigiPaketSayisi,tvSurucununToplamSaatlikGeliri;
+    TextView tvTeslimEttigiPaketNakitUcreti, tvTeslimEttigiPaketKartUcreti, tvHakEttigiCalismaUcreti,
+            tvIadeEtmesiGerekenTutar, tvIsiBitirmeSaati, tvIseBaslamaSaati, tvSurucununToplamCalismaSaati,
+            tvSurucununTeslimEttigiPaketSayisi,tvSurucununToplamSaatlikGeliri,tvSurucuNoSorguSonucu;
     RecyclerView recyclerView;
     LinearLayout linlayHesapSonuclari;
     AppDatabase db;
@@ -64,6 +66,7 @@ public class surucuHesapDokumu extends AppCompatActivity {
         tvSurucununToplamCalismaSaati = findViewById(R.id.tvSurucununToplamCalismaSaati);
         tvSurucununTeslimEttigiPaketSayisi = findViewById(R.id.tvSurucununTeslimEttigiPaketSayisi);
         tvSurucununToplamSaatlikGeliri=findViewById(R.id.tvSurucununToplamSaatlikGeliri);
+        tvSurucuNoSorguSonucu=findViewById(R.id.tvSurucuNoSorguSonucu);
 
 
         //recycleviewer ayarlaniyor
@@ -129,6 +132,7 @@ public class surucuHesapDokumu extends AppCompatActivity {
         tvSurucununToplamCalismaSaati.setText(calismaSaatiHesapla(surucuToplamCalisma10min));
         tvSurucununTeslimEttigiPaketSayisi.setText("" + surucununSiparisSayisi);
         tvSurucununToplamSaatlikGeliri.setText("( "+surucununToplamSaatlikGeliri+"€ )");
+        tvSurucuNoSorguSonucu.setText(surucuNo);
 
 
         //recycleviewer uyarlaniyor
