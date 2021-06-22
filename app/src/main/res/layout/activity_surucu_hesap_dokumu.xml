@@ -129,9 +129,8 @@
 
             <TextView
                 android:id="@+id/textView9"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:gravity="start|center_vertical"
                 android:text="@string/saatlik_ucret"
                 android:textSize="18sp"
@@ -139,13 +138,20 @@
 
             <EditText
                 android:id="@+id/etSaatlikUcret"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:gravity="start|center_vertical"
+                android:layout_gravity="left"
+                android:ems="5"
                 android:inputType="numberDecimal"
-                android:padding="7dp" />
+                android:paddingLeft="7dp" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="€"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
@@ -250,6 +256,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="10 saat 50 dakika" />
+
+            <TextView
+                android:id="@+id/tvSurucununToplamSaatlikGeliri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="7dp"
+                android:text="(65€)" />
         </LinearLayout>
 
         <LinearLayout

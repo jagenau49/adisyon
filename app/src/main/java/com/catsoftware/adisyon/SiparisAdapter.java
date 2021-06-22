@@ -133,7 +133,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
             notifyItemRemoved(tiklanilanPosition);
 
             /*
-            Siparis silindikten sonra mainactivity deki toplam sayiyi guncellemek icin bu cozum bulundu. TODO: daha iyisini bul
+            Siparis silindikten sonra mainactivity deki toplam sayiyi guncellemek icin bu cozum bulundu.
              */
             Intent intent=new Intent(context,MainActivity.class);
             context.startActivity(intent);

@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {//TODO:sharedpreferences sistemiyle gun sonu takibi yap
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db = AppDatabase.getDbInstance(this.getApplicationContext());//veritabani baglaniyor
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent;
         if(item.getItemId()==R.id.mnSifirla) {
 
-            verileriSifirla(); //TODO: güncelle
+            verileriSifirla();
         }else if(item.getItemId()==R.id.mnSiparisEkle) {
 
             intent = new Intent(MainActivity.this, SiparisGirmeEkrani.class);

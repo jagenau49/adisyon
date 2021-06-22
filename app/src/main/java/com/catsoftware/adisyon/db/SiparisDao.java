@@ -29,11 +29,6 @@ public interface SiparisDao {
     @Query("UPDATE siparislerTablosu SET silindiMi=:silinmisMi WHERE sId=:sId") void setSilindiMi(int sId, boolean silinmisMi);//siparisi silindi olarak isaretliyor
 
 
-        /*  //TODO: kendine uyarla
-        @Query("SELECT * FROM user WHERE first_name LIKE :first AND " +
-                "last_name LIKE :last LIMIT 1")
-        User findByName(String first, String last);
-        */
 
 
     @Insert

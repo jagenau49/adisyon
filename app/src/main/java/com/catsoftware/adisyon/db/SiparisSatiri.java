@@ -77,7 +77,7 @@ public class SiparisSatiri {
     public void setUcret(Double ucret) {
         this.ucret = ucret;
     }
-    public boolean getSilindiMi() {//TODO: default false ayarla
+    public boolean getSilindiMi() {
         return silindiMi;
     }
 

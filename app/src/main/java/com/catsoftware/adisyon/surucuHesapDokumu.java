@@ -1,6 +1,6 @@
 package com.catsoftware.adisyon;
-//TODO:surucunun saatten gelen kazanimini ayrica goster
-//TODO: saatlik ucretin yerini kisalt sonuna € isareti ekle
+
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,11 +35,10 @@ public class surucuHesapDokumu extends AppCompatActivity {
     Spinner spSurucuNo;
     EditText etSaatlikUcreti;
     Button btGeriDon, btHesapla;
-    TextView tvTeslimEttigiPaketNakitUcreti, tvTeslimEttigiPaketKartUcreti, tvHakEttigiCalismaUcreti, tvIadeEtmesiGerekenTutar, tvIsiBitirmeSaati, tvIseBaslamaSaati,tvSurucununToplamCalismaSaati,tvSurucununTeslimEttigiPaketSayisi;
+    TextView tvTeslimEttigiPaketNakitUcreti, tvTeslimEttigiPaketKartUcreti, tvHakEttigiCalismaUcreti, tvIadeEtmesiGerekenTutar, tvIsiBitirmeSaati, tvIseBaslamaSaati, tvSurucununToplamCalismaSaati, tvSurucununTeslimEttigiPaketSayisi,tvSurucununToplamSaatlikGeliri;
     RecyclerView recyclerView;
     LinearLayout linlayHesapSonuclari;
     AppDatabase db;
-
 
 
     @Override
@@ -62,8 +61,9 @@ public class surucuHesapDokumu extends AppCompatActivity {
         tvIadeEtmesiGerekenTutar = findViewById(R.id.tvIadeEtmesiGerekenTutar);
         tvIseBaslamaSaati = findViewById(R.id.tvIseBaslamaSaati);
         tvIsiBitirmeSaati = findViewById(R.id.tvIsiBitirmeSaati);
-        tvSurucununToplamCalismaSaati=findViewById(R.id.tvSurucununToplamCalismaSaati);
-        tvSurucununTeslimEttigiPaketSayisi=findViewById(R.id.tvSurucununTeslimEttigiPaketSayisi);
+        tvSurucununToplamCalismaSaati = findViewById(R.id.tvSurucununToplamCalismaSaati);
+        tvSurucununTeslimEttigiPaketSayisi = findViewById(R.id.tvSurucununTeslimEttigiPaketSayisi);
+        tvSurucununToplamSaatlikGeliri=findViewById(R.id.tvSurucununToplamSaatlikGeliri);
 
 
         //recycleviewer ayarlaniyor
@@ -81,10 +81,8 @@ public class surucuHesapDokumu extends AppCompatActivity {
         btGeriDon.setOnClickListener(v -> anaEkranaGit());
 
         btHesapla.setOnClickListener(v -> {
-            System.out.println("gelenSurucuNo: " + spSurucuNo.getSelectedItem().toString());//TODO sil
 
-            System.out.println("gelenSaatlikUcret: " + etSaatlikUcreti.getText().toString().equals(""));//TODO sil
-            if (saatIseBaslama == 0 || saatIsiBitirme == 0  || etSaatlikUcreti.getText().toString().equals("")) {//eksik bilgiler var
+            if (saatIseBaslama == 0 || saatIsiBitirme == 0 || etSaatlikUcreti.getText().toString().equals("")) {//eksik bilgiler var
                 Toast.makeText(surucuHesapDokumu.this, "Sorgulama yapilamadi! Lütfen eksik bilgileri giriniz.", Toast.LENGTH_LONG).show();
 
 
@@ -93,8 +91,8 @@ public class surucuHesapDokumu extends AppCompatActivity {
 
                 statikSurucuNo = spSurucuNo.getSelectedItem().toString();
                 odemeHesapla(spSurucuNo.getSelectedItem().toString(), saatIseBaslama,
-                dakikaIseBaslama,  saatIsiBitirme, dakikaIsiBitirme, Double.
-                parseDouble(etSaatlikUcreti.getText().toString()));
+                        dakikaIseBaslama, saatIsiBitirme, dakikaIsiBitirme, Double.
+                                parseDouble(etSaatlikUcreti.getText().toString()));
 
                 //klavye gizleniyor
                 InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -110,9 +108,10 @@ public class surucuHesapDokumu extends AppCompatActivity {
         System.out.println("" + surucuNo + ".surucunun siparis sayisi : " + surucununSiparisSayisi);
         int surucudeToplananSiparisNakitUcreti = 0;
         int surucudeToplananSiparisKartUcreti = 0;
-        int surucuToplamCalisma10min=sure10MinHesapla(saatIseBaslama,dakikaIseBaslama,saatIsiBitirme,dakikaIsiBitirme);
-        int surucununTeslimEttigiPaketSayisi=listeSurucununSiparisleri.size();
-        double surucununCalismaUcreti = ((surucuSaatlikUcret/6.0) * surucuToplamCalisma10min)+ surucununTeslimEttigiPaketSayisi;
+        int surucuToplamCalisma10min = sure10MinHesapla(saatIseBaslama, dakikaIseBaslama, saatIsiBitirme, dakikaIsiBitirme);
+        int surucununTeslimEttigiPaketSayisi = listeSurucununSiparisleri.size();
+        double surucununToplamSaatlikGeliri=((surucuSaatlikUcret / 6.0) * surucuToplamCalisma10min);
+        double surucununCalismaUcreti = surucununToplamSaatlikGeliri+ surucununTeslimEttigiPaketSayisi;
 
         for (SiparisSatiri siparisSatir : listeSurucununSiparisleri) {
             if (siparisSatir.getOdemeYontemi().equals("Kart")) {
@@ -128,7 +127,8 @@ public class surucuHesapDokumu extends AppCompatActivity {
         tvHakEttigiCalismaUcreti.setText(surucununCalismaUcreti + " €");
         tvIadeEtmesiGerekenTutar.setText(surucununIadeEtmesiGerekenTutar + " €");
         tvSurucununToplamCalismaSaati.setText(calismaSaatiHesapla(surucuToplamCalisma10min));
-        tvSurucununTeslimEttigiPaketSayisi.setText(""+surucununSiparisSayisi);
+        tvSurucununTeslimEttigiPaketSayisi.setText("" + surucununSiparisSayisi);
+        tvSurucununToplamSaatlikGeliri.setText("( "+surucununToplamSaatlikGeliri+"€ )");
 
 
         //recycleviewer uyarlaniyor
@@ -142,14 +142,14 @@ public class surucuHesapDokumu extends AppCompatActivity {
     }
 
     private String calismaSaatiHesapla(int toplam10MinAdedi) {
-        int toplamSaat=toplam10MinAdedi/6;
-        int toplamDakika=(toplam10MinAdedi%6)*10;
-        return (toplamSaat+" saat "+toplamDakika+" dakika");
+        int toplamSaat = toplam10MinAdedi / 6;
+        int toplamDakika = (toplam10MinAdedi % 6) * 10;
+        return (toplamSaat + " saat " + toplamDakika + " dakika");
 
     }
 
     private int sure10MinHesapla(int saatIseBaslama, int dakikaIseBaslama, int saatIsiBitirme, int dakikaIsiBitirme) {
-        return ((60-dakikaIseBaslama)+((saatIsiBitirme-saatIseBaslama-1)*60)+dakikaIsiBitirme)/10;
+        return ((60 - dakikaIseBaslama) + ((saatIsiBitirme - saatIseBaslama - 1) * 60) + dakikaIsiBitirme) / 10;
     }
 
     public void anaEkranaGit() {

@@ -74,9 +74,9 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             btSiparisKaydet.setText("Degisiklikleri Kaydet");
             pickerSetDakika(picker,duzenlenecekDakika);
             pickerSetSaat(picker,duzenlenecekSaat);
-            spSurucuNolari.setSelection(Integer.parseInt(duzenlenecekSurucu)-1);//TODO: bu satir dogru calismiyor
+            spSurucuNolari.setSelection(Integer.parseInt(duzenlenecekSurucu)-1);
             System.out.println("Duzenlenecek surucu id: "+(Integer.parseInt(duzenlenecekSurucu)-1));
-            spOdemeYontemi.setSelection(idOdemeYontemi);//TODO: bu satir dogru calismiyor
+            spOdemeYontemi.setSelection(idOdemeYontemi);
             etUcret.setText(""+duzenlenecekUcret);
             etSiparisNo.setText(duzenlenecekSiparisNo);
 
