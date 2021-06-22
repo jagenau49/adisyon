@@ -33,7 +33,7 @@ public class silinmisSiparisler extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        AdapterSilinmisSiparisler siparisAdapter= new AdapterSilinmisSiparisler(this,getSilinmisSiparislerListesi());//TODO:diger sinif isimlerine de uygula
+        AdapterSilinmisSiparisler siparisAdapter= new AdapterSilinmisSiparisler(this,getSilinmisSiparislerListesi());
         recyclerView.setAdapter(siparisAdapter);
 
     }

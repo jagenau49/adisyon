@@ -28,6 +28,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
     final String className;
 
 
+
     public SiparisAdapter(Context context, List<SiparisSatiri> siparisList, String className) {
         layoutInflater = LayoutInflater.from(context);
         this.mDataList = siparisList;
@@ -40,6 +41,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         db = AppDatabase.getDbInstance(parent.getContext());
         View v= layoutInflater.inflate(R.layout.list_item, parent, false);
+
 
         return new MyViewHolder(v);
     }
@@ -63,6 +65,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
         final TextView tvOdemeYontemi;
         final TextView tvSurucuNo;
         final TextView tvSaatDakika;
+        final TextView tvSiparisNo;
         final ImageView ivDuzenle;
         final ImageView ivSil;
         int siparisId = -1;
@@ -76,6 +79,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
             tvOdemeYontemi = itemView.findViewById(R.id.tvOdemeYontemi);
             tvSurucuNo = itemView.findViewById(R.id.tvSurucuNo);
             tvSaatDakika = itemView.findViewById(R.id.tvSaatDakika);
+            tvSiparisNo=itemView.findViewById(R.id.tvSiparisNo);
             ivDuzenle = itemView.findViewById(R.id.ivDuzenle);
             ivSil = itemView.findViewById(R.id.ivSil);
 
@@ -121,11 +125,18 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
 
         private void anaListeyiGuncelle() {
             mDataList = db.siparisDao().siparisleriGetir(false);
+
         }
 
         private void siparisSil(int siparisId) {
             db.siparisDao().setSilindiMi(siparisId, true);
             notifyItemRemoved(tiklanilanPosition);
+
+            /*
+            Siparis silindikten sonra mainactivity deki toplam sayiyi guncellemek icin bu cozum bulundu.
+             */
+            Intent intent=new Intent(context,MainActivity.class);
+            context.startActivity(intent);
 
         }
 
@@ -133,6 +144,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
             this.tvUcret.setText(tiklanilanSiparis.getUcret().toString() + " €");
             this.tvOdemeYontemi.setText(tiklanilanSiparis.getOdemeYontemi());
             this.tvSurucuNo.setText(tiklanilanSiparis.getSurucu() + " nolu sürücü");
+            this.tvSiparisNo.setText(tiklanilanSiparis.getSiparisNo().toString());
             this.tvSaatDakika.setText(ikiHaneliOlsun(tiklanilanSiparis.getSaat()) + ":" + ikiHaneliOlsun(tiklanilanSiparis.getDakika()));
             siparisId = tiklanilanSiparis.getsId();
             tiklanilanPosition = position;
@@ -140,10 +152,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
 
         }
 
-        public String ikiHaneliOlsun(int sayi) {
-            DecimalFormat formatter = new DecimalFormat("00");
-            return formatter.format(sayi);
-        }
+
     }
 
     private void hesapDokumuListesiniGuncelle() {
@@ -156,5 +165,9 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
         intent.putExtra(DUZENLEME_MI, true);
         intent.putExtra(SIPARIS_ID, siparisId);
         context.startActivity(intent);
+    }
+    public static String ikiHaneliOlsun(int sayi) {
+        DecimalFormat formatter = new DecimalFormat("00");
+        return formatter.format(sayi);
     }
 }

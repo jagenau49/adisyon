@@ -22,18 +22,13 @@ public interface SiparisDao {
 
     @Query("SELECT * FROM siparislerTablosu WHERE sId IN (:sIds)")
     List<SiparisSatiri> loadAllByIds(int[] sIds);
-    @Query("UPDATE siparislerTablosu SET saat=:saat, dakika=:dakika, surucu=:surucu, odemeYontemi=:odemeYontemi, ucret=:ucret WHERE sId=:duzenlenecekSiparisId")
-    void guncelleSiparis(int duzenlenecekSiparisId,int saat,int dakika,String surucu,String odemeYontemi, double ucret);//siparisi gelen verilerle guncelliyor
+    @Query("UPDATE siparislerTablosu SET saat=:saat, dakika=:dakika, surucu=:surucu, odemeYontemi=:odemeYontemi, ucret=:ucret, siparisNo=:siparisNo WHERE sId=:duzenlenecekSiparisId")
+    void guncelleSiparis(int duzenlenecekSiparisId, int saat, int dakika, String surucu, String odemeYontemi, double ucret, String siparisNo);//siparisi gelen verilerle guncelliyor
 
 
     @Query("UPDATE siparislerTablosu SET silindiMi=:silinmisMi WHERE sId=:sId") void setSilindiMi(int sId, boolean silinmisMi);//siparisi silindi olarak isaretliyor
 
 
-        /*  //TODO: kendine uyarla
-        @Query("SELECT * FROM user WHERE first_name LIKE :first AND " +
-                "last_name LIKE :last LIMIT 1")
-        User findByName(String first, String last);
-        */
 
 
     @Insert
