@@ -66,13 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public static long guncelZaman() {
-        //getting the current time in milliseconds, and creating a Date object from it:
-        Date date = new Date(System.currentTimeMillis()); //or simply new Date();
 
-//converting it back to a milliseconds representation:
-        return date.getTime();
-    }
 
 
 

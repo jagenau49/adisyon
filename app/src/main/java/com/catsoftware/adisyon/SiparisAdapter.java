@@ -152,10 +152,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
 
         }
 
-        public String ikiHaneliOlsun(int sayi) {
-            DecimalFormat formatter = new DecimalFormat("00");
-            return formatter.format(sayi);
-        }
+
     }
 
     private void hesapDokumuListesiniGuncelle() {
@@ -168,5 +165,9 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
         intent.putExtra(DUZENLEME_MI, true);
         intent.putExtra(SIPARIS_ID, siparisId);
         context.startActivity(intent);
+    }
+    public static String ikiHaneliOlsun(int sayi) {
+        DecimalFormat formatter = new DecimalFormat("00");
+        return formatter.format(sayi);
     }
 }
