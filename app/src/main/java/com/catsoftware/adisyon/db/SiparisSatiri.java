@@ -10,6 +10,9 @@ public class SiparisSatiri {
     @PrimaryKey(autoGenerate = true)
     public int sId;
 
+    @ColumnInfo(name = "siparisNo")
+    public String siparisNo;
+
     @ColumnInfo(name = "saat")
     public int saat;
 
@@ -80,5 +83,12 @@ public class SiparisSatiri {
 
     public void setSilindiMi(boolean silindiMi) {
         this.silindiMi = silindiMi;
+    }
+    public String getSiparisNo() {
+        return siparisNo;
+    }
+
+    public void setSiparisNo(String siparisNo) {
+        this.siparisNo = siparisNo;
     }
 }

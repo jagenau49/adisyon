@@ -38,6 +38,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
 
         //Layout nesneleri tanimlandi ve atandi
         final EditText etUcret= findViewById(R.id.etUcret);
+        final EditText etSiparisNo=findViewById(R.id.etSiparisNo);
         Button btSiparisKaydet= findViewById(R.id.btKaydet);
         Button btVazgec=findViewById(R.id.btVazgec);
         TimePicker picker =findViewById(R.id.timePicker1);
@@ -67,6 +68,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
                 idOdemeYontemi=1;
             }
             double duzenlenecekUcret=listIdDetay.get(0).getUcret();
+            String duzenlenecekSiparisNo=listIdDetay.get(0).getSiparisNo();
 
             //layout nesneleri duzenlenecek verilere gore guncelleniyor
             btSiparisKaydet.setText("Degisiklikleri Kaydet");
@@ -76,6 +78,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             System.out.println("Duzenlenecek surucu id: "+(Integer.parseInt(duzenlenecekSurucu)-1));
             spOdemeYontemi.setSelection(idOdemeYontemi);//TODO: bu satir dogru calismiyor
             etUcret.setText(""+duzenlenecekUcret);
+            etSiparisNo.setText(duzenlenecekSiparisNo);
 
 
 
@@ -87,7 +90,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
 
           btSiparisKaydet.setOnClickListener(v -> {
 
-                  siparisKaydet(duzenlemeMi,pickerGetSaat(picker), pickerGetDakika(picker), spSurucuNolari.getSelectedItem().toString(), spOdemeYontemi.getSelectedItem().toString(), etUcret.getText().toString());
+                  siparisKaydet(duzenlemeMi,pickerGetSaat(picker), pickerGetDakika(picker), spSurucuNolari.getSelectedItem().toString(), spOdemeYontemi.getSelectedItem().toString(), etUcret.getText().toString(),etSiparisNo.getText().toString());
               //klavye gizleniyor
               InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
               inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
@@ -145,12 +148,12 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
 
 
 
-    public void siparisKaydet(boolean duzenlemeMi, int saat, int dakika, String surucuNo, String odemeYontemi, String stUcret) {
+    public void siparisKaydet(boolean duzenlemeMi, int saat, int dakika, String surucuNo, String odemeYontemi, String stUcret, String siparisNo) {
 
 
 
 
-        if ((surucuNo.equals("") || odemeYontemi.equals("") || (stUcret.equals("")))) {//eksik bilgiler varsa
+        if ((surucuNo.equals("") || odemeYontemi.equals("") || (stUcret.equals(""))||(siparisNo.equals("")))) {//eksik bilgiler varsa
             //Eksik veriler var
             Toast.makeText(SiparisGirmeEkrani.this,"Siparisiniz kaydedilemedi! Lütfen eksik bilgileri giriniz.",Toast.LENGTH_LONG).show();
         }else{//tüm bilgiler girilmis
@@ -163,8 +166,9 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             siparis.setOdemeYontemi(odemeYontemi);
             siparis.setUcret(ucret);
             siparis.setSilindiMi(false);
+            siparis.setSiparisNo(siparisNo);
 if(duzenlemeMi){//tablodaki veri duzeltilecek
-    db.siparisDao().guncelleSiparis(duzenlenecekSiparisId,saat,dakika,surucuNo,odemeYontemi,ucret);
+    db.siparisDao().guncelleSiparis(duzenlenecekSiparisId,saat,dakika,surucuNo,odemeYontemi,ucret,siparisNo);
 }else {//tabloya yeni veri eklenecek
     db.siparisDao().insertSiparis(siparis);
 
