@@ -22,6 +22,7 @@ public class silinmisSiparisler extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_silinmis_siparisler);
 
+
         db= AppDatabase.getDbInstance(this.getApplicationContext());//veritabani baglaniyor
 
         //layout nesneleri ataniyor

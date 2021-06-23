@@ -23,6 +23,7 @@ public class surucununPaketDetaylari extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_surucunun_paket_detaylari);
 
+
         //intent ile gelen veriler aliniyor
         Intent i= getIntent();
         String surucuNo=i.getStringExtra(surucuHesapDokumu.SORGULANMIS_SURUCU_NO);

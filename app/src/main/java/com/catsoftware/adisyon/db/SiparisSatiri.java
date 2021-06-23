@@ -28,11 +28,41 @@ public class SiparisSatiri implements java.io.Serializable {
     @ColumnInfo(name = "ucret")
     public Double ucret;
 
-
-
     @ColumnInfo(name="silindiMi")
     public boolean silindiMi;
 
+    @ColumnInfo(name="kayitGunu")
+    public int kayitGunu;
+
+    @ColumnInfo(name="kayitAyi")
+    public int kayitAyi;
+
+    @ColumnInfo(name="kayitYili")
+    public int kayitYili;
+
+    public int getKayitYili() {
+        return kayitYili;
+    }
+
+    public void setKayitYili(int kayitYili) {
+        this.kayitYili = kayitYili;
+    }
+
+    public int getKayitGunu() {
+        return kayitGunu;
+    }
+
+    public void setKayitGunu(int kayitGunu) {
+        this.kayitGunu = kayitGunu;
+    }
+
+    public int getKayitAyi() {
+        return kayitAyi;
+    }
+
+    public void setKayitAyi(int kayitAyi) {
+        this.kayitAyi = kayitAyi;
+    }
 
     public int getsId() {
         return sId;

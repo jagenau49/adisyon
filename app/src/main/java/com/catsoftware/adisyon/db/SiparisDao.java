@@ -28,6 +28,15 @@ public interface SiparisDao {
 
     @Query("UPDATE siparislerTablosu SET silindiMi=:silinmisMi WHERE sId=:sId") void setSilindiMi(int sId, boolean silinmisMi);//siparisi silindi olarak isaretliyor
 
+    @Query("DELETE FROM siparislerTablosu WHERE kayitYili!=:kayitYili")
+    void deleteOldYear(int kayitYili);//eski yila ait kayitlar siliniyor
+
+    @Query("DELETE FROM siparislerTablosu WHERE kayitAyi!=:kayitAyi")
+    void deleteOldMonth(int kayitAyi);//eski aya ait kayitlar siliniyor
+
+    @Query("DELETE FROM siparislerTablosu WHERE kayitGunu!=:kayitGunu")
+    void deleteOldDay(int kayitGunu);//eski gune ait kayitlar siliniyor
+
 
 
 

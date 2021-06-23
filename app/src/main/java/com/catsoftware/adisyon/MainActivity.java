@@ -13,13 +13,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.SiparisSatiri;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +32,12 @@ public class MainActivity extends AppCompatActivity {
     AppDatabase db;
     private int toplamSiparisAdedi;
     private TextView tvToplamSiparisSayisi;
+    private static boolean isFirstRun;
+    private final String IS_FIRST_RUN="IS_FIRST_RUN";
+    private static final String LAST_USED_MONTH="LAST_USED_MONTH";
+    private static final String LAST_USED_DAY="LAST_USED_DAY";
+    SharedPreferences sharedPref;
+
 
 
     @Override
@@ -40,9 +46,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         db = AppDatabase.getDbInstance(this.getApplicationContext());//veritabani baglaniyor
         tvToplamSiparisSayisi=findViewById(R.id.tvToplamSiparisSayisi);
+
         //sharedPreferences ayarlari yapiliyor
-        SharedPreferences sharedPref = this.getSharedPreferences(this.getPackageName(), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
+         sharedPref = this.getSharedPreferences(this.getPackageName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorSharedPref = sharedPref.edit();
+
+        //ilk kullanim olup olmadigi kontrol ediliyor
+        isFirstRun =sharedPref.getBoolean(IS_FIRST_RUN,true);
+        if(isFirstRun){//ilk kullanim
+            System.out.println("uygulama ilk defa kullaniliyor");
+            editorSharedPref.putBoolean(IS_FIRST_RUN, false);
+            editorSharedPref.apply();//artik ilk kullanim degil
+
+        }else {//daha once kullanilmis
+        deleteOldOrders();
+
+
+        }
+
+
+        //son kullanim bilgileri kontrol ediliyor
 
 
 
@@ -53,6 +76,22 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    private void deleteOldOrders() { //TODO:uygun yerlere yerlestir ve test et
+        //Zaman bilgileri aliniyor
+        Calendar c = Calendar.getInstance();
+        Date date=new Date();
+        c.setTime(date);
+        int bugun= c.get(Calendar.DAY_OF_MONTH);
+        int buAy=c.get(Calendar.MONTH)+1;
+        int buYil=c.get(Calendar.YEAR);
+
+        db.siparisDao().deleteOldYear(buYil);
+        db.siparisDao().deleteOldMonth(buAy);
+        db.siparisDao().deleteOldDay(bugun);
+    }
+
+
     public void updateRecyclerView(){
         SiparisAdapter siparisAdapter = new SiparisAdapter(this, loadSiparisList(), getClass().getName());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

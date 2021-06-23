@@ -57,6 +57,7 @@ public class surucuHesapDokumu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_surucu_hesap_dokumu);
 
+
         db = AppDatabase.getDbInstance(this.getApplicationContext());//veritabani baglaniyor
 
         //layout nesneleri ataniyor
@@ -116,6 +117,8 @@ public class surucuHesapDokumu extends AppCompatActivity {
         });
 
     }
+
+
 
     private void odemeHesapla(String surucuNo, int saatIseBaslama, int dakikaIseBaslama, int saatIsiBitirme, int dakikaIsiBitirme, double surucuSaatlikUcret) {//
         statikSurucuNo=surucuNo;
