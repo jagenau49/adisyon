@@ -13,6 +13,8 @@ import com.catsoftware.adisyon.db.SiparisSatiri;
 
 import java.util.List;
 
+import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
+
 public class silinmisSiparisler extends AppCompatActivity {
     AppDatabase db;
     RecyclerView recyclerView;
@@ -40,7 +42,7 @@ public class silinmisSiparisler extends AppCompatActivity {
     }
 
     private List<SiparisSatiri> getSilinmisSiparislerListesi() {
-
+        deleteOldOrders(silinmisSiparisler.this);
         return db.siparisDao().siparisleriGetir(true);
 
     }

@@ -18,6 +18,8 @@ import com.catsoftware.adisyon.db.SiparisSatiri;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
+
 public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHolder> {
     public static final String SIPARIS_ID = "siparisId";
     public static final String DUZENLEME_MI = "duzenlemeMi";
@@ -124,6 +126,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
         }
 
         private void anaListeyiGuncelle() {
+            deleteOldOrders(context);
             mDataList = db.siparisDao().siparisleriGetir(false);
 
         }
@@ -156,6 +159,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
     }
 
     private void hesapDokumuListesiniGuncelle() {
+        deleteOldOrders(context);
         mDataList = db.siparisDao().surucununSiparisleriniGetir(surucuHesapDokumu.statikSurucuNo, false);
 
     }

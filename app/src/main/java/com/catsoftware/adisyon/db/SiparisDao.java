@@ -26,7 +26,11 @@ public interface SiparisDao {
     void guncelleSiparis(int duzenlenecekSiparisId, int saat, int dakika, String surucu, String odemeYontemi, double ucret, String siparisNo);//siparisi gelen verilerle guncelliyor
 
 
-    @Query("UPDATE siparislerTablosu SET silindiMi=:silinmisMi WHERE sId=:sId") void setSilindiMi(int sId, boolean silinmisMi);//siparisi silindi olarak isaretliyor
+    @Query("UPDATE siparislerTablosu SET silindiMi=:silinmisMi WHERE sId=:sId")
+    void setSilindiMi(int sId, boolean silinmisMi);//siparisi silindi olarak isaretliyor
+
+    @Query("SELECT COUNT(sId) FROM siparislerTablosu WHERE  kayitYili!=:kayitYili OR kayitAyi!=:kayitAyi OR  kayitGunu!=:kayitGunu")
+    int getCountOldOrders(int kayitYili, int kayitAyi, int kayitGunu);
 
     @Query("DELETE FROM siparislerTablosu WHERE kayitYili!=:kayitYili")
     void deleteOldYear(int kayitYili);//eski yila ait kayitlar siliniyor

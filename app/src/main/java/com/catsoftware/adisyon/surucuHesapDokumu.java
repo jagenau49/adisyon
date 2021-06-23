@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
+
 public class surucuHesapDokumu extends AppCompatActivity {
     public static final String SORGU_SONUCU_LISTESI="SORGU_SONUCU_LISTESI";
     public static final String SORGULANMIS_SURUCU_NO="SORGULANMIS_SURUCU_NO";
@@ -121,6 +123,7 @@ public class surucuHesapDokumu extends AppCompatActivity {
 
 
     private void odemeHesapla(String surucuNo, int saatIseBaslama, int dakikaIseBaslama, int saatIsiBitirme, int dakikaIsiBitirme, double surucuSaatlikUcret) {//
+        deleteOldOrders(surucuHesapDokumu.this);
         statikSurucuNo=surucuNo;
          listeSurucununSiparisleri = db.siparisDao().surucununSiparisleriniGetir(surucuNo, false);
         int surucununSiparisSayisi = listeSurucununSiparisleri.size();

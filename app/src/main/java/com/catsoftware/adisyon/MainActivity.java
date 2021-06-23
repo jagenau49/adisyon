@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             editorSharedPref.apply();//artik ilk kullanim degil
 
         }else {//daha once kullanilmis
-        deleteOldOrders();
+        deleteOldOrders(this);
 
 
         }
@@ -77,8 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void deleteOldOrders() { //TODO:uygun yerlere yerlestir ve test et
+    public static void deleteOldOrders(Context context) { //TODO: test et
         //Zaman bilgileri aliniyor
+
         Calendar c = Calendar.getInstance();
         Date date=new Date();
         c.setTime(date);
@@ -86,9 +87,13 @@ public class MainActivity extends AppCompatActivity {
         int buAy=c.get(Calendar.MONTH)+1;
         int buYil=c.get(Calendar.YEAR);
 
+        //database processes
+        AppDatabase db = AppDatabase.getDbInstance(context);
+        int beforeDeleteCountOfOldOrders=db.siparisDao().getCountOldOrders(buYil,buAy,bugun);// get the counts before delete TODO:testlik
         db.siparisDao().deleteOldYear(buYil);
         db.siparisDao().deleteOldMonth(buAy);
         db.siparisDao().deleteOldDay(bugun);
+        int afterDeleteCountOfOldOrders=db.siparisDao().getCountOldOrders(buYil,buAy,bugun);// get the counts after delete TODO:testlik
     }
 
 
@@ -111,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private List<SiparisSatiri> loadSiparisList() {
-
+        deleteOldOrders(this);
         return db.siparisDao().siparisleriGetir(false);
 
     }

@@ -18,6 +18,8 @@ import com.catsoftware.adisyon.db.SiparisSatiri;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
+
 public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilinmisSiparisler.MyViewHolder> {
 
     List<SiparisSatiri> mDataList;
@@ -107,6 +109,7 @@ public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilin
         }
 
         private void anaListeyiGuncelle() {
+            deleteOldOrders(context);
             mDataList = db.siparisDao().siparisleriGetir(true);
         }
 

@@ -20,6 +20,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
+
 public class SiparisGirmeEkrani extends AppCompatActivity {
     AppDatabase db;
     Boolean duzenlemeMi;
@@ -58,6 +60,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
         spOdemeYontemi.setAdapter(adapterOdemeYontemi);
 
         if (duzenlemeMi) {//duzenleme yapmak icin acildiysa
+           deleteOldOrders(SiparisGirmeEkrani.this);
         //duzenlenecek siparisin verileri cekiliyor
             List<SiparisSatiri> listIdDetay= db.siparisDao().siparisDetayGetir(duzenlenecekSiparisId);
             int duzenlenecekSaat=listIdDetay.get(0).getSaat();
