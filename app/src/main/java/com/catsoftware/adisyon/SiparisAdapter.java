@@ -91,10 +91,10 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
                 mAlert.setMessage("Sectiginiz siparisin silinmesini onayliyor musunuz?");
                 mAlert.setPositiveButton("Onayliyorum", (dialog, which) -> {
                     siparisSil(siparisId);
-                    if (className.equals("MainActivity")) {
+                    if (className.equals(MainActivity.class.getName())) {
                         anaListeyiGuncelle();
 
-                    } else if (className.equals("surucuHesapDokumu")) {
+                    } else if (className.equals(surucununPaketDetaylari.class.getName())) {
                         hesapDokumuListesiniGuncelle();
                         Intent intent = new Intent(context, MainActivity.class);
                         context.startActivity(intent);

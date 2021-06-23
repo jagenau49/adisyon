@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void updateRecyclerView(){
-        SiparisAdapter siparisAdapter = new SiparisAdapter(this, loadSiparisList(), "MainActivity");
+        SiparisAdapter siparisAdapter = new SiparisAdapter(this, loadSiparisList(), getClass().getName());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setAdapter(siparisAdapter);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

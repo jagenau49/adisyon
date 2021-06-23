@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -23,24 +24,32 @@ import android.widget.Toast;
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.SiparisSatiri;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class surucuHesapDokumu extends AppCompatActivity {
-    public static String statikSurucuNo;
+    public static final String SORGU_SONUCU_LISTESI="SORGU_SONUCU_LISTESI";
+    public static final String SORGULANMIS_SURUCU_NO="SORGULANMIS_SURUCU_NO";
+    public static final String KEY_LIST="LIST";
+
     public static int saatIseBaslama = -1;
     public static int saatIsiBitirme = -1;
     public static int dakikaIseBaslama = -1;
     public static int dakikaIsiBitirme = -1;
+    public static String statikSurucuNo;
     Spinner spSurucuNo;
     EditText etSaatlikUcreti;
-    Button btGeriDon, btHesapla;
+    Button btGeriDon, btHesapla, btPaketlerinDetaylariniGoster;
     TextView tvTeslimEttigiPaketNakitUcreti, tvTeslimEttigiPaketKartUcreti, tvHakEttigiCalismaUcreti,
             tvIadeEtmesiGerekenTutar, tvIsiBitirmeSaati, tvIseBaslamaSaati, tvSurucununToplamCalismaSaati,
             tvSurucununTeslimEttigiPaketSayisi,tvSurucununToplamSaatlikGeliri,tvSurucuNoSorguSonucu;
-    RecyclerView recyclerView;
+
     LinearLayout linlayHesapSonuclari;
     AppDatabase db;
+    List<SiparisSatiri> listeSurucununSiparisleri;
+    private String sorgulanmisSurucuNo;
 
 
     @Override
@@ -56,6 +65,7 @@ public class surucuHesapDokumu extends AppCompatActivity {
         etSaatlikUcreti = findViewById(R.id.etSaatlikUcret);
         btGeriDon = findViewById(R.id.btGeriDon);
         btHesapla = findViewById(R.id.btHesapla);
+        btPaketlerinDetaylariniGoster=findViewById(R.id.btPaketlerinDetaylariniGoster);
         linlayHesapSonuclari = findViewById(R.id.linlayHesapSonuclari);
         tvTeslimEttigiPaketNakitUcreti = findViewById(R.id.tvTeslimEttigiPaketNakitUcreti);
         tvTeslimEttigiPaketKartUcreti = findViewById(R.id.tvTeslimEttigiPaketKartUcreti);
@@ -69,11 +79,7 @@ public class surucuHesapDokumu extends AppCompatActivity {
         tvSurucuNoSorguSonucu=findViewById(R.id.tvSurucuNoSorguSonucu);
 
 
-        //recycleviewer ayarlaniyor
-        recyclerView = findViewById(R.id.rvHesapDokumuRecyclerView);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
+
 
         //spinnera detaylar veriliyor
         ArrayAdapter<CharSequence> adapterSurucuNo = ArrayAdapter.createFromResource(this,// Create an ArrayAdapter using the string array and a default spinner layout
@@ -82,6 +88,12 @@ public class surucuHesapDokumu extends AppCompatActivity {
 
         //butonlara fonksiyon veriliyor
         btGeriDon.setOnClickListener(v -> anaEkranaGit());
+        btPaketlerinDetaylariniGoster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sorgulananSurucununPaketLeriniGoster();
+            }
+        });
 
         btHesapla.setOnClickListener(v -> {
 
@@ -92,7 +104,7 @@ public class surucuHesapDokumu extends AppCompatActivity {
             } else {//bilgiler tam girilmis
 
 
-                statikSurucuNo = spSurucuNo.getSelectedItem().toString();
+
                 odemeHesapla(spSurucuNo.getSelectedItem().toString(), saatIseBaslama,
                         dakikaIseBaslama, saatIsiBitirme, dakikaIsiBitirme, Double.
                                 parseDouble(etSaatlikUcreti.getText().toString()));
@@ -106,7 +118,8 @@ public class surucuHesapDokumu extends AppCompatActivity {
     }
 
     private void odemeHesapla(String surucuNo, int saatIseBaslama, int dakikaIseBaslama, int saatIsiBitirme, int dakikaIsiBitirme, double surucuSaatlikUcret) {//
-        List<SiparisSatiri> listeSurucununSiparisleri = db.siparisDao().surucununSiparisleriniGetir(surucuNo, false);
+        statikSurucuNo=surucuNo;
+         listeSurucununSiparisleri = db.siparisDao().surucununSiparisleriniGetir(surucuNo, false);
         int surucununSiparisSayisi = listeSurucununSiparisleri.size();
         System.out.println("" + surucuNo + ".surucunun siparis sayisi : " + surucununSiparisSayisi);
         int surucudeToplananSiparisNakitUcreti = 0;
@@ -135,9 +148,7 @@ public class surucuHesapDokumu extends AppCompatActivity {
         tvSurucuNoSorguSonucu.setText(surucuNo);
 
 
-        //recycleviewer uyarlaniyor
-        SiparisAdapter siparisAdapter = new SiparisAdapter(this, listeSurucununSiparisleri, "surucuHesapDokumu");
-        recyclerView.setAdapter(siparisAdapter);
+
 
         //sonuclar gorunur yapiliyor
         linlayHesapSonuclari.setVisibility(View.VISIBLE);
@@ -202,5 +213,16 @@ public class surucuHesapDokumu extends AppCompatActivity {
         final Calendar c = Calendar.getInstance();
 
         return c.get(Calendar.HOUR_OF_DAY);
+    }
+
+    public void sorgulananSurucununPaketLeriniGoster() {
+        Intent i = new Intent(this,surucununPaketDetaylari.class);
+        Bundle b = new Bundle();
+
+
+        b.putSerializable(SORGU_SONUCU_LISTESI, (Serializable) listeSurucununSiparisleri);
+        i.putExtra(KEY_LIST,b);
+        i.putExtra(SORGULANMIS_SURUCU_NO,statikSurucuNo);
+        startActivity(i);
     }
 }

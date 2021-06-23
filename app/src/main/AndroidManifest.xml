@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Adisyon">
-
+        <activity android:name=".surucununPaketDetaylari"></activity>
         <activity android:name=".silinmisSiparisler" />
         <activity android:name=".surucuHesapDokumu" />
         <activity
@@ -17,8 +17,7 @@
             android:noHistory="true" /> <!-- ana ekrandan geri gelme etkisizlestirildi -->
         <activity
             android:name=".MainActivity"
-            android:noHistory="true"
-            >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
