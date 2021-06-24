@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -35,12 +34,7 @@ public class surucununPaketDetaylari extends AppCompatActivity {
 
         //button ayarlaniyor
         Button btSorguyaGeriDon=findViewById(R.id.btSorguyaGeriDon);
-        btSorguyaGeriDon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        btSorguyaGeriDon.setOnClickListener(v -> finish());
 updateRecyclerview();
 
     }

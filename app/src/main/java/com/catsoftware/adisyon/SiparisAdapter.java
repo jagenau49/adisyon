@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.SiparisSatiri;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
 
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public @NotNull MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         db = AppDatabase.getDbInstance(parent.getContext());
         View v= layoutInflater.inflate(R.layout.list_item, parent, false);
 
@@ -147,7 +149,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
             this.tvUcret.setText(tiklanilanSiparis.getUcret().toString() + " €");
             this.tvOdemeYontemi.setText(tiklanilanSiparis.getOdemeYontemi());
             this.tvSurucuNo.setText(tiklanilanSiparis.getSurucu() + " nolu sürücü");
-            this.tvSiparisNo.setText(tiklanilanSiparis.getSiparisNo().toString());
+            this.tvSiparisNo.setText(tiklanilanSiparis.getSiparisNo());
             this.tvSaatDakika.setText(ikiHaneliOlsun(tiklanilanSiparis.getSaat()) + ":" + ikiHaneliOlsun(tiklanilanSiparis.getDakika()));
             siparisId = tiklanilanSiparis.getsId();
             tiklanilanPosition = position;

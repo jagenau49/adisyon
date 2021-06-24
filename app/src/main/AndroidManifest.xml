@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Adisyon">
-        <activity android:name=".VeritabaniSifirlamaEkrani"></activity>
+        <activity android:name=".VeritabaniSifirlamaEkrani" />
         <activity android:name=".surucununPaketDetaylari" />
         <activity android:name=".silinmisSiparisler" />
         <activity android:name=".surucuHesapDokumu" />

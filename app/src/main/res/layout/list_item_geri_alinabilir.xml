@@ -74,16 +74,15 @@
                     android:text="@string/_21_30" />
 
                 <TextView
-                    android:id="@+id/textView19"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Siparis No :" />
+                    android:text="@string/siparis_no" />
 
                 <TextView
                     android:id="@+id/tvSiparisNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="15" />
+                    android:text="@string/_15" />
 
             </LinearLayout>
         </LinearLayout>

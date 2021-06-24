@@ -1,7 +1,6 @@
 package com.catsoftware.adisyon;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.SiparisSatiri;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -38,7 +39,7 @@ public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilin
 
 
     @Override
-    public AdapterSilinmisSiparisler.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AdapterSilinmisSiparisler.@NotNull MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         db = AppDatabase.getDbInstance(parent.getContext());
         View v= layoutInflater.inflate(R.layout.list_item_geri_alinabilir, parent, false);
         return new MyViewHolder(v);
@@ -81,23 +82,17 @@ public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilin
                 AlertDialog.Builder mAlert = new AlertDialog.Builder(context);
                 mAlert.setTitle("SILINMIS SIPARIS GERI ALINACAK");
                 mAlert.setMessage("Sectiginiz siparisin tekrardan sürücünün hesabina eklenmesini onayliyor musunuz?");
-                mAlert.setPositiveButton("Onayliyorum", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                mAlert.setPositiveButton("Onayliyorum", (dialog, which) -> {
 
-                        silinmisiGeriAl(siparisId);
+                    silinmisiGeriAl(siparisId);
 
-                        notifyDataSetChanged();
-                        anaListeyiGuncelle();
+                    notifyDataSetChanged();
+                    anaListeyiGuncelle();
 
-                        Toast.makeText(context, "Siparis sürücünün hesabina yeniden eklendi.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Siparis sürücünün hesabina yeniden eklendi.", Toast.LENGTH_LONG).show();
 
-                    }
-                }).setNegativeButton("Vazgec", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                }).setNegativeButton("Vazgec", (dialog, which) -> {
 
-                    }
                 });
 
                 mAlert.show();

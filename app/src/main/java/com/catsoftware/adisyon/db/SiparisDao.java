@@ -20,8 +20,6 @@ public interface SiparisDao {
     List<SiparisSatiri> surucununSiparisleriniGetir(String surucu, boolean silinmisMi); //id ye ait siparis detaylarini donduruyor
 
 
-    @Query("SELECT * FROM siparislerTablosu WHERE sId IN (:sIds)")
-    List<SiparisSatiri> loadAllByIds(int[] sIds);
     @Query("UPDATE siparislerTablosu SET saat=:saat, dakika=:dakika, surucu=:surucu, odemeYontemi=:odemeYontemi, ucret=:ucret, siparisNo=:siparisNo WHERE sId=:duzenlenecekSiparisId")
     void guncelleSiparis(int duzenlenecekSiparisId, int saat, int dakika, String surucu, String odemeYontemi, double ucret, String siparisNo);//siparisi gelen verilerle guncelliyor
 

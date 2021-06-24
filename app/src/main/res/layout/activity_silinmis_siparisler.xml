@@ -14,7 +14,6 @@
         android:text="@string/siparislere_geri_don" />
 
     <TextView
-        android:id="@+id/textView16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/silinmis_siparisler"

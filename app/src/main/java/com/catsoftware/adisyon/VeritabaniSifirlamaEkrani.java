@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -38,25 +37,17 @@ public class VeritabaniSifirlamaEkrani extends AppCompatActivity {
         int dogruCevap=rdSayi1+rdSayi2;
         tvSayi1.setText(""+rdSayi1);
         tvSayi2.setText(""+rdSayi2);
-        btSilmeyiOnayla.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int kullanicininCevabi=Integer.parseInt(etIslemSonucu.getText().toString());
-                if(kullanicininCevabi==dogruCevap){ //user entered right answer
-                    verileriSifirla();
+        btSilmeyiOnayla.setOnClickListener(v -> {
+            int kullanicininCevabi=Integer.parseInt(etIslemSonucu.getText().toString());
+            if(kullanicininCevabi==dogruCevap){ //user entered right answer
+                verileriSifirla();
 
-                }else {//falsh or empty answer
-                    Toast.makeText(VeritabaniSifirlamaEkrani.this, "Lütfen cevabinizi kontrol edin.", Toast.LENGTH_LONG).show();
+            }else {//falsh or empty answer
+                Toast.makeText(VeritabaniSifirlamaEkrani.this, "Lütfen cevabinizi kontrol edin.", Toast.LENGTH_LONG).show();
 
-                }
             }
         });
-        btSilmektenVazgec.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        btSilmektenVazgec.setOnClickListener(v -> finish());
     }
     public void verileriSifirla() {
 

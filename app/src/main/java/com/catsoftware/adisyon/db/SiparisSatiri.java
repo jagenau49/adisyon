@@ -40,24 +40,12 @@ public class SiparisSatiri implements java.io.Serializable {
     @ColumnInfo(name="kayitYili")
     public int kayitYili;
 
-    public int getKayitYili() {
-        return kayitYili;
-    }
-
     public void setKayitYili(int kayitYili) {
         this.kayitYili = kayitYili;
     }
 
-    public int getKayitGunu() {
-        return kayitGunu;
-    }
-
     public void setKayitGunu(int kayitGunu) {
         this.kayitGunu = kayitGunu;
-    }
-
-    public int getKayitAyi() {
-        return kayitAyi;
     }
 
     public void setKayitAyi(int kayitAyi) {
@@ -106,9 +94,6 @@ public class SiparisSatiri implements java.io.Serializable {
 
     public void setUcret(Double ucret) {
         this.ucret = ucret;
-    }
-    public boolean getSilindiMi() {
-        return silindiMi;
     }
 
     public void setSilindiMi(boolean silindiMi) {

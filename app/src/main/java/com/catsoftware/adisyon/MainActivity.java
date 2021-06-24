@@ -1,7 +1,6 @@
 package com.catsoftware.adisyon;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.SiparisSatiri;
@@ -30,12 +28,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     AppDatabase db;
-    private int toplamSiparisAdedi;
     private TextView tvToplamSiparisSayisi;
-    private static boolean isFirstRun;
-    private final String IS_FIRST_RUN="IS_FIRST_RUN";
-    private static final String LAST_USED_MONTH="LAST_USED_MONTH";
-    private static final String LAST_USED_DAY="LAST_USED_DAY";
     SharedPreferences sharedPref;
 
 
@@ -52,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editorSharedPref = sharedPref.edit();
 
         //ilk kullanim olup olmadigi kontrol ediliyor
-        isFirstRun =sharedPref.getBoolean(IS_FIRST_RUN,true);
+        String IS_FIRST_RUN = "IS_FIRST_RUN";
+        boolean isFirstRun = sharedPref.getBoolean(IS_FIRST_RUN, true);
         if(isFirstRun){//ilk kullanim
             System.out.println("uygulama ilk defa kullaniliyor");
             editorSharedPref.putBoolean(IS_FIRST_RUN, false);
@@ -114,8 +108,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(siparisAdapter);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        toplamSiparisAdedi=loadSiparisList().size();
-        tvToplamSiparisSayisi.setText(""+toplamSiparisAdedi);
+        int toplamSiparisAdedi = loadSiparisList().size();
+        tvToplamSiparisSayisi.setText(""+ toplamSiparisAdedi);
 
     }
 
