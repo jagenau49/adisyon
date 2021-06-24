@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Order Manager</string>
+    <string name="silinmis_siparisler">Stornierte Bestellungen:</string>
+    <string name="tutar">Betrag :</string>
+    <string name="odeme_yontemi">Zahlungsmethode :</string>
+    <string name="saat">Uhr :</string>
+    <string name="siparisi_kaydet">Speichern</string>
+    <string name="surucu_no">Fahrer :</string>
+    <string name="saatlik_ucret">Stundenlohn :</string>
+    <string name="geri_don">Zurück</string>
+    <string name="hesapla">Abrechnen</string>
+    <string name="sorgulama_sonuclari">-Fahrer/Bestellungen</string>
+    <string name="kart_ile_odenen_paketlerin_toplami">Betrag (Online) :</string>
+    <string name="nakit_odenen_paketlerin_toplami">Betrag (Bar) :</string>
+    <string name="surucunun_calisma_ucreti">Lohn :</string>
+    <string name="surucunun_iade_etmesi_gereken_nakit_tutar">Fahrer soll zurückgeben :</string>
+    <string name="siparis_ekle">Neu Bestellung</string>
+    <string name="hesap_dokumu">Abrechnung des Fahrers</string>
+    <string name="MN_silinmis_siparisler">Stornierte Bestellungen</string>
+    <string name="tum_siparisleri_sifirla">Löschen alle Bestellungen</string>
+    <string name="nakit">(Bar)</string>
+    <string name="geri_al">Zurücknehmen</string>
+    <string name="adet">Bestellungen</string>
+    <string name="ise_baslama_saati">Arbeitszeit (Beginn)</string>
+    <string name="isi_bitirme_saati">Arbeitszeit (Ende)</string>
+    <string name="toplam_calisma_saati">Arbeitszeit :</string>
+    <string name="teslim_ettigi_paket_sayisi">Fahrgeld :</string>
+    <string name="paketlerin_detaylarini_goster">Alle Bestellungen von dem Fahrer</string>
+    <string name="nolu_surucunun_teslim_ettigi_paketler">-Fahrer/ Die Bestellungen</string>
+    <string name="sorguya_geri_don">Zurück</string>
+    <string name="dikkat">Achtung!</string>
+    <string name="onayla">Bestätigen</string>
+    <string name="vazgec">Zurück</string>
+    <string name="siparis_no">Bestellungsnummer :</string>
+    <string name="text_warning">Sie sind dabei, alle Daten in der Datenbank zu löschen. Diese Transaktion kann nicht rückgängig gemacht werden. Wenn Sie sicher sind, dass Sie alle Daten löschen möchten, schließen Sie den folgenden Vorgang ab und bestätigen Sie.</string>
+</resources>

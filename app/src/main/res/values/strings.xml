@@ -1,14 +1,12 @@
 <resources>
-    <string name="app_name">adisyon</string>
+    <string name="app_name">Order Manager</string>
 
-    <string name="bugunun_siparisleri">Bugünün siparisleri :</string>
-    <string name="siparislere_geri_don">Siparislere Geri Dön</string>
     <string name="silinmis_siparisler">Silinmis siparisler:</string>
 
     <string name="tutar">TUTAR :</string>
-    <string name="_000_00">000,00</string>
+    <string name="_000_00" translatable="false">000,00</string>
     <string name="odeme_yontemi">Ödeme Yöntemi :</string>
-    <string name="euro_symbol">€</string>
+    <string name="euro_symbol" translatable="false">€</string>
     <string name="saat">Saat :</string>
 
     <string name="siparisi_kaydet">Siparisi Kaydet</string>
@@ -17,53 +15,54 @@
     <string name="geri_don">Geri Dön</string>
     <string name="hesapla">HESAPLA</string>
     <string name="sorgulama_sonuclari">Nolu Sürücüye Ait Sorgulama Sonuclari:</string>
-    <string name="kart_ile_odenen_paketlerin_toplami">Kart ile ödenen paketlerin toplami :</string>
-    <string name="eu_kart">-€(KART)</string>
+    <string name="eu_kart" translatable="false">-€(KART)</string>
     <string name="nakit_odenen_paketlerin_toplami">Nakit ödenen paketlerin toplami :</string>
-    <string name="eu_nakit">-€(NAKIT)</string>
+    <string name="eu_nakit" translatable="false">-€(NAKIT)</string>
     <string name="surucunun_calisma_ucreti">Sürücünün calisma ücreti:</string>
 
     <string name="surucunun_iade_etmesi_gereken_nakit_tutar">Sürücünün iade etmesi gereken nakit tutar :</string>
-    <string name="eu">-€</string>
+    <string name="eu" translatable="false">-€</string>
     <string name="siparis_ekle">Siparis Ekle</string>
     <string name="hesap_dokumu">Hesap Dökümü</string>
     <string name="MN_silinmis_siparisler">Silinmis siparisler</string>
     <string name="tum_siparisleri_sifirla">Tüm siparisleri sifirla</string>
 
 
-    <string name="_100eu">100€</string>
+    <string name="_100eu" translatable="false">100€</string>
     <string name="nakit">(Nakit)</string>
-    <string name="_5_nolu_surucu">5 Nolu Surucu</string>
-    <string name="_21_30">21:30</string>
+    <string name="_5_nolu_surucu" translatable="false">5 Nolu Surucu</string>
+    <string name="_21_30" translatable="false">21:30</string>
     <string name="geri_al">Geri al</string>
-    <string name="_97">97</string>
+    <string name="_97" translatable="false">97</string>
     <string name="adet">Adet</string>
 
-    <string name="_0000">0000</string>
+    <string name="_0000" translatable="false">0000</string>
     <string name="ise_baslama_saati">Ise baslama saati :</string>
-    <string name="_01_30">01:30</string>
+    <string name="_01_30" translatable="false">01:30</string>
     <string name="isi_bitirme_saati">Isi bitirme saati :</string>
-    <string name="_07_30">07:30</string>
-    <string name="eu2">€</string>
+    <string name="_07_30" translatable="false">07:30</string>
+    <string name="eu2" translatable="false">€</string>
 
     <string name="toplam_calisma_saati">Toplam calisma saati :</string>
-    <string name="_10_saat_50_dakika">10 saat 50 dakika</string>
-    <string name="_65">(65€)</string>
+    <string name="_10_saat_50_dakika" translatable="false">10 saat 50 dakika</string>
+    <string name="_65" translatable="false">(65€)</string>
     <string name="teslim_ettigi_paket_sayisi">Teslim ettigi paket sayisi :</string>
-    <string name="_100">100</string>
+    <string name="_100" translatable="false">100</string>
     <string name="paketlerin_detaylarini_goster">Paketlerin Detaylarini Goster</string>
 
     <string name="nolu_surucunun_teslim_ettigi_paketler">Nolu Sürücünün Teslim Ettigi Paketler</string>
     <string name="sorguya_geri_don">Sorguya Geri Dön</string>
     <string name="dikkat">Dikkat!</string>
     <string name="text_warning">Veritabanindaki tüm verileri silmek üzeresiniz. Bu islem geri alinamaz. Eger tüm verileri silmek istediginize eminseniz, asagidaki islemi tamamlayip, onay veriniz.</string>
-    <string name="_251">251</string>
-    <string name="arti">+</string>
-    <string name="_753">753</string>
-    <string name="sembolEsittir">=</string>
+    <string name="_251" translatable="false">251</string>
+    <string name="arti" translatable="false">+</string>
+    <string name="_753" translatable="false">753</string>
+    <string name="sembolEsittir" translatable="false">=</string>
     <string name="onayla">Onayla</string>
     <string name="vazgec">Vazgec</string>
 
     <string name="siparis_no">Siparis No :</string>
-    <string name="_15">15</string>
+    <string name="_15" translatable="false">15</string>
+    <string name="kart_ile_odenen_paketlerin_toplami">Kart ile ödenen paketlerin toplami :</string>
+
 </resources>
