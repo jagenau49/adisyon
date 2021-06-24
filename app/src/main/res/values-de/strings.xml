@@ -34,4 +34,5 @@
     <string name="vazgec">Zurück</string>
     <string name="siparis_no">Bestellungsnummer :</string>
     <string name="text_warning">Sie sind dabei, alle Daten in der Datenbank zu löschen. Diese Transaktion kann nicht rückgängig gemacht werden. Wenn Sie sicher sind, dass Sie alle Daten löschen möchten, schließen Sie den folgenden Vorgang ab und bestätigen Sie.</string>
+    <string name="bugunun_siparisleri">Bestellungen:</string>
 </resources>

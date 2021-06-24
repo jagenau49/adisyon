@@ -64,5 +64,6 @@
     <string name="siparis_no">Siparis No :</string>
     <string name="_15" translatable="false">15</string>
     <string name="kart_ile_odenen_paketlerin_toplami">Kart ile ödenen paketlerin toplami :</string>
+    <string name="bugunun_siparisleri">Siparisler:</string>
 
 </resources>
