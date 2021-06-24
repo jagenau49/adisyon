@@ -145,8 +145,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
         if(item.getItemId()==R.id.mnSifirla) {
+            intent = new Intent(MainActivity.this, VeritabaniSifirlamaEkrani.class);
+            startActivity(intent);
 
-            verileriSifirla();
+           //TODO sil//
         }else if(item.getItemId()==R.id.mnSiparisEkle) {
 
             intent = new Intent(MainActivity.this, SiparisGirmeEkrani.class);
@@ -212,9 +214,9 @@ public class MainActivity extends AppCompatActivity {
             siparis.setUcret(randomUcret);
             siparis.setSilindiMi(false);
             siparis.setSiparisNo(""+rdSiparisNo);
-            siparis.setKayitGunu(rdBugun);
-            siparis.setKayitAyi(rdBuAy);
-            siparis.setKayitYili(rdBuYil);
+            siparis.setKayitGunu(24);
+            siparis.setKayitAyi(6);
+            siparis.setKayitYili(2021);
             System.out.println("siparis olusturulma tarihi yil-ay-gun: "+rdBuYil+"-"+rdBuAy+"-"+rdBugun);
             db.siparisDao().insertSiparis(siparis);//siparisler db ye girdi
             if ((randomSurucu.equals("3")) && (rasgeleOdemeYontemi.equals("Nakit"))) {
@@ -284,28 +286,7 @@ public class MainActivity extends AppCompatActivity {
     //TODO: test icin acildi tekrar kapa*/
 
 
-    public void verileriSifirla() {
 
-        //kullaniciya emin olup olmadigi soruluyor
-        AlertDialog.Builder mAlert = new AlertDialog.Builder(this);
-        mAlert.setTitle("TUM SIPARISLER SILINECEK");
-        mAlert.setMessage("Tüm siparislerin silinmesini onayliyor musunuz? Bu islem geri alinamaz.");
-        mAlert.setPositiveButton("Onayliyorum", (dialog, which) -> {
-
-            AppDatabase db = AppDatabase.getDbInstance(MainActivity.this);
-            db.clearAllTables();
-            updateRecyclerView();
-
-            Toast.makeText(MainActivity.this, "Tüm siparisler silindi.", Toast.LENGTH_LONG).show();
-
-        });
-        mAlert.setNegativeButton("Vazgec", (dialog, which) -> {
-            //vazgecildigi icin hicbir islem yapilmiyor
-            Toast.makeText(MainActivity.this, "Hicbir veri silinmedi.", Toast.LENGTH_SHORT).show();
-        });
-        mAlert.show();
-
-    }
 
 
 }
