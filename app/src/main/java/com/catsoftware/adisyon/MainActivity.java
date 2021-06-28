@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     AppDatabase db;
     private TextView tvToplamSiparisSayisi;
     SharedPreferences sharedPref;
+    public static boolean isFirstRun =true;
+    public final String IS_FIRST_RUN = "IS_FIRST_RUN";
 
 
 
@@ -45,10 +47,11 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editorSharedPref = sharedPref.edit();
 
         //ilk kullanim olup olmadigi kontrol ediliyor
-        String IS_FIRST_RUN = "IS_FIRST_RUN";
+
         boolean isFirstRun = sharedPref.getBoolean(IS_FIRST_RUN, true);
         if(isFirstRun){//ilk kullanim
             System.out.println("uygulama ilk defa kullaniliyor");
+            isFirstRun=false;
             editorSharedPref.putBoolean(IS_FIRST_RUN, false);
             editorSharedPref.apply();//artik ilk kullanim degil
 
@@ -156,29 +159,35 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(MainActivity.this, silinmisSiparisler.class);
                 startActivity(intent);
         }
-        //TODO: test icin acildi tekrar kapa/* //TEST ICIN YAZILDI
+        /* //TEST ICIN YAZILDI
 
         else if(item.getItemId()==R.id.mnVeriTabaniniSisir){
             veritabaniniSisir();
         }
-        //TODO: test icin acildi tekrar kapa*/
+        */
 
 
         return super.onOptionsItemSelected(item);
     }
 
-    //TODO: test icin acildi tekrar kapa/*
+    /*TEST ICIN YAZILDI
 
 
 
 
     private void veritabaniniSisir() {//test icin yazildi
         db.clearAllTables();
+
+        //Zaman bilgileri aliniyor
+
+        Calendar c = Calendar.getInstance();
+        Date date = new Date();
+        c.setTime(date);
+        int bugun = c.get(Calendar.DAY_OF_MONTH);
+        int buAy = c.get(Calendar.MONTH) + 1;
+        int buYil = c.get(Calendar.YEAR);
+
         Random random = new Random();
-        
-
-
-
         db = AppDatabase.getDbInstance(this.getApplicationContext());
         double surucu3nakitToplami = 0;
         double surucu5kartToplami=0;
@@ -186,17 +195,15 @@ public class MainActivity extends AppCompatActivity {
 
             String rasgeleOdemeYontemi;
             if (random.nextInt(2) == 0) {
-                rasgeleOdemeYontemi = "Nakit";
+                rasgeleOdemeYontemi = "Bar";
             }else{
-                rasgeleOdemeYontemi="Kart";
+                rasgeleOdemeYontemi="Online";
             }
             int randomDakika=random.nextInt(60);
             int randomSaat=random.nextInt(24) + 1;
             String randomSurucu=""+(random.nextInt(10)+1);
             double randomUcret = random.nextInt(100)+1;
-            int rdBugun=random.nextInt(31)+1;
-            int rdBuAy=random.nextInt(12)+1;
-            int rdBuYil=random.nextInt(7)+2015;
+
             int rdSiparisNo=random.nextInt(100)+1;
 
 
@@ -208,20 +215,20 @@ public class MainActivity extends AppCompatActivity {
             siparis.setUcret(randomUcret);
             siparis.setSilindiMi(false);
             siparis.setSiparisNo(""+rdSiparisNo);
-            siparis.setKayitGunu(24);
-            siparis.setKayitAyi(6);
-            siparis.setKayitYili(2021);
-            System.out.println("siparis olusturulma tarihi yil-ay-gun: "+rdBuYil+"-"+rdBuAy+"-"+rdBugun);
+            siparis.setKayitGunu(bugun);
+            siparis.setKayitAyi(buAy);
+            siparis.setKayitYili(buYil);
+            System.out.println("siparis olusturulma tarihi yil-ay-gun: "+bugun+"-"+buAy+"-"+buYil);
             db.siparisDao().insertSiparis(siparis);//siparisler db ye girdi
-            if ((randomSurucu.equals("3")) && (rasgeleOdemeYontemi.equals("Nakit"))) {
+            if ((randomSurucu.equals("3")) && (rasgeleOdemeYontemi.equals("Bar"))) {
                 surucu3nakitToplami += randomUcret;
             }
-            if ((randomSurucu.equals("5")) && (rasgeleOdemeYontemi.equals("Kart"))) {
+            if ((randomSurucu.equals("5")) && (rasgeleOdemeYontemi.equals("Online"))) {
                 surucu5kartToplami += randomUcret;
             }
 
 
-            System.out.println(randomSaat+":"+randomDakika+" -> "+randomSurucu+" nolu surucu = "+randomUcret+" "+rasgeleOdemeYontemi);
+
 
 
 
@@ -233,9 +240,9 @@ public class MainActivity extends AppCompatActivity {
 
             String rasgeleOdemeYontemi;
             if (random.nextInt(2) == 0) {
-                rasgeleOdemeYontemi = "Nakit";
+                rasgeleOdemeYontemi = "Bar";
             }else{
-                rasgeleOdemeYontemi="Kart";
+                rasgeleOdemeYontemi="Online";
             }
             int randomDakika=random.nextInt(60);
             int randomSaat=random.nextInt(24) + 1;
@@ -261,10 +268,10 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("siparis olusturulma tarihi yil-ay-gun: "+rdBuYil+"-"+rdBuAy+"-"+rdBugun);
             db.siparisDao().insertSiparis(siparis);//siparisler db ye girdi
 
-            if ((randomSurucu.equals("3")) && (rasgeleOdemeYontemi.equals("Nakit"))) {
+            if ((randomSurucu.equals("3")) && (rasgeleOdemeYontemi.equals("Bar"))) {
                 surucu3nakitToplami += randomUcret;
             }
-            if ((randomSurucu.equals("5")) && (rasgeleOdemeYontemi.equals("Kart"))) {
+            if ((randomSurucu.equals("5")) && (rasgeleOdemeYontemi.equals("Online"))) {
                 surucu5kartToplami += randomUcret;
             }
 
@@ -277,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
 
         updateRecyclerView();
     }
-    //TODO: test icin acildi tekrar kapa*/
+    */
 
 
 

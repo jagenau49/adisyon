@@ -125,9 +125,9 @@ public class surucuHesapDokumu extends AppCompatActivity {
         double surucununCalismaUcreti = surucununToplamSaatlikGeliri+ surucununTeslimEttigiPaketSayisi;
 
         for (SiparisSatiri siparisSatir : listeSurucununSiparisleri) {
-            if (siparisSatir.getOdemeYontemi().equals("Kart")) {
+            if (siparisSatir.getOdemeYontemi().equals("Online")) {
                 surucudeToplananSiparisKartUcreti += siparisSatir.getUcret();
-            } else if (siparisSatir.getOdemeYontemi().equals("Nakit")) {
+            } else if (siparisSatir.getOdemeYontemi().equals("Bar")) {
                 surucudeToplananSiparisNakitUcreti += siparisSatir.getUcret();
             }
 
@@ -154,7 +154,7 @@ public class surucuHesapDokumu extends AppCompatActivity {
     private String calismaSaatiHesapla(int toplam10MinAdedi) {
         int toplamSaat = toplam10MinAdedi / 6;
         int toplamDakika = (toplam10MinAdedi % 6) * 10;
-        return (toplamSaat + " saat " + toplamDakika + " dakika");
+        return (toplamSaat + " Stunden " + toplamDakika + " Minuten");
 
     }
 

@@ -68,7 +68,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             String duzenlenecekSurucu=listIdDetay.get(0).getSurucu();
             String duzenlenecekOdemeYontemi=listIdDetay.get(0).getOdemeYontemi();
             int idOdemeYontemi;
-            if (duzenlenecekOdemeYontemi.equals("Nakit")){
+            if (duzenlenecekOdemeYontemi.equals("Bar")){
                 idOdemeYontemi=0;
             }else{
                 idOdemeYontemi=1;
@@ -77,7 +77,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             String duzenlenecekSiparisNo=listIdDetay.get(0).getSiparisNo();
 
             //layout nesneleri duzenlenecek verilere gore guncelleniyor
-            btSiparisKaydet.setText("Degisiklikleri Kaydet");
+            btSiparisKaydet.setText("Korrigieren");
             pickerSetDakika(picker,duzenlenecekDakika);
             pickerSetSaat(picker,duzenlenecekSaat);
             spSurucuNolari.setSelection(Integer.parseInt(duzenlenecekSurucu)-1);

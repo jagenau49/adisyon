@@ -80,18 +80,18 @@ public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilin
             btGeriAl.setOnClickListener(v -> {
                 //kullaniciya emin olup olmadigi soruluyor
                 AlertDialog.Builder mAlert = new AlertDialog.Builder(context);
-                mAlert.setTitle("SILINMIS SIPARIS GERI ALINACAK");
-                mAlert.setMessage("Sectiginiz siparisin tekrardan sürücünün hesabina eklenmesini onayliyor musunuz?");
-                mAlert.setPositiveButton("Onayliyorum", (dialog, which) -> {
+                mAlert.setTitle("Die stornierte Bestellung wird recycelt");
+                mAlert.setMessage("Sind Sie sicher");
+                mAlert.setPositiveButton("Bestätigen", (dialog, which) -> {
 
                     silinmisiGeriAl(siparisId);
 
                     notifyDataSetChanged();
                     anaListeyiGuncelle();
 
-                    Toast.makeText(context, "Siparis sürücünün hesabina yeniden eklendi.", Toast.LENGTH_LONG).show();
 
-                }).setNegativeButton("Vazgec", (dialog, which) -> {
+
+                }).setNegativeButton("Abbruch", (dialog, which) -> {
 
                 });
 
@@ -117,7 +117,7 @@ public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilin
         public void setData(SiparisSatiri tiklanilanSiparis, int position) {
             this.tvUcret.setText(tiklanilanSiparis.getUcret().toString() + " €");
             this.tvOdemeYontemi.setText(tiklanilanSiparis.getOdemeYontemi());
-            this.tvSurucuNo.setText(tiklanilanSiparis.getSurucu() + " nolu sürücü");
+            this.tvSurucuNo.setText(tiklanilanSiparis.getSurucu() + ".Fahrer");
             this.tvSaatDakika.setText(ikiHaneliOlsun(tiklanilanSiparis.getSaat()) + ":" + ikiHaneliOlsun(tiklanilanSiparis.getDakika()));
             siparisId = tiklanilanSiparis.getsId();
             tiklanilanPosition = position;

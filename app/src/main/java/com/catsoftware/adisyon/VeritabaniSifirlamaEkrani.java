@@ -53,9 +53,9 @@ public class VeritabaniSifirlamaEkrani extends AppCompatActivity {
 
         //kullaniciya emin olup olmadigi soruluyor
         AlertDialog.Builder mAlert = new AlertDialog.Builder(this);
-        mAlert.setTitle("TUM SIPARISLER SILINECEK");
-        mAlert.setMessage("Tüm siparislerin silinmesini onayliyor musunuz? Bu islem geri alinamaz.");
-        mAlert.setPositiveButton("Onayliyorum", (dialog, which) -> {
+        mAlert.setTitle("Alle Daten werden gelöscht?");
+        mAlert.setMessage("Sind Sie sicher? Diese Transaktion kann nicht rückgängig gemacht werden.");
+        mAlert.setPositiveButton("Ja", (dialog, which) -> {
 
             AppDatabase db = AppDatabase.getDbInstance(this);
             db.clearAllTables();
@@ -63,12 +63,12 @@ public class VeritabaniSifirlamaEkrani extends AppCompatActivity {
             startActivity(intent);
 
 
-            Toast.makeText(this, "Tüm siparisler silindi.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Alle daten wurden gelöscht.", Toast.LENGTH_LONG).show();
             finish();
         });
-        mAlert.setNegativeButton("Vazgec", (dialog, which) -> {
+        mAlert.setNegativeButton("Abbruch", (dialog, which) -> {
             //vazgecildigi icin hicbir islem yapilmiyor
-            Toast.makeText(this, "Hicbir veri silinmedi.", Toast.LENGTH_SHORT).show();
+
             finish();
         });
         mAlert.show();

@@ -91,9 +91,9 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
                 /////////////////
                 //kullaniciya emin olup olmadigi soruluyor
                 AlertDialog.Builder mAlert = new AlertDialog.Builder(context);
-                mAlert.setTitle("SIPARIS SILINECEK");
-                mAlert.setMessage("Sectiginiz siparisin silinmesini onayliyor musunuz?");
-                mAlert.setPositiveButton("Onayliyorum", (dialog, which) -> {
+                mAlert.setTitle("Die Bestellung wird gelöscht!");
+                mAlert.setMessage("Sind Sie sicher?");
+                mAlert.setPositiveButton("Bestätigen", (dialog, which) -> {
                     siparisSil(siparisId);
                     if (className.equals(MainActivity.class.getName())) {
                         anaListeyiGuncelle();
@@ -105,12 +105,12 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
                     }
 
 
-                    Toast.makeText(context, "Siparis silindi.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Die Bestellung wurde storniert.", Toast.LENGTH_LONG).show();
 
                 });
-                mAlert.setNegativeButton("Vazgec", (dialog, which) -> {
+                mAlert.setNegativeButton("Abbruch", (dialog, which) -> {
                     //vazgecildigi icin hicbir islem yapilmiyor
-                    Toast.makeText(context, "Hicbir veri silinmedi.", Toast.LENGTH_SHORT).show();
+
                 });
                 mAlert.show();
 
@@ -148,7 +148,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
         public void setData(SiparisSatiri tiklanilanSiparis, int position) {
             this.tvUcret.setText(tiklanilanSiparis.getUcret().toString() + " €");
             this.tvOdemeYontemi.setText(tiklanilanSiparis.getOdemeYontemi());
-            this.tvSurucuNo.setText(tiklanilanSiparis.getSurucu() + " nolu sürücü");
+            this.tvSurucuNo.setText(tiklanilanSiparis.getSurucu() + " .Fahrer");
             this.tvSiparisNo.setText(tiklanilanSiparis.getSiparisNo());
             this.tvSaatDakika.setText(ikiHaneliOlsun(tiklanilanSiparis.getSaat()) + ":" + ikiHaneliOlsun(tiklanilanSiparis.getDakika()));
             siparisId = tiklanilanSiparis.getsId();
