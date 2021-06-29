@@ -14,7 +14,6 @@
         android:padding="7dp">
 
         <TextView
-            android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="7dp"
@@ -28,14 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="8dp"
-            android:text="97" />
+            android:text="@string/_97" />
 
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Adet" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

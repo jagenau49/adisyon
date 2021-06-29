@@ -28,11 +28,29 @@ public class SiparisSatiri implements java.io.Serializable {
     @ColumnInfo(name = "ucret")
     public Double ucret;
 
-
-
     @ColumnInfo(name="silindiMi")
     public boolean silindiMi;
 
+    @ColumnInfo(name="kayitGunu")
+    public int kayitGunu;
+
+    @ColumnInfo(name="kayitAyi")
+    public int kayitAyi;
+
+    @ColumnInfo(name="kayitYili")
+    public int kayitYili;
+
+    public void setKayitYili(int kayitYili) {
+        this.kayitYili = kayitYili;
+    }
+
+    public void setKayitGunu(int kayitGunu) {
+        this.kayitGunu = kayitGunu;
+    }
+
+    public void setKayitAyi(int kayitAyi) {
+        this.kayitAyi = kayitAyi;
+    }
 
     public int getsId() {
         return sId;
@@ -76,9 +94,6 @@ public class SiparisSatiri implements java.io.Serializable {
 
     public void setUcret(Double ucret) {
         this.ucret = ucret;
-    }
-    public boolean getSilindiMi() {
-        return silindiMi;
     }
 
     public void setSilindiMi(boolean silindiMi) {

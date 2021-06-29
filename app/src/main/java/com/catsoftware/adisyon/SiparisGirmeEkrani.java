@@ -16,7 +16,11 @@ import android.widget.Toast;
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.SiparisSatiri;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
+import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
 
 public class SiparisGirmeEkrani extends AppCompatActivity {
     AppDatabase db;
@@ -28,6 +32,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_siparis_girme_ekrani);
+
 
         db=AppDatabase.getDbInstance(this.getApplicationContext());//veritabani baglaniyor
 
@@ -55,6 +60,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
         spOdemeYontemi.setAdapter(adapterOdemeYontemi);
 
         if (duzenlemeMi) {//duzenleme yapmak icin acildiysa
+           deleteOldOrders(SiparisGirmeEkrani.this);
         //duzenlenecek siparisin verileri cekiliyor
             List<SiparisSatiri> listIdDetay= db.siparisDao().siparisDetayGetir(duzenlenecekSiparisId);
             int duzenlenecekSaat=listIdDetay.get(0).getSaat();
@@ -62,7 +68,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             String duzenlenecekSurucu=listIdDetay.get(0).getSurucu();
             String duzenlenecekOdemeYontemi=listIdDetay.get(0).getOdemeYontemi();
             int idOdemeYontemi;
-            if (duzenlenecekOdemeYontemi.equals("Nakit")){
+            if (duzenlenecekOdemeYontemi.equals("Bar")){
                 idOdemeYontemi=0;
             }else{
                 idOdemeYontemi=1;
@@ -71,7 +77,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             String duzenlenecekSiparisNo=listIdDetay.get(0).getSiparisNo();
 
             //layout nesneleri duzenlenecek verilere gore guncelleniyor
-            btSiparisKaydet.setText("Degisiklikleri Kaydet");
+            btSiparisKaydet.setText("Korrigieren");
             pickerSetDakika(picker,duzenlenecekDakika);
             pickerSetSaat(picker,duzenlenecekSaat);
             spSurucuNolari.setSelection(Integer.parseInt(duzenlenecekSurucu)-1);
@@ -100,6 +106,13 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
+
     public int pickerGetSaat(TimePicker timePicker){
         if (Build.VERSION.SDK_INT >= 23 ){
             return timePicker.getHour();
@@ -158,7 +171,18 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             Toast.makeText(SiparisGirmeEkrani.this,"Siparisiniz kaydedilemedi! Lütfen eksik bilgileri giriniz.",Toast.LENGTH_LONG).show();
         }else{//tüm bilgiler girilmis
             double ucret=Double.parseDouble(stUcret);//ucret islemlerde kullanilabilmek icin double a cevriliyor
+
+            //Zaman bilgileri aliniyor
+            Calendar c = Calendar.getInstance();
+            Date date=new Date();
+            c.setTime(date);
+            int bugun= c.get(Calendar.DAY_OF_MONTH);
+            int buAy=c.get(Calendar.MONTH)+1;
+            int buYil=c.get(Calendar.YEAR);
+
             db = AppDatabase.getDbInstance(this.getApplicationContext());
+
+
             SiparisSatiri siparis = new SiparisSatiri();
             siparis.setDakika(dakika);
             siparis.setSaat(saat);
@@ -167,6 +191,10 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             siparis.setUcret(ucret);
             siparis.setSilindiMi(false);
             siparis.setSiparisNo(siparisNo);
+            siparis.setKayitGunu(bugun);
+            siparis.setKayitAyi(buAy);
+            siparis.setKayitYili(buYil);
+            System.out.println("siparis olusturulma tarihi yil-ay-gun: "+buYil+"-"+buAy+"-"+bugun);
 if(duzenlemeMi){//tablodaki veri duzeltilecek
     db.siparisDao().guncelleSiparis(duzenlenecekSiparisId,saat,dakika,surucuNo,odemeYontemi,ucret,siparisNo);
 }else {//tabloya yeni veri eklenecek

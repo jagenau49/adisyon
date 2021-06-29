@@ -1,7 +1,6 @@
 package com.catsoftware.adisyon;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,16 +12,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.SiparisSatiri;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
+import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,8 +28,11 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     AppDatabase db;
-    private int toplamSiparisAdedi;
     private TextView tvToplamSiparisSayisi;
+    SharedPreferences sharedPref;
+    public static boolean isFirstRun =true;
+    public final String IS_FIRST_RUN = "IS_FIRST_RUN";
+
 
 
     @Override
@@ -40,9 +41,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         db = AppDatabase.getDbInstance(this.getApplicationContext());//veritabani baglaniyor
         tvToplamSiparisSayisi=findViewById(R.id.tvToplamSiparisSayisi);
+
         //sharedPreferences ayarlari yapiliyor
-        SharedPreferences sharedPref = this.getSharedPreferences(this.getPackageName(), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
+         sharedPref = this.getSharedPreferences(this.getPackageName(), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorSharedPref = sharedPref.edit();
+
+        //ilk kullanim olup olmadigi kontrol ediliyor
+
+        boolean isFirstRun = sharedPref.getBoolean(IS_FIRST_RUN, true);
+        if(isFirstRun){//ilk kullanim
+            System.out.println("uygulama ilk defa kullaniliyor");
+            isFirstRun=false;
+            editorSharedPref.putBoolean(IS_FIRST_RUN, false);
+            editorSharedPref.apply();//artik ilk kullanim degil
+
+        }else {//daha once kullanilmis
+        deleteOldOrders(this);
+
+
+        }
+
+
+        //son kullanim bilgileri kontrol ediliyor
 
 
 
@@ -53,14 +73,46 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+       updateRecyclerView();
+    }
+
+    public static void deleteOldOrders(Context context) {
+        //Zaman bilgileri aliniyor
+
+        Calendar c = Calendar.getInstance();
+        Date date = new Date();
+        c.setTime(date);
+        int bugun = c.get(Calendar.DAY_OF_MONTH);
+        int buAy = c.get(Calendar.MONTH) + 1;
+        int buYil = c.get(Calendar.YEAR);
+
+        //database processes
+        AppDatabase db = AppDatabase.getDbInstance(context);
+        int beforeDeleteCountOfOldOrders = db.siparisDao().getCountOldOrders(buYil, buAy, bugun);// get the counts before delete
+        db.siparisDao().deleteOldYear(buYil);
+        db.siparisDao().deleteOldMonth(buAy);
+        db.siparisDao().deleteOldDay(bugun);
+        int afterDeleteCountOfOldOrders = db.siparisDao().getCountOldOrders(buYil, buAy, bugun);// get the counts after delete
+
+        if (afterDeleteCountOfOldOrders < beforeDeleteCountOfOldOrders) {
+            System.out.println("Silinmis toplam kayit sayisi : " +(beforeDeleteCountOfOldOrders-afterDeleteCountOfOldOrders) );
+
+        }
+    }
+
+
     public void updateRecyclerView(){
         SiparisAdapter siparisAdapter = new SiparisAdapter(this, loadSiparisList(), getClass().getName());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setAdapter(siparisAdapter);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        toplamSiparisAdedi=loadSiparisList().size();
-        tvToplamSiparisSayisi.setText(""+toplamSiparisAdedi);
+        int toplamSiparisAdedi = loadSiparisList().size();
+        tvToplamSiparisSayisi.setText(""+ toplamSiparisAdedi);
 
     }
 
@@ -72,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private List<SiparisSatiri> loadSiparisList() {
-
+        deleteOldOrders(this);
         return db.siparisDao().siparisleriGetir(false);
 
     }
@@ -90,8 +142,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
         if(item.getItemId()==R.id.mnSifirla) {
+            intent = new Intent(MainActivity.this, VeritabaniSifirlamaEkrani.class);
+            startActivity(intent);
 
-            verileriSifirla();
+           //TODO sil//
         }else if(item.getItemId()==R.id.mnSiparisEkle) {
 
             intent = new Intent(MainActivity.this, SiparisGirmeEkrani.class);
@@ -108,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         /* //TEST ICIN YAZILDI
 
         else if(item.getItemId()==R.id.mnVeriTabaniniSisir){
-
+            veritabaniniSisir();
         }
         */
 
@@ -116,28 +170,42 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*private void veritabaniniSisir() {//test icin yazildi
+    /*TEST ICIN YAZILDI
+
+
+
+
+    private void veritabaniniSisir() {//test icin yazildi
         db.clearAllTables();
+
+        //Zaman bilgileri aliniyor
+
+        Calendar c = Calendar.getInstance();
+        Date date = new Date();
+        c.setTime(date);
+        int bugun = c.get(Calendar.DAY_OF_MONTH);
+        int buAy = c.get(Calendar.MONTH) + 1;
+        int buYil = c.get(Calendar.YEAR);
+
         Random random = new Random();
-        
-
-
-
         db = AppDatabase.getDbInstance(this.getApplicationContext());
         double surucu3nakitToplami = 0;
         double surucu5kartToplami=0;
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {// güncel tarihli veriler
 
             String rasgeleOdemeYontemi;
             if (random.nextInt(2) == 0) {
-                rasgeleOdemeYontemi = "Nakit";
+                rasgeleOdemeYontemi = "Bar";
             }else{
-                rasgeleOdemeYontemi="Kart";
+                rasgeleOdemeYontemi="Online";
             }
             int randomDakika=random.nextInt(60);
             int randomSaat=random.nextInt(24) + 1;
             String randomSurucu=""+(random.nextInt(10)+1);
             double randomUcret = random.nextInt(100)+1;
+
+            int rdSiparisNo=random.nextInt(100)+1;
+
 
             SiparisSatiri siparis = new SiparisSatiri();
             siparis.setDakika(randomDakika);
@@ -146,11 +214,64 @@ public class MainActivity extends AppCompatActivity {
             siparis.setOdemeYontemi(rasgeleOdemeYontemi);
             siparis.setUcret(randomUcret);
             siparis.setSilindiMi(false);
+            siparis.setSiparisNo(""+rdSiparisNo);
+            siparis.setKayitGunu(bugun);
+            siparis.setKayitAyi(buAy);
+            siparis.setKayitYili(buYil);
+            System.out.println("siparis olusturulma tarihi yil-ay-gun: "+bugun+"-"+buAy+"-"+buYil);
             db.siparisDao().insertSiparis(siparis);//siparisler db ye girdi
-            if ((randomSurucu.equals("3")) && (rasgeleOdemeYontemi.equals("Nakit"))) {
+            if ((randomSurucu.equals("3")) && (rasgeleOdemeYontemi.equals("Bar"))) {
                 surucu3nakitToplami += randomUcret;
             }
-            if ((randomSurucu.equals("5")) && (rasgeleOdemeYontemi.equals("Kart"))) {
+            if ((randomSurucu.equals("5")) && (rasgeleOdemeYontemi.equals("Online"))) {
+                surucu5kartToplami += randomUcret;
+            }
+
+
+
+
+
+
+        }
+        System.out.println("3.surucu nakit toplami: " + surucu3nakitToplami);
+        System.out.println("5.surucu kart toplami: " + surucu5kartToplami);
+
+        for (int i = 0; i < 100; i++) {//rasgele tarihli veriler
+
+            String rasgeleOdemeYontemi;
+            if (random.nextInt(2) == 0) {
+                rasgeleOdemeYontemi = "Bar";
+            }else{
+                rasgeleOdemeYontemi="Online";
+            }
+            int randomDakika=random.nextInt(60);
+            int randomSaat=random.nextInt(24) + 1;
+            String randomSurucu=""+(random.nextInt(10)+1);
+            double randomUcret = random.nextInt(100)+1;
+            int rdBugun=random.nextInt(2)+23;
+            int rdBuAy=random.nextInt(12)+1;
+            int rdBuYil=random.nextInt(7)+2015;
+            int rdSiparisNo=random.nextInt(100)+1;
+
+
+            SiparisSatiri siparis = new SiparisSatiri();
+            siparis.setDakika(randomDakika);
+            siparis.setSaat(randomSaat);
+            siparis.setSurucu(randomSurucu);
+            siparis.setOdemeYontemi(rasgeleOdemeYontemi);
+            siparis.setUcret(randomUcret);
+            siparis.setSilindiMi(false);
+            siparis.setSiparisNo(""+rdSiparisNo);
+            siparis.setKayitGunu(rdBugun);
+            siparis.setKayitAyi(6);//rdBuAy);
+            siparis.setKayitYili(2021);//rdBuYil);
+            System.out.println("siparis olusturulma tarihi yil-ay-gun: "+rdBuYil+"-"+rdBuAy+"-"+rdBugun);
+            db.siparisDao().insertSiparis(siparis);//siparisler db ye girdi
+
+            if ((randomSurucu.equals("3")) && (rasgeleOdemeYontemi.equals("Bar"))) {
+                surucu3nakitToplami += randomUcret;
+            }
+            if ((randomSurucu.equals("5")) && (rasgeleOdemeYontemi.equals("Online"))) {
                 surucu5kartToplami += randomUcret;
             }
 
@@ -160,34 +281,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
-        System.out.println("3.surucu nakit toplami: " + surucu3nakitToplami);
-        System.out.println("5.surucu kart toplami: " + surucu5kartToplami);
+
         updateRecyclerView();
-    }*/
-
-
-    public void verileriSifirla() {
-
-        //kullaniciya emin olup olmadigi soruluyor
-        AlertDialog.Builder mAlert = new AlertDialog.Builder(this);
-        mAlert.setTitle("TUM SIPARISLER SILINECEK");
-        mAlert.setMessage("Tüm siparislerin silinmesini onayliyor musunuz? Bu islem geri alinamaz.");
-        mAlert.setPositiveButton("Onayliyorum", (dialog, which) -> {
-
-            AppDatabase db = AppDatabase.getDbInstance(MainActivity.this);
-            db.clearAllTables();
-            updateRecyclerView();
-
-            Toast.makeText(MainActivity.this, "Tüm siparisler silindi.", Toast.LENGTH_LONG).show();
-
-        });
-        mAlert.setNegativeButton("Vazgec", (dialog, which) -> {
-            //vazgecildigi icin hicbir islem yapilmiyor
-            Toast.makeText(MainActivity.this, "Hicbir veri silinmedi.", Toast.LENGTH_SHORT).show();
-        });
-        mAlert.show();
-
     }
+    */
+
+
+
 
 
 }

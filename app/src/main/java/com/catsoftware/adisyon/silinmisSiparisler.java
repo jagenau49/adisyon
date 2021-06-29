@@ -13,6 +13,8 @@ import com.catsoftware.adisyon.db.SiparisSatiri;
 
 import java.util.List;
 
+import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
+
 public class silinmisSiparisler extends AppCompatActivity {
     AppDatabase db;
     RecyclerView recyclerView;
@@ -21,6 +23,7 @@ public class silinmisSiparisler extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_silinmis_siparisler);
+
 
         db= AppDatabase.getDbInstance(this.getApplicationContext());//veritabani baglaniyor
 
@@ -37,9 +40,16 @@ public class silinmisSiparisler extends AppCompatActivity {
         recyclerView.setAdapter(siparisAdapter);
 
     }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
+        Intent intent=new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
 
     private List<SiparisSatiri> getSilinmisSiparislerListesi() {
-
+        deleteOldOrders(silinmisSiparisler.this);
         return db.siparisDao().siparisleriGetir(true);
 
     }

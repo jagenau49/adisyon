@@ -3,13 +3,10 @@ package com.catsoftware.adisyon;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -18,16 +15,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.SiparisSatiri;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
 
 public class surucuHesapDokumu extends AppCompatActivity {
     public static final String SORGU_SONUCU_LISTESI="SORGU_SONUCU_LISTESI";
@@ -49,13 +46,13 @@ public class surucuHesapDokumu extends AppCompatActivity {
     LinearLayout linlayHesapSonuclari;
     AppDatabase db;
     List<SiparisSatiri> listeSurucununSiparisleri;
-    private String sorgulanmisSurucuNo;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_surucu_hesap_dokumu);
+
 
         db = AppDatabase.getDbInstance(this.getApplicationContext());//veritabani baglaniyor
 
@@ -88,12 +85,7 @@ public class surucuHesapDokumu extends AppCompatActivity {
 
         //butonlara fonksiyon veriliyor
         btGeriDon.setOnClickListener(v -> anaEkranaGit());
-        btPaketlerinDetaylariniGoster.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sorgulananSurucununPaketLeriniGoster();
-            }
-        });
+        btPaketlerinDetaylariniGoster.setOnClickListener(v -> sorgulananSurucununPaketLeriniGoster());
 
         btHesapla.setOnClickListener(v -> {
 
@@ -117,22 +109,25 @@ public class surucuHesapDokumu extends AppCompatActivity {
 
     }
 
+
+
     private void odemeHesapla(String surucuNo, int saatIseBaslama, int dakikaIseBaslama, int saatIsiBitirme, int dakikaIsiBitirme, double surucuSaatlikUcret) {//
+        deleteOldOrders(surucuHesapDokumu.this);
         statikSurucuNo=surucuNo;
          listeSurucununSiparisleri = db.siparisDao().surucununSiparisleriniGetir(surucuNo, false);
         int surucununSiparisSayisi = listeSurucununSiparisleri.size();
         System.out.println("" + surucuNo + ".surucunun siparis sayisi : " + surucununSiparisSayisi);
-        int surucudeToplananSiparisNakitUcreti = 0;
-        int surucudeToplananSiparisKartUcreti = 0;
+        double surucudeToplananSiparisNakitUcreti = 0.0;
+        double surucudeToplananSiparisKartUcreti = 0.0;
         int surucuToplamCalisma10min = sure10MinHesapla(saatIseBaslama, dakikaIseBaslama, saatIsiBitirme, dakikaIsiBitirme);
         int surucununTeslimEttigiPaketSayisi = listeSurucununSiparisleri.size();
         double surucununToplamSaatlikGeliri=((surucuSaatlikUcret / 6.0) * surucuToplamCalisma10min);
         double surucununCalismaUcreti = surucununToplamSaatlikGeliri+ surucununTeslimEttigiPaketSayisi;
 
         for (SiparisSatiri siparisSatir : listeSurucununSiparisleri) {
-            if (siparisSatir.getOdemeYontemi().equals("Kart")) {
+            if (siparisSatir.getOdemeYontemi().equals("Online")) {
                 surucudeToplananSiparisKartUcreti += siparisSatir.getUcret();
-            } else if (siparisSatir.getOdemeYontemi().equals("Nakit")) {
+            } else if (siparisSatir.getOdemeYontemi().equals("Bar")) {
                 surucudeToplananSiparisNakitUcreti += siparisSatir.getUcret();
             }
 
@@ -159,7 +154,7 @@ public class surucuHesapDokumu extends AppCompatActivity {
     private String calismaSaatiHesapla(int toplam10MinAdedi) {
         int toplamSaat = toplam10MinAdedi / 6;
         int toplamDakika = (toplam10MinAdedi % 6) * 10;
-        return (toplamSaat + " saat " + toplamDakika + " dakika");
+        return (toplamSaat + " Stunden " + toplamDakika + " Minuten");
 
     }
 
@@ -179,25 +174,20 @@ public class surucuHesapDokumu extends AppCompatActivity {
 
         // Launch Time Picker Dialog
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                new TimePickerDialog.OnTimeSetListener() {
-
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay,
-                                          int minute) {
-                        if (view.getId() == R.id.btIseBaslamaSaatiSec) {
-                            ((TextView) tvIseBaslamaSaati).setText(SiparisAdapter.ikiHaneliOlsun(hourOfDay) + ":" + SiparisAdapter.ikiHaneliOlsun(minute));
-                            ((TextView) tvIseBaslamaSaati).setVisibility(View.VISIBLE);
-                            saatIseBaslama = hourOfDay;
-                            dakikaIseBaslama = minute;
-                        } else if (view.getId() == R.id.btIsiBitirmeSaatiSec) {
-                            ((TextView) tvIsiBitirmeSaati).setText(SiparisAdapter.ikiHaneliOlsun(hourOfDay) + ":" + SiparisAdapter.ikiHaneliOlsun(minute));
-                            ((TextView) tvIsiBitirmeSaati).setVisibility(View.VISIBLE);
-                            saatIsiBitirme = hourOfDay;
-                            dakikaIsiBitirme = minute;
-                        }
-
-
+                (timePicker, hourOfDay, minute) -> {
+                    if (view.getId() == R.id.btIseBaslamaSaatiSec) {
+                        ((TextView) tvIseBaslamaSaati).setText(SiparisAdapter.ikiHaneliOlsun(hourOfDay) + ":" + SiparisAdapter.ikiHaneliOlsun(minute));
+                        ((TextView) tvIseBaslamaSaati).setVisibility(View.VISIBLE);
+                        saatIseBaslama = hourOfDay;
+                        dakikaIseBaslama = minute;
+                    } else if (view.getId() == R.id.btIsiBitirmeSaatiSec) {
+                        ((TextView) tvIsiBitirmeSaati).setText(SiparisAdapter.ikiHaneliOlsun(hourOfDay) + ":" + SiparisAdapter.ikiHaneliOlsun(minute));
+                        ((TextView) tvIsiBitirmeSaati).setVisibility(View.VISIBLE);
+                        saatIsiBitirme = hourOfDay;
+                        dakikaIsiBitirme = minute;
                     }
+
+
                 }, mHour, mMinute, true);
         timePickerDialog.show();
     }

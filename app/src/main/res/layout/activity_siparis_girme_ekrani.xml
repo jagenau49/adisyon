@@ -19,45 +19,51 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        android:layout_marginStart="133dp"
         android:layout_marginEnd="8dp"
         android:text="@string/surucu_no"
         android:textColor="#050505"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/spSurucuNo"
         app:layout_constraintEnd_toStartOf="@+id/spSurucuNo"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/spSurucuNo" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Siparis No :"
+        android:text="@string/siparis_no"
         android:textColor="#050505"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/etSiparisNo"
         app:layout_constraintEnd_toStartOf="@+id/etSiparisNo"
+        app:layout_constraintHorizontal_bias="0.92"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/etSiparisNo" />
 
     <TextView
-        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:layout_marginEnd="8dp"
         android:text="@string/tutar"
         android:textColor="#050505"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/etUcret"
         app:layout_constraintEnd_toStartOf="@+id/etUcret"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/etUcret"
         app:layout_constraintVertical_bias="0.476" />
 
@@ -104,7 +110,7 @@
 
         android:layout_marginTop="24dp"
 
-        android:hint="0000"
+        android:hint="@string/_0000"
         android:inputType="none|number"
         android:maxLength="4"
         android:textSize="24sp"
@@ -112,21 +118,21 @@
         app:layout_constraintTop_toBottomOf="@+id/timePicker1" />
 
     <TextView
-        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:layout_marginEnd="8dp"
         android:text="@string/odeme_yontemi"
         android:textColor="#050505"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/spOdemeYontemi"
         app:layout_constraintEnd_toStartOf="@+id/spOdemeYontemi"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/spOdemeYontemi" />
 
     <TextView
-        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/euro_symbol"
@@ -137,14 +143,13 @@
         app:layout_constraintTop_toTopOf="@+id/etUcret" />
 
     <TextView
-        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:layout_marginEnd="8dp"
         android:text="@string/saat"
         android:textColor="#050505"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/timePicker1"
         app:layout_constraintEnd_toStartOf="@+id/timePicker1"

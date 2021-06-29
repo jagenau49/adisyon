@@ -3,21 +3,18 @@
     package="com.catsoftware.adisyon">
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Adisyon">
-        <activity android:name=".surucununPaketDetaylari"></activity>
+        <activity android:name=".VeritabaniSifirlamaEkrani" />
+        <activity android:name=".surucununPaketDetaylari" />
         <activity android:name=".silinmisSiparisler" />
         <activity android:name=".surucuHesapDokumu" />
-        <activity
-            android:name=".SiparisGirmeEkrani"
-            android:noHistory="true" /> <!-- ana ekrandan geri gelme etkisizlestirildi -->
-        <activity
-            android:name=".MainActivity"
-            android:noHistory="true">
+        <activity android:name=".SiparisGirmeEkrani" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

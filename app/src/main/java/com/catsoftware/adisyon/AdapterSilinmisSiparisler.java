@@ -1,7 +1,6 @@
 package com.catsoftware.adisyon;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.SiparisSatiri;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.DecimalFormat;
 import java.util.List;
+
+import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
 
 public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilinmisSiparisler.MyViewHolder> {
 
@@ -36,7 +39,7 @@ public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilin
 
 
     @Override
-    public AdapterSilinmisSiparisler.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AdapterSilinmisSiparisler.@NotNull MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         db = AppDatabase.getDbInstance(parent.getContext());
         View v= layoutInflater.inflate(R.layout.list_item_geri_alinabilir, parent, false);
         return new MyViewHolder(v);
@@ -77,25 +80,19 @@ public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilin
             btGeriAl.setOnClickListener(v -> {
                 //kullaniciya emin olup olmadigi soruluyor
                 AlertDialog.Builder mAlert = new AlertDialog.Builder(context);
-                mAlert.setTitle("SILINMIS SIPARIS GERI ALINACAK");
-                mAlert.setMessage("Sectiginiz siparisin tekrardan sürücünün hesabina eklenmesini onayliyor musunuz?");
-                mAlert.setPositiveButton("Onayliyorum", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                mAlert.setTitle("Die stornierte Bestellung wird recycelt");
+                mAlert.setMessage("Sind Sie sicher");
+                mAlert.setPositiveButton("Bestätigen", (dialog, which) -> {
 
-                        silinmisiGeriAl(siparisId);
+                    silinmisiGeriAl(siparisId);
 
-                        notifyDataSetChanged();
-                        anaListeyiGuncelle();
+                    notifyDataSetChanged();
+                    anaListeyiGuncelle();
 
-                        Toast.makeText(context, "Siparis sürücünün hesabina yeniden eklendi.", Toast.LENGTH_LONG).show();
 
-                    }
-                }).setNegativeButton("Vazgec", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
 
-                    }
+                }).setNegativeButton("Abbruch", (dialog, which) -> {
+
                 });
 
                 mAlert.show();
@@ -107,6 +104,7 @@ public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilin
         }
 
         private void anaListeyiGuncelle() {
+            deleteOldOrders(context);
             mDataList = db.siparisDao().siparisleriGetir(true);
         }
 
@@ -119,7 +117,7 @@ public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilin
         public void setData(SiparisSatiri tiklanilanSiparis, int position) {
             this.tvUcret.setText(tiklanilanSiparis.getUcret().toString() + " €");
             this.tvOdemeYontemi.setText(tiklanilanSiparis.getOdemeYontemi());
-            this.tvSurucuNo.setText(tiklanilanSiparis.getSurucu() + " nolu sürücü");
+            this.tvSurucuNo.setText(tiklanilanSiparis.getSurucu() + ".Fahrer");
             this.tvSaatDakika.setText(ikiHaneliOlsun(tiklanilanSiparis.getSaat()) + ":" + ikiHaneliOlsun(tiklanilanSiparis.getDakika()));
             siparisId = tiklanilanSiparis.getsId();
             tiklanilanPosition = position;

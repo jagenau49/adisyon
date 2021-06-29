@@ -20,13 +20,24 @@ public interface SiparisDao {
     List<SiparisSatiri> surucununSiparisleriniGetir(String surucu, boolean silinmisMi); //id ye ait siparis detaylarini donduruyor
 
 
-    @Query("SELECT * FROM siparislerTablosu WHERE sId IN (:sIds)")
-    List<SiparisSatiri> loadAllByIds(int[] sIds);
     @Query("UPDATE siparislerTablosu SET saat=:saat, dakika=:dakika, surucu=:surucu, odemeYontemi=:odemeYontemi, ucret=:ucret, siparisNo=:siparisNo WHERE sId=:duzenlenecekSiparisId")
     void guncelleSiparis(int duzenlenecekSiparisId, int saat, int dakika, String surucu, String odemeYontemi, double ucret, String siparisNo);//siparisi gelen verilerle guncelliyor
 
 
-    @Query("UPDATE siparislerTablosu SET silindiMi=:silinmisMi WHERE sId=:sId") void setSilindiMi(int sId, boolean silinmisMi);//siparisi silindi olarak isaretliyor
+    @Query("UPDATE siparislerTablosu SET silindiMi=:silinmisMi WHERE sId=:sId")
+    void setSilindiMi(int sId, boolean silinmisMi);//siparisi silindi olarak isaretliyor
+
+    @Query("SELECT COUNT(sId) FROM siparislerTablosu WHERE  kayitYili!=:kayitYili OR kayitAyi!=:kayitAyi OR  kayitGunu!=:kayitGunu")
+    int getCountOldOrders(int kayitYili, int kayitAyi, int kayitGunu);
+
+    @Query("DELETE FROM siparislerTablosu WHERE kayitYili!=:kayitYili")
+    void deleteOldYear(int kayitYili);//eski yila ait kayitlar siliniyor
+
+    @Query("DELETE FROM siparislerTablosu WHERE kayitAyi!=:kayitAyi")
+    void deleteOldMonth(int kayitAyi);//eski aya ait kayitlar siliniyor
+
+    @Query("DELETE FROM siparislerTablosu WHERE kayitGunu!=:kayitGunu")
+    void deleteOldDay(int kayitGunu);//eski gune ait kayitlar siliniyor
 
 
 

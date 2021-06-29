@@ -13,7 +13,7 @@
         <item>10</item>
     </string-array>
     <string-array name="odeme_yontemi">
-        <item>Nakit</item>
-        <item>Kart</item>
+        <item>Bar</item>
+        <item>Online</item>
     </string-array>
 </resources>

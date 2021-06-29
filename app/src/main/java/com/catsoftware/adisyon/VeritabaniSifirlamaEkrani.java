@@ -1,0 +1,83 @@
+package com.catsoftware.adisyon;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.catsoftware.adisyon.db.AppDatabase;
+
+import java.util.Random;
+
+public class VeritabaniSifirlamaEkrani extends AppCompatActivity {
+    TextView  tvSayi1,tvSayi2;
+    EditText etIslemSonucu;
+    Button btSilmeyiOnayla, btSilmektenVazgec;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_veritabani_sifirlama_ekrani);
+
+        //Layout views assigned
+        tvSayi1=findViewById(R.id.tvSayi1);
+        tvSayi2=findViewById(R.id.tvSayi2);
+        etIslemSonucu=findViewById(R.id.etIslemSonucu);
+        btSilmeyiOnayla=findViewById(R.id.btSilmeyiOnayla);
+        btSilmektenVazgec=findViewById(R.id.btSilmektenVazgec);
+
+        //views updated
+        int rdSayi1=rd3haneliSayi();
+        int rdSayi2=rd3haneliSayi();
+        int dogruCevap=rdSayi1+rdSayi2;
+        tvSayi1.setText(""+rdSayi1);
+        tvSayi2.setText(""+rdSayi2);
+        btSilmeyiOnayla.setOnClickListener(v -> {
+            int kullanicininCevabi=Integer.parseInt(etIslemSonucu.getText().toString());
+            if(kullanicininCevabi==dogruCevap){ //user entered right answer
+                verileriSifirla();
+
+            }else {//falsh or empty answer
+                Toast.makeText(VeritabaniSifirlamaEkrani.this, "Lütfen cevabinizi kontrol edin.", Toast.LENGTH_LONG).show();
+
+            }
+        });
+        btSilmektenVazgec.setOnClickListener(v -> finish());
+    }
+    public void verileriSifirla() {
+
+        //kullaniciya emin olup olmadigi soruluyor
+        AlertDialog.Builder mAlert = new AlertDialog.Builder(this);
+        mAlert.setTitle("Alle Daten werden gelöscht?");
+        mAlert.setMessage("Sind Sie sicher? Diese Transaktion kann nicht rückgängig gemacht werden.");
+        mAlert.setPositiveButton("Ja", (dialog, which) -> {
+
+            AppDatabase db = AppDatabase.getDbInstance(this);
+            db.clearAllTables();
+            Intent intent=new Intent(VeritabaniSifirlamaEkrani.this,MainActivity.class);
+            startActivity(intent);
+
+
+            Toast.makeText(this, "Alle daten wurden gelöscht.", Toast.LENGTH_LONG).show();
+            finish();
+        });
+        mAlert.setNegativeButton("Abbruch", (dialog, which) -> {
+            //vazgecildigi icin hicbir islem yapilmiyor
+
+            finish();
+        });
+        mAlert.show();
+
+
+    }
+    private int rd3haneliSayi() {
+        Random random=new Random();
+        return random.nextInt(900)+100;
+
+    }
+}
