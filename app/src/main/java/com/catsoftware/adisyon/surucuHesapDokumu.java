@@ -117,8 +117,8 @@ public class surucuHesapDokumu extends AppCompatActivity {
          listeSurucununSiparisleri = db.siparisDao().surucununSiparisleriniGetir(surucuNo, false);
         int surucununSiparisSayisi = listeSurucununSiparisleri.size();
         System.out.println("" + surucuNo + ".surucunun siparis sayisi : " + surucununSiparisSayisi);
-        int surucudeToplananSiparisNakitUcreti = 0;
-        int surucudeToplananSiparisKartUcreti = 0;
+        double surucudeToplananSiparisNakitUcreti = 0.0;
+        double surucudeToplananSiparisKartUcreti = 0.0;
         int surucuToplamCalisma10min = sure10MinHesapla(saatIseBaslama, dakikaIseBaslama, saatIsiBitirme, dakikaIsiBitirme);
         int surucununTeslimEttigiPaketSayisi = listeSurucununSiparisleri.size();
         double surucununToplamSaatlikGeliri=((surucuSaatlikUcret / 6.0) * surucuToplamCalisma10min);
