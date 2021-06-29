@@ -11,7 +11,7 @@ import java.util.List;
 public interface SiparisDao {
 
     @Query("SELECT * FROM siparislerTablosu WHERE silindiMi=:silinmisMi ORDER BY sId DESC")
-    List<SiparisSatiri> siparisleriGetir(boolean silinmisMi);//en yeni en ustte silinmemisleri cekiyor
+    List<SiparisSatiri> getOrders(boolean silinmisMi);//en yeni en ustte silinmemisleri cekiyor
 
     @Query("SELECT * FROM siparislerTablosu WHERE sId=:sId ")
     List<SiparisSatiri> siparisDetayGetir(int sId); //id ye ait siparis detaylarini donduruyor

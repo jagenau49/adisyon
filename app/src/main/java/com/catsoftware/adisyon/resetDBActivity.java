@@ -14,7 +14,7 @@ import com.catsoftware.adisyon.db.AppDatabase;
 
 import java.util.Random;
 
-public class VeritabaniSifirlamaEkrani extends AppCompatActivity {
+public class resetDBActivity extends AppCompatActivity {
     TextView  tvSayi1,tvSayi2;
     EditText etIslemSonucu;
     Button btSilmeyiOnayla, btSilmektenVazgec;
@@ -43,7 +43,7 @@ public class VeritabaniSifirlamaEkrani extends AppCompatActivity {
                 verileriSifirla();
 
             }else {//falsh or empty answer
-                Toast.makeText(VeritabaniSifirlamaEkrani.this, "Lütfen cevabinizi kontrol edin.", Toast.LENGTH_LONG).show();
+                Toast.makeText(resetDBActivity.this, "Lütfen cevabinizi kontrol edin.", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -59,7 +59,7 @@ public class VeritabaniSifirlamaEkrani extends AppCompatActivity {
 
             AppDatabase db = AppDatabase.getDbInstance(this);
             db.clearAllTables();
-            Intent intent=new Intent(VeritabaniSifirlamaEkrani.this,MainActivity.class);
+            Intent intent=new Intent(resetDBActivity.this,MainActivity.class);
             startActivity(intent);
 
 

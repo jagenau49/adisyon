@@ -9,11 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Adisyon">
-        <activity android:name=".VeritabaniSifirlamaEkrani" />
+        <activity android:name=".resetDBActivity" />
         <activity android:name=".surucununPaketDetaylari" />
-        <activity android:name=".silinmisSiparisler" />
-        <activity android:name=".surucuHesapDokumu" />
-        <activity android:name=".SiparisGirmeEkrani" />
+        <activity android:name=".DeletedOrdersActivity" />
+        <activity android:name=".PaymentDriver" />
+        <activity android:name=".OrderAddActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

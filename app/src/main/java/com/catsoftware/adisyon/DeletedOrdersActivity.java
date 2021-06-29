@@ -15,7 +15,7 @@ import java.util.List;
 
 import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
 
-public class silinmisSiparisler extends AppCompatActivity {
+public class DeletedOrdersActivity extends AppCompatActivity {
     AppDatabase db;
     RecyclerView recyclerView;
 
@@ -49,14 +49,14 @@ public class silinmisSiparisler extends AppCompatActivity {
     }
 
     private List<SiparisSatiri> getSilinmisSiparislerListesi() {
-        deleteOldOrders(silinmisSiparisler.this);
-        return db.siparisDao().siparisleriGetir(true);
+        deleteOldOrders(DeletedOrdersActivity.this);
+        return db.orderDao().getOrders(true);
 
     }
 
 
     public void anaEkranaGit() {
-        Intent intent = new Intent(silinmisSiparisler.this, MainActivity.class);
+        Intent intent = new Intent(DeletedOrdersActivity.this, MainActivity.class);
         startActivity(intent);
     }
 }

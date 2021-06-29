@@ -23,7 +23,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvToplamSiparisSayisi"
+            android:id="@+id/tvCountTotalOrders"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="8dp"

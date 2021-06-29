@@ -22,7 +22,7 @@ import java.util.List;
 
 import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
 
-public class SiparisGirmeEkrani extends AppCompatActivity {
+public class OrderAddActivity extends AppCompatActivity {
     AppDatabase db;
     Boolean duzenlemeMi;
     int duzenlenecekSiparisId;
@@ -38,8 +38,8 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
 
         //intent verileri cekiliyor
         Intent intent=getIntent();
-        duzenlemeMi=intent.getBooleanExtra(SiparisAdapter.DUZENLEME_MI,false);
-         duzenlenecekSiparisId=intent.getIntExtra(SiparisAdapter.SIPARIS_ID,-1);
+        duzenlemeMi=intent.getBooleanExtra(OrderAdapter.DUZENLEME_MI,false);
+         duzenlenecekSiparisId=intent.getIntExtra(OrderAdapter.SIPARIS_ID,-1);
 
         //Layout nesneleri tanimlandi ve atandi
         final EditText etUcret= findViewById(R.id.etUcret);
@@ -60,9 +60,9 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
         spOdemeYontemi.setAdapter(adapterOdemeYontemi);
 
         if (duzenlemeMi) {//duzenleme yapmak icin acildiysa
-           deleteOldOrders(SiparisGirmeEkrani.this);
+           deleteOldOrders(OrderAddActivity.this);
         //duzenlenecek siparisin verileri cekiliyor
-            List<SiparisSatiri> listIdDetay= db.siparisDao().siparisDetayGetir(duzenlenecekSiparisId);
+            List<SiparisSatiri> listIdDetay= db.orderDao().siparisDetayGetir(duzenlenecekSiparisId);
             int duzenlenecekSaat=listIdDetay.get(0).getSaat();
             int duzenlenecekDakika=listIdDetay.get(0).getDakika();
             String duzenlenecekSurucu=listIdDetay.get(0).getSurucu();
@@ -168,7 +168,7 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
 
         if ((surucuNo.equals("") || odemeYontemi.equals("") || (stUcret.equals(""))||(siparisNo.equals("")))) {//eksik bilgiler varsa
             //Eksik veriler var
-            Toast.makeText(SiparisGirmeEkrani.this,"Siparisiniz kaydedilemedi! Lütfen eksik bilgileri giriniz.",Toast.LENGTH_LONG).show();
+            Toast.makeText(OrderAddActivity.this,"Siparisiniz kaydedilemedi! Lütfen eksik bilgileri giriniz.",Toast.LENGTH_LONG).show();
         }else{//tüm bilgiler girilmis
             double ucret=Double.parseDouble(stUcret);//ucret islemlerde kullanilabilmek icin double a cevriliyor
 
@@ -196,9 +196,9 @@ public class SiparisGirmeEkrani extends AppCompatActivity {
             siparis.setKayitYili(buYil);
             System.out.println("siparis olusturulma tarihi yil-ay-gun: "+buYil+"-"+buAy+"-"+bugun);
 if(duzenlemeMi){//tablodaki veri duzeltilecek
-    db.siparisDao().guncelleSiparis(duzenlenecekSiparisId,saat,dakika,surucuNo,odemeYontemi,ucret,siparisNo);
+    db.orderDao().guncelleSiparis(duzenlenecekSiparisId,saat,dakika,surucuNo,odemeYontemi,ucret,siparisNo);
 }else {//tabloya yeni veri eklenecek
-    db.siparisDao().insertSiparis(siparis);
+    db.orderDao().insertSiparis(siparis);
 
 }
 
@@ -221,7 +221,7 @@ if(duzenlemeMi){//tablodaki veri duzeltilecek
 
 
     public void anaEkranaGit() {
-        Intent intent = new Intent(SiparisGirmeEkrani.this, MainActivity.class);
+        Intent intent = new Intent(OrderAddActivity.this, MainActivity.class);
         startActivity(intent);
     }
 }

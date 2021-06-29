@@ -26,7 +26,7 @@ import java.util.List;
 
 import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
 
-public class surucuHesapDokumu extends AppCompatActivity {
+public class PaymentDriver extends AppCompatActivity {
     public static final String SORGU_SONUCU_LISTESI="SORGU_SONUCU_LISTESI";
     public static final String SORGULANMIS_SURUCU_NO="SORGULANMIS_SURUCU_NO";
     public static final String KEY_LIST="LIST";
@@ -90,7 +90,7 @@ public class surucuHesapDokumu extends AppCompatActivity {
         btHesapla.setOnClickListener(v -> {
 
             if (saatIseBaslama == 0 || saatIsiBitirme == 0 || etSaatlikUcreti.getText().toString().equals("")) {//eksik bilgiler var
-                Toast.makeText(surucuHesapDokumu.this, "Sorgulama yapilamadi! Lütfen eksik bilgileri giriniz.", Toast.LENGTH_LONG).show();
+                Toast.makeText(PaymentDriver.this, "Sorgulama yapilamadi! Lütfen eksik bilgileri giriniz.", Toast.LENGTH_LONG).show();
 
 
             } else {//bilgiler tam girilmis
@@ -112,9 +112,9 @@ public class surucuHesapDokumu extends AppCompatActivity {
 
 
     private void odemeHesapla(String surucuNo, int saatIseBaslama, int dakikaIseBaslama, int saatIsiBitirme, int dakikaIsiBitirme, double surucuSaatlikUcret) {//
-        deleteOldOrders(surucuHesapDokumu.this);
+        deleteOldOrders(PaymentDriver.this);
         statikSurucuNo=surucuNo;
-         listeSurucununSiparisleri = db.siparisDao().surucununSiparisleriniGetir(surucuNo, false);
+         listeSurucununSiparisleri = db.orderDao().surucununSiparisleriniGetir(surucuNo, false);
         int surucununSiparisSayisi = listeSurucununSiparisleri.size();
         System.out.println("" + surucuNo + ".surucunun siparis sayisi : " + surucununSiparisSayisi);
         double surucudeToplananSiparisNakitUcreti = 0.0;
@@ -163,7 +163,7 @@ public class surucuHesapDokumu extends AppCompatActivity {
     }
 
     public void anaEkranaGit() {
-        Intent intent = new Intent(surucuHesapDokumu.this, MainActivity.class);
+        Intent intent = new Intent(PaymentDriver.this, MainActivity.class);
         startActivity(intent);
     }
 
@@ -176,12 +176,12 @@ public class surucuHesapDokumu extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                 (timePicker, hourOfDay, minute) -> {
                     if (view.getId() == R.id.btIseBaslamaSaatiSec) {
-                        ((TextView) tvIseBaslamaSaati).setText(SiparisAdapter.ikiHaneliOlsun(hourOfDay) + ":" + SiparisAdapter.ikiHaneliOlsun(minute));
+                        ((TextView) tvIseBaslamaSaati).setText(OrderAdapter.ikiHaneliOlsun(hourOfDay) + ":" + OrderAdapter.ikiHaneliOlsun(minute));
                         ((TextView) tvIseBaslamaSaati).setVisibility(View.VISIBLE);
                         saatIseBaslama = hourOfDay;
                         dakikaIseBaslama = minute;
                     } else if (view.getId() == R.id.btIsiBitirmeSaatiSec) {
-                        ((TextView) tvIsiBitirmeSaati).setText(SiparisAdapter.ikiHaneliOlsun(hourOfDay) + ":" + SiparisAdapter.ikiHaneliOlsun(minute));
+                        ((TextView) tvIsiBitirmeSaati).setText(OrderAdapter.ikiHaneliOlsun(hourOfDay) + ":" + OrderAdapter.ikiHaneliOlsun(minute));
                         ((TextView) tvIsiBitirmeSaati).setVisibility(View.VISIBLE);
                         saatIsiBitirme = hourOfDay;
                         dakikaIsiBitirme = minute;

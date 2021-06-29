@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
@@ -105,11 +104,11 @@ public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilin
 
         private void anaListeyiGuncelle() {
             deleteOldOrders(context);
-            mDataList = db.siparisDao().siparisleriGetir(true);
+            mDataList = db.orderDao().getOrders(true);
         }
 
         private void silinmisiGeriAl(int siparisId) {
-            db.siparisDao().setSilindiMi(siparisId, false);
+            db.orderDao().setSilindiMi(siparisId, false);
             notifyItemRemoved(tiklanilanPosition);
 
         }

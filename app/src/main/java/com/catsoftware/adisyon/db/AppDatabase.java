@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 
 @Database(entities = {SiparisSatiri.class},version = 1)
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract SiparisDao siparisDao();
+    public abstract SiparisDao orderDao();
 
     private static AppDatabase INSTANCE;
 

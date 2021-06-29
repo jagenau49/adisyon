@@ -25,8 +25,8 @@ public class surucununPaketDetaylari extends AppCompatActivity {
 
         //intent ile gelen veriler aliniyor
         Intent i= getIntent();
-        String surucuNo=i.getStringExtra(surucuHesapDokumu.SORGULANMIS_SURUCU_NO);
-        listeSurucununSiparisleri = (List<SiparisSatiri>)( i.getBundleExtra(surucuHesapDokumu.KEY_LIST).getSerializable(surucuHesapDokumu.SORGU_SONUCU_LISTESI));
+        String surucuNo=i.getStringExtra(PaymentDriver.SORGULANMIS_SURUCU_NO);
+        listeSurucununSiparisleri = (List<SiparisSatiri>)( i.getBundleExtra(PaymentDriver.KEY_LIST).getSerializable(PaymentDriver.SORGU_SONUCU_LISTESI));
 
         //surucuno ayarlaniyor
         TextView tvSorguDetaySurucuNo=findViewById(R.id.tvSorguDetaySurucuNo);
@@ -54,8 +54,8 @@ updateRecyclerview();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        SiparisAdapter siparisAdapter = new SiparisAdapter(this, listeSurucununSiparisleri, getClass().getName());//classname i iki tarafta da duzelt
-        recyclerView.setAdapter(siparisAdapter);
+        OrderAdapter orderAdapter = new OrderAdapter(this, listeSurucununSiparisleri, getClass().getName());//classname i iki tarafta da duzelt
+        recyclerView.setAdapter(orderAdapter);
 
     }
 }

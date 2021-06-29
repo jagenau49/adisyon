@@ -22,7 +22,7 @@ import java.util.List;
 
 import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
 
-public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHolder> {
+public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder> {
     public static final String SIPARIS_ID = "siparisId";
     public static final String DUZENLEME_MI = "duzenlemeMi";
     List<SiparisSatiri> mDataList;
@@ -33,7 +33,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
 
 
 
-    public SiparisAdapter(Context context, List<SiparisSatiri> siparisList, String className) {
+    public OrderAdapter(Context context, List<SiparisSatiri> siparisList, String className) {
         layoutInflater = LayoutInflater.from(context);
         this.mDataList = siparisList;
         this.context = context;
@@ -51,7 +51,7 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(SiparisAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(OrderAdapter.MyViewHolder holder, int position) {
 
         SiparisSatiri tiklanilanSiparis = mDataList.get(position);
         holder.setData(tiklanilanSiparis, position);
@@ -129,12 +129,12 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
 
         private void anaListeyiGuncelle() {
             deleteOldOrders(context);
-            mDataList = db.siparisDao().siparisleriGetir(false);
+            mDataList = db.orderDao().getOrders(false);
 
         }
 
         private void siparisSil(int siparisId) {
-            db.siparisDao().setSilindiMi(siparisId, true);
+            db.orderDao().setSilindiMi(siparisId, true);
             notifyItemRemoved(tiklanilanPosition);
 
             /*
@@ -162,12 +162,12 @@ public class SiparisAdapter extends RecyclerView.Adapter<SiparisAdapter.MyViewHo
 
     private void hesapDokumuListesiniGuncelle() {
         deleteOldOrders(context);
-        mDataList = db.siparisDao().surucununSiparisleriniGetir(surucuHesapDokumu.statikSurucuNo, false);
+        mDataList = db.orderDao().surucununSiparisleriniGetir(PaymentDriver.statikSurucuNo, false);
 
     }
 
     private void duzenlemeEkraninaGit(int siparisId) {
-        Intent intent = new Intent(context, SiparisGirmeEkrani.class);
+        Intent intent = new Intent(context, OrderAddActivity.class);
         intent.putExtra(DUZENLEME_MI, true);
         intent.putExtra(SIPARIS_ID, siparisId);
         context.startActivity(intent);
