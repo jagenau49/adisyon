@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Adisyon">
         <activity android:name=".ResetDBActivity" />
-        <activity android:name=".surucununPaketDetaylari" />
+        <activity android:name=".OrderDetailsOfDriver" />
         <activity android:name=".DeletedOrdersActivity" />
         <activity android:name=".PaymentDriver" />
         <activity android:name=".OrderAddActivity" />

@@ -13,7 +13,7 @@ import com.catsoftware.adisyon.db.Order;
 
 import java.util.List;
 
-public class surucununPaketDetaylari extends AppCompatActivity {
+public class OrderDetailsOfDriver extends AppCompatActivity {
     RecyclerView recyclerView;
     List<Order> listeSurucununSiparisleri;
 

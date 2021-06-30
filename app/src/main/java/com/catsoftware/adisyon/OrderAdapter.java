@@ -23,8 +23,8 @@ import java.util.List;
 import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder> {
-    public static final String SIPARIS_ID = "siparisId";
-    public static final String DUZENLEME_MI = "duzenlemeMi";
+    public static final String ID = "ID";
+    public static final String IS_EDIT = "IS_EDIT";
     List<Order> mDataList;
     final LayoutInflater layoutInflater;
     AppDatabase db;
@@ -33,9 +33,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
 
 
-    public OrderAdapter(Context context, List<Order> siparisList, String className) {
+    public OrderAdapter(Context context, List<Order> orderList, String className) {
         layoutInflater = LayoutInflater.from(context);
-        this.mDataList = siparisList;
+        this.mDataList = orderList;
         this.context = context;
         this.className = className;
     }
@@ -53,8 +53,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(OrderAdapter.MyViewHolder holder, int position) {
 
-        Order tiklanilanSiparis = mDataList.get(position);
-        holder.setData(tiklanilanSiparis, position);
+        Order onClickedOrder = mDataList.get(position);
+        holder.setData(onClickedOrder, position);
 
     }
 
@@ -65,41 +65,37 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        final TextView tvUcret;
-        final TextView tvOdemeYontemi;
-        final TextView tvSurucuNo;
-        final TextView tvSaatDakika;
-        final TextView tvSiparisNo;
-        final ImageView ivDuzenle;
-        final ImageView ivSil;
-        int siparisId = -1;
-        int tiklanilanPosition = -1;
+        final TextView tvPrice, tvPaymentMethod, tvDriver, tvHourMinute, tvOrderNo;
+        final ImageView ivEdit;
+        final ImageView ivDelete;
+        int ID = -1;
+        int onClickedPosition = -1;
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            tvUcret = itemView.findViewById(R.id.tvPrice);
-            tvOdemeYontemi = itemView.findViewById(R.id.tvPaymentMethod);
-            tvSurucuNo = itemView.findViewById(R.id.tvDriver);
-            tvSaatDakika = itemView.findViewById(R.id.tvHourAndMinute);
-            tvSiparisNo=itemView.findViewById(R.id.tvSiparisNo);
-            ivDuzenle = itemView.findViewById(R.id.ivDuzenle);
-            ivSil = itemView.findViewById(R.id.ivSil);
+            tvPrice = itemView.findViewById(R.id.tvPrice);
+            tvPaymentMethod = itemView.findViewById(R.id.tvPaymentMethod);
+            tvDriver = itemView.findViewById(R.id.tvDriver);
+            tvHourMinute = itemView.findViewById(R.id.tvHourAndMinute);
+            tvOrderNo =itemView.findViewById(R.id.tvOrderNo);
+            ivEdit = itemView.findViewById(R.id.ivEdit);
+            ivDelete = itemView.findViewById(R.id.ivDelete);
 
-            ivSil.setOnClickListener(v -> {
-                /////////////////
-                //kullaniciya emin olup olmadigi soruluyor
+            ivDelete.setOnClickListener(v -> {
+
+                //checks if user is sure
                 AlertDialog.Builder mAlert = new AlertDialog.Builder(context);
                 mAlert.setTitle("Die Bestellung wird gelöscht!");
                 mAlert.setMessage("Sind Sie sicher?");
                 mAlert.setPositiveButton("Bestätigen", (dialog, which) -> {
-                    siparisSil(siparisId);
+                    deleteOrder(ID);
                     if (className.equals(MainActivity.class.getName())) {
-                        anaListeyiGuncelle();
+                        refreshMainList();
 
-                    } else if (className.equals(surucununPaketDetaylari.class.getName())) {
-                        hesapDokumuListesiniGuncelle();
+                    } else if (className.equals(OrderDetailsOfDriver.class.getName())) {
+                        refreshListOfQuery();
                         Intent intent = new Intent(context, MainActivity.class);
                         context.startActivity(intent);
                     }
@@ -109,7 +105,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
                 });
                 mAlert.setNegativeButton("Abbruch", (dialog, which) -> {
-                    //vazgecildigi icin hicbir islem yapilmiyor
+                    //user cancelled operation, nothing is done
 
                 });
                 mAlert.show();
@@ -120,39 +116,40 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
             });
 
-            ivDuzenle.setOnClickListener(v -> {
-                //veri duzenleme islemi yapilacak
-                duzenlemeEkraninaGit(siparisId);
+            ivEdit.setOnClickListener(v -> {
+                //order will be edited
+                goToOrderEditing(ID);
             });
 
         }
 
-        private void anaListeyiGuncelle() {
+        private void refreshMainList() {
             deleteOldOrders(context);
             mDataList = db.orderDao().getOrders(false);
 
         }
 
-        private void siparisSil(int siparisId) {
-            db.orderDao().setIsDeleted(siparisId, true);
-            notifyItemRemoved(tiklanilanPosition);
+        private void deleteOrder(int ID) {
+            db.orderDao().setIsDeleted(ID, true);
+            notifyItemRemoved(onClickedPosition);
 
             /*
-            Siparis silindikten sonra mainactivity deki toplam sayiyi guncellemek icin bu cozum bulundu.
+            I have found as a solution for after deleting order to refresh main order list
+            It is not the best solution, it should be updated with correct solution
              */
             Intent intent=new Intent(context,MainActivity.class);
             context.startActivity(intent);
 
         }
 
-        public void setData(Order tiklanilanSiparis, int position) {
-            this.tvUcret.setText(tiklanilanSiparis.getPrice().toString() + " €");
-            this.tvOdemeYontemi.setText(tiklanilanSiparis.getPaymentMethod());
-            this.tvSurucuNo.setText(tiklanilanSiparis.getDriver() + " .Fahrer");
-            this.tvSiparisNo.setText(tiklanilanSiparis.getOrderNo());
-            this.tvSaatDakika.setText(ikiHaneliOlsun(tiklanilanSiparis.getHour()) + ":" + ikiHaneliOlsun(tiklanilanSiparis.getMinute()));
-            siparisId = tiklanilanSiparis.getID();
-            tiklanilanPosition = position;
+        public void setData(Order onClickedOrder, int position) {
+            this.tvPrice.setText(onClickedOrder.getPrice().toString() + " €");
+            this.tvPaymentMethod.setText(onClickedOrder.getPaymentMethod());
+            this.tvDriver.setText(onClickedOrder.getDriver() + " .Fahrer");
+            this.tvOrderNo.setText(onClickedOrder.getOrderNo());
+            this.tvHourMinute.setText(showAsTwoDigits(onClickedOrder.getHour()) + ":" + showAsTwoDigits(onClickedOrder.getMinute()));
+            ID = onClickedOrder.getID();
+            onClickedPosition = position;
 
 
         }
@@ -160,19 +157,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     }
 
-    private void hesapDokumuListesiniGuncelle() {
+    private void refreshListOfQuery() {
         deleteOldOrders(context);
-        mDataList = db.orderDao().getAllOrdersOfDriver(PaymentDriver.statikSurucuNo, false);
+        mDataList = db.orderDao().getAllOrdersOfDriver(PaymentDriver.staticDriver, false);
 
     }
 
-    private void duzenlemeEkraninaGit(int siparisId) {
+    private void goToOrderEditing(int ID) {
         Intent intent = new Intent(context, OrderAddActivity.class);
-        intent.putExtra(DUZENLEME_MI, true);
-        intent.putExtra(SIPARIS_ID, siparisId);
+        intent.putExtra(IS_EDIT, true);
+        intent.putExtra(OrderAdapter.ID, ID);
         context.startActivity(intent);
     }
-    public static String ikiHaneliOlsun(int sayi) {
+    public static String showAsTwoDigits(int sayi) {
         DecimalFormat formatter = new DecimalFormat("00");
         return formatter.format(sayi);
     }

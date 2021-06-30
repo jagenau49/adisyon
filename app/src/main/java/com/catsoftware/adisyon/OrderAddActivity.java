@@ -38,8 +38,8 @@ public class OrderAddActivity extends AppCompatActivity {
 
         //intent verileri cekiliyor
         Intent intent=getIntent();
-        duzenlemeMi=intent.getBooleanExtra(OrderAdapter.DUZENLEME_MI,false);
-         duzenlenecekSiparisId=intent.getIntExtra(OrderAdapter.SIPARIS_ID,-1);
+        duzenlemeMi=intent.getBooleanExtra(OrderAdapter.IS_EDIT,false);
+         duzenlenecekSiparisId=intent.getIntExtra(OrderAdapter.ID,-1);
 
         //Layout nesneleri tanimlandi ve atandi
         final EditText etUcret= findViewById(R.id.etUcret);

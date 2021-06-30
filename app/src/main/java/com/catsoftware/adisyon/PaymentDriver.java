@@ -35,7 +35,7 @@ public class PaymentDriver extends AppCompatActivity {
     public static int saatIsiBitirme = -1;
     public static int dakikaIseBaslama = -1;
     public static int dakikaIsiBitirme = -1;
-    public static String statikSurucuNo;
+    public static String staticDriver;
     Spinner spSurucuNo;
     EditText etSaatlikUcreti;
     Button btGeriDon, btHesapla, btPaketlerinDetaylariniGoster;
@@ -113,7 +113,7 @@ public class PaymentDriver extends AppCompatActivity {
 
     private void odemeHesapla(String surucuNo, int saatIseBaslama, int dakikaIseBaslama, int saatIsiBitirme, int dakikaIsiBitirme, double surucuSaatlikUcret) {//
         deleteOldOrders(PaymentDriver.this);
-        statikSurucuNo=surucuNo;
+        staticDriver =surucuNo;
          listeSurucununSiparisleri = db.orderDao().getAllOrdersOfDriver(surucuNo, false);
         int surucununSiparisSayisi = listeSurucununSiparisleri.size();
         System.out.println("" + surucuNo + ".surucunun siparis sayisi : " + surucununSiparisSayisi);
@@ -176,12 +176,12 @@ public class PaymentDriver extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
                 (timePicker, hourOfDay, minute) -> {
                     if (view.getId() == R.id.btIseBaslamaSaatiSec) {
-                        ((TextView) tvIseBaslamaSaati).setText(OrderAdapter.ikiHaneliOlsun(hourOfDay) + ":" + OrderAdapter.ikiHaneliOlsun(minute));
+                        ((TextView) tvIseBaslamaSaati).setText(OrderAdapter.showAsTwoDigits(hourOfDay) + ":" + OrderAdapter.showAsTwoDigits(minute));
                         ((TextView) tvIseBaslamaSaati).setVisibility(View.VISIBLE);
                         saatIseBaslama = hourOfDay;
                         dakikaIseBaslama = minute;
                     } else if (view.getId() == R.id.btIsiBitirmeSaatiSec) {
-                        ((TextView) tvIsiBitirmeSaati).setText(OrderAdapter.ikiHaneliOlsun(hourOfDay) + ":" + OrderAdapter.ikiHaneliOlsun(minute));
+                        ((TextView) tvIsiBitirmeSaati).setText(OrderAdapter.showAsTwoDigits(hourOfDay) + ":" + OrderAdapter.showAsTwoDigits(minute));
                         ((TextView) tvIsiBitirmeSaati).setVisibility(View.VISIBLE);
                         saatIsiBitirme = hourOfDay;
                         dakikaIsiBitirme = minute;
@@ -206,13 +206,13 @@ public class PaymentDriver extends AppCompatActivity {
     }
 
     public void sorgulananSurucununPaketLeriniGoster() {
-        Intent i = new Intent(this,surucununPaketDetaylari.class);
+        Intent i = new Intent(this, OrderDetailsOfDriver.class);
         Bundle b = new Bundle();
 
 
         b.putSerializable(SORGU_SONUCU_LISTESI, (Serializable) listeSurucununSiparisleri);
         i.putExtra(KEY_LIST,b);
-        i.putExtra(SORGULANMIS_SURUCU_NO,statikSurucuNo);
+        i.putExtra(SORGULANMIS_SURUCU_NO, staticDriver);
         startActivity(i);
     }
 }
