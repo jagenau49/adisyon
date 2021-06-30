@@ -1,5 +1,7 @@
 package com.catsoftware.adisyon;
 
+//TODO: continue to translate
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
