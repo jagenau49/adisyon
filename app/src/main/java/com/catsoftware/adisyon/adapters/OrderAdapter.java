@@ -1,4 +1,4 @@
-package com.catsoftware.adisyon;
+package com.catsoftware.adisyon.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.catsoftware.adisyon.R;
+import com.catsoftware.adisyon.activitys.MainActivity;
+import com.catsoftware.adisyon.activitys.OrderAddActivity;
+import com.catsoftware.adisyon.activitys.OrderDetailsOfDriverActivity;
+import com.catsoftware.adisyon.activitys.PaymentDriverActivity;
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.Order;
 
@@ -20,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
+import static com.catsoftware.adisyon.activitys.MainActivity.deleteOldOrders;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder> {
     public static final String ID = "ID";
@@ -94,7 +99,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                     if (className.equals(MainActivity.class.getName())) {
                         refreshMainList();
 
-                    } else if (className.equals(OrderDetailsOfDriver.class.getName())) {
+                    } else if (className.equals(OrderDetailsOfDriverActivity.class.getName())) {
                         refreshListOfQuery();
                         Intent intent = new Intent(context, MainActivity.class);
                         context.startActivity(intent);

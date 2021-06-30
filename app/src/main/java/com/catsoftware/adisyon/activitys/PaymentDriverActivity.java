@@ -1,4 +1,4 @@
-package com.catsoftware.adisyon;
+package com.catsoftware.adisyon.activitys;
 
 
 
@@ -17,6 +17,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.catsoftware.adisyon.adapters.OrderAdapter;
+import com.catsoftware.adisyon.R;
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.Order;
 
@@ -24,7 +26,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
+import static com.catsoftware.adisyon.activitys.MainActivity.deleteOldOrders;
 
 public class PaymentDriverActivity extends AppCompatActivity {
     public static final String LIST_OF_DRIVERS_ORDERS ="LIST_OF_DRIVERS_ORDERS";
@@ -207,7 +209,7 @@ public class PaymentDriverActivity extends AppCompatActivity {
     }
 
     public void showOrdersOfSelectedDriver() {
-        Intent i = new Intent(this, OrderDetailsOfDriver.class);
+        Intent i = new Intent(this, OrderDetailsOfDriverActivity.class);
         Bundle b = new Bundle();
 
 

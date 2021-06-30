@@ -9,12 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Adisyon">
-        <activity android:name=".ResetDBActivity" />
-        <activity android:name=".OrderDetailsOfDriver" />
-        <activity android:name=".DeletedOrdersActivity" />
-        <activity android:name=".PaymentDriverActivity" />
-        <activity android:name=".OrderAddActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activitys.ResetDBActivity" />
+        <activity android:name=".activitys.OrderDetailsOfDriverActivity" />
+        <activity android:name=".activitys.DeletedOrdersActivity" />
+        <activity android:name=".activitys.PaymentDriverActivity" />
+        <activity android:name=".activitys.OrderAddActivity" />
+        <activity android:name=".activitys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

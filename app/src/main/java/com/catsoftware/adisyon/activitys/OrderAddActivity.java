@@ -1,4 +1,4 @@
-package com.catsoftware.adisyon;
+package com.catsoftware.adisyon.activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,8 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.catsoftware.adisyon.adapters.OrderAdapter;
+import com.catsoftware.adisyon.R;
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.Order;
 
@@ -20,7 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
+import static com.catsoftware.adisyon.activitys.MainActivity.deleteOldOrders;
 
 public class OrderAddActivity extends AppCompatActivity {
     AppDatabase db;

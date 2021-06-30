@@ -1,4 +1,4 @@
-package com.catsoftware.adisyon;
+package com.catsoftware.adisyon.activitys;
 
 //TODO: continue to translate
 
@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.catsoftware.adisyon.R;
 import com.catsoftware.adisyon.db.AppDatabase;
 
 import java.util.Random;
@@ -70,7 +71,7 @@ public class ResetDBActivity extends AppCompatActivity {
 
             AppDatabase db = AppDatabase.getDbInstance(this);
             db.clearAllTables();
-            Intent intent=new Intent(ResetDBActivity.this,MainActivity.class);
+            Intent intent=new Intent(ResetDBActivity.this, MainActivity.class);
             startActivity(intent);
 
 

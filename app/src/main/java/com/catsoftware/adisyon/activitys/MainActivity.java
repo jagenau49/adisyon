@@ -1,4 +1,4 @@
-package com.catsoftware.adisyon;
+package com.catsoftware.adisyon.activitys;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.catsoftware.adisyon.adapters.OrderAdapter;
+import com.catsoftware.adisyon.R;
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.Order;
 

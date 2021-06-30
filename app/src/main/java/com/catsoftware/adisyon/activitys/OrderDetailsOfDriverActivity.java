@@ -1,4 +1,4 @@
-package com.catsoftware.adisyon;
+package com.catsoftware.adisyon.activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,11 +9,13 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.catsoftware.adisyon.adapters.OrderAdapter;
+import com.catsoftware.adisyon.R;
 import com.catsoftware.adisyon.db.Order;
 
 import java.util.List;
 
-public class OrderDetailsOfDriver extends AppCompatActivity {
+public class OrderDetailsOfDriverActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     List<Order> ordersOfDriver;
 
@@ -41,7 +43,7 @@ updateRecyclerview();
     protected void onRestart() {
         super.onRestart();
         finish();
-        Intent intent=new Intent(this,MainActivity.class);
+        Intent intent=new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 

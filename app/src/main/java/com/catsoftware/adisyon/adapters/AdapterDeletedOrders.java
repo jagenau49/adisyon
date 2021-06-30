@@ -1,4 +1,4 @@
-package com.catsoftware.adisyon;
+package com.catsoftware.adisyon.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.catsoftware.adisyon.R;
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.Order;
 
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
+import static com.catsoftware.adisyon.activitys.MainActivity.deleteOldOrders;
 
 public class AdapterDeletedOrders extends RecyclerView.Adapter<AdapterDeletedOrders.MyViewHolder> {
 

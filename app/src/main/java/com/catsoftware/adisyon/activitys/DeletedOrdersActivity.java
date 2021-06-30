@@ -1,4 +1,4 @@
-package com.catsoftware.adisyon;
+package com.catsoftware.adisyon.activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,12 +8,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.catsoftware.adisyon.adapters.AdapterDeletedOrders;
+import com.catsoftware.adisyon.R;
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.Order;
 
 import java.util.List;
 
-import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
+import static com.catsoftware.adisyon.activitys.MainActivity.deleteOldOrders;
 
 public class DeletedOrdersActivity extends AppCompatActivity {
     AppDatabase db;
@@ -44,7 +46,7 @@ public class DeletedOrdersActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         finish();
-        Intent intent=new Intent(this,MainActivity.class);
+        Intent intent=new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
