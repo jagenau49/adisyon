@@ -24,85 +24,87 @@ import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
 
 public class OrderAddActivity extends AppCompatActivity {
     AppDatabase db;
-    Boolean duzenlemeMi;
-    int duzenlenecekSiparisId;
+    Boolean isEdit;
+    int editingOrderId;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_siparis_girme_ekrani);
+        setContentView(R.layout.activity_add_order);
 
 
-        db=AppDatabase.getDbInstance(this.getApplicationContext());//veritabani baglaniyor
+        db=AppDatabase.getDbInstance(this.getApplicationContext());//db assigned
 
-        //intent verileri cekiliyor
+        //getting values from intent
         Intent intent=getIntent();
-        duzenlemeMi=intent.getBooleanExtra(OrderAdapter.IS_EDIT,false);
-         duzenlenecekSiparisId=intent.getIntExtra(OrderAdapter.ID,-1);
+        isEdit =intent.getBooleanExtra(OrderAdapter.IS_EDIT,false);
+         editingOrderId =intent.getIntExtra(OrderAdapter.ID,-1);
 
-        //Layout nesneleri tanimlandi ve atandi
-        final EditText etUcret= findViewById(R.id.etUcret);
-        final EditText etSiparisNo=findViewById(R.id.etSiparisNo);
-        Button btSiparisKaydet= findViewById(R.id.btKaydet);
-        Button btVazgec=findViewById(R.id.btVazgec);
+        //Layout item are assigned
+        final EditText etPrice= findViewById(R.id.etPrice);
+        final EditText etOrderNo=findViewById(R.id.etOrderNo);
+        Button btAddOrder= findViewById(R.id.btAddOrder);
+        Button btCancel=findViewById(R.id.btCancel);
         TimePicker picker =findViewById(R.id.timePicker1);
-        Spinner spSurucuNolari = findViewById(R.id.spSurucuNo);
-        Spinner spOdemeYontemi=findViewById(R.id.spOdemeYontemi);
-        picker.setIs24HourView(true);//saatler 24 saat duzenine gore ayarlaniyor
+        Spinner spDrivers = findViewById(R.id.spDrivers);
+        Spinner spPaymentMethods=findViewById(R.id.spPaymentMethods);
+        picker.setIs24HourView(true);//clock is set to 24H view
 
-        ArrayAdapter<CharSequence> adapterSurucuNo = ArrayAdapter.createFromResource(this,// Create an ArrayAdapter using the string array and a default spinner layout
-                R.array.surucu_nolari, R.layout.spinner_item);
-        spSurucuNolari.setAdapter(adapterSurucuNo);
+        // Adapters for spinners assigned
+        ArrayAdapter<CharSequence> adapterDriver =
+                ArrayAdapter.createFromResource(this, R.array.drivers, R.layout.spinner_item);
+        spDrivers.setAdapter(adapterDriver);
+        ArrayAdapter<CharSequence> adapterPaymentMethods =
+                ArrayAdapter.createFromResource(this, R.array.payment_methods, R.layout.spinner_item);
+        spPaymentMethods.setAdapter(adapterPaymentMethods);
 
-        ArrayAdapter<CharSequence> adapterOdemeYontemi = ArrayAdapter.createFromResource(this,// Create an ArrayAdapter using the string array and a default spinner layout
-                R.array.odeme_yontemi, R.layout.spinner_item);
-        spOdemeYontemi.setAdapter(adapterOdemeYontemi);
-
-        if (duzenlemeMi) {//duzenleme yapmak icin acildiysa
+        if (isEdit) {//order is edited
            deleteOldOrders(OrderAddActivity.this);
-        //duzenlenecek siparisin verileri cekiliyor
-            List<Order> listIdDetay= db.orderDao().getDetailsOfOrder(duzenlenecekSiparisId);
-            int duzenlenecekSaat=listIdDetay.get(0).getHour();
-            int duzenlenecekDakika=listIdDetay.get(0).getMinute();
-            String duzenlenecekSurucu=listIdDetay.get(0).getDriver();
-            String duzenlenecekOdemeYontemi=listIdDetay.get(0).getPaymentMethod();
-            int idOdemeYontemi;
-            if (duzenlenecekOdemeYontemi.equals("Bar")){
-                idOdemeYontemi=0;
+        //get values for editing
+            List<Order> listOrderDetails= db.orderDao().getDetailsOfOrder(editingOrderId);
+            int editingHour=listOrderDetails.get(0).getHour();
+            int editingMinute=listOrderDetails.get(0).getMinute();
+            String editingDriver=listOrderDetails.get(0).getDriver();
+            String editingPaymentMethods=listOrderDetails.get(0).getPaymentMethod();
+            int idPaymentMethod;
+            if (editingPaymentMethods.equals("Bar")){
+                idPaymentMethod=0;
             }else{
-                idOdemeYontemi=1;
+                idPaymentMethod=1;
             }
-            double duzenlenecekUcret=listIdDetay.get(0).getPrice();
-            String duzenlenecekSiparisNo=listIdDetay.get(0).getOrderNo();
+            double editingPrice=listOrderDetails.get(0).getPrice();
+            String editingOrderNo=listOrderDetails.get(0).getOrderNo();
 
-            //layout nesneleri duzenlenecek verilere gore guncelleniyor
-            btSiparisKaydet.setText("Korrigieren");
-            pickerSetDakika(picker,duzenlenecekDakika);
-            pickerSetSaat(picker,duzenlenecekSaat);
-            spSurucuNolari.setSelection(Integer.parseInt(duzenlenecekSurucu)-1);
-            System.out.println("Duzenlenecek surucu id: "+(Integer.parseInt(duzenlenecekSurucu)-1));
-            spOdemeYontemi.setSelection(idOdemeYontemi);
-            etUcret.setText(""+duzenlenecekUcret);
-            etSiparisNo.setText(duzenlenecekSiparisNo);
+            //Layout items shows editing values
+            btAddOrder.setText("Korrigieren");
+            pickerSetMinute(picker,editingMinute);
+            pickerSetHour(picker,editingHour);
+            spDrivers.setSelection(Integer.parseInt(editingDriver)-1);
+
+            spPaymentMethods.setSelection(idPaymentMethod);
+            etPrice.setText(""+editingPrice);
+            etOrderNo.setText(editingOrderNo);
 
 
 
         }
 
 
-        //Layout nesneleri duzenleniyor
 
 
-          btSiparisKaydet.setOnClickListener(v -> {
 
-                  siparisKaydet(duzenlemeMi,pickerGetSaat(picker), pickerGetDakika(picker), spSurucuNolari.getSelectedItem().toString(), spOdemeYontemi.getSelectedItem().toString(), etUcret.getText().toString(),etSiparisNo.getText().toString());
-              //klavye gizleniyor
+          btAddOrder.setOnClickListener(v -> {
+
+                  addOrder(isEdit, pickerGetHour(picker), pickerGetMinute(picker),
+                          spDrivers.getSelectedItem().toString(), spPaymentMethods.getSelectedItem().toString(),
+                          etPrice.getText().toString(),etOrderNo.getText().toString());
+              //hides keyboard
               InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
               inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
               });
 
-          btVazgec.setOnClickListener(v -> anaEkranaGit());
+          btCancel.setOnClickListener(v -> goToMainActivity());
 
 
     }
@@ -113,7 +115,7 @@ public class OrderAddActivity extends AppCompatActivity {
         finish();
     }
 
-    public int pickerGetSaat(TimePicker timePicker){
+    public int pickerGetHour(TimePicker timePicker){
         if (Build.VERSION.SDK_INT >= 23 ){
             return timePicker.getHour();
 
@@ -124,7 +126,7 @@ public class OrderAddActivity extends AppCompatActivity {
 
         }
     }
-    public int pickerGetDakika(TimePicker timePicker){
+    public int pickerGetMinute(TimePicker timePicker){
         if (Build.VERSION.SDK_INT >= 23 ){
             return timePicker.getMinute();
 
@@ -135,24 +137,24 @@ public class OrderAddActivity extends AppCompatActivity {
 
         }
     }
-    public void pickerSetSaat(TimePicker timePicker, int saat){
+    public void pickerSetHour(TimePicker timePicker, int hour){
         if (Build.VERSION.SDK_INT >= 23 ){
-            timePicker.setHour(saat);
+            timePicker.setHour(hour);
 
         }
         else{
-            timePicker.setCurrentHour(saat);
+            timePicker.setCurrentHour(hour);
 
         }
 
     }
-    public void pickerSetDakika(TimePicker timePicker,int dakika){
+    public void pickerSetMinute(TimePicker timePicker, int minute){
         if (Build.VERSION.SDK_INT >= 23 ){
-            timePicker.setMinute(dakika);
+            timePicker.setMinute(minute);
 
         }
         else{
-            timePicker.setCurrentMinute(dakika);
+            timePicker.setCurrentMinute(minute);
 
         }
     }
@@ -161,49 +163,50 @@ public class OrderAddActivity extends AppCompatActivity {
 
 
 
-    public void siparisKaydet(boolean duzenlemeMi, int saat, int dakika, String surucuNo, String odemeYontemi, String stUcret, String siparisNo) {
-        System.out.println("Siparis kaydet calisti");//
+    public void addOrder(boolean isEdit, int hour, int minute, String driver,
+                         String paymentMethod, String stringPrice, String orderNo) {
 
 
 
-        if ((surucuNo.equals("") || odemeYontemi.equals("") || (stUcret.equals(""))||(siparisNo.equals("")))) {//eksik bilgiler varsa
-            //Eksik veriler var
-            Toast.makeText(OrderAddActivity.this,"Siparisiniz kaydedilemedi! Lütfen eksik bilgileri giriniz.",Toast.LENGTH_LONG).show();
-        }else{//tüm bilgiler girilmis
-            double ucret=Double.parseDouble(stUcret);//ucret islemlerde kullanilabilmek icin double a cevriliyor
 
-            //Zaman bilgileri aliniyor
+        if ((driver.equals("") || paymentMethod.equals("") || (stringPrice.equals(""))||(orderNo.equals("")))) {
+            //missed values
+            Toast.makeText(OrderAddActivity.this,"Bitte den Formular ausfüllen!",Toast.LENGTH_LONG).show();
+        }else{// all values are ready
+            double price=Double.parseDouble(stringPrice);//it makes available to calculate
+
+            //get current time values
             Calendar c = Calendar.getInstance();
             Date date=new Date();
             c.setTime(date);
-            int bugun= c.get(Calendar.DAY_OF_MONTH);
-            int buAy=c.get(Calendar.MONTH)+1;
-            int buYil=c.get(Calendar.YEAR);
+            int currentDay= c.get(Calendar.DAY_OF_MONTH);
+            int currentMonth=c.get(Calendar.MONTH)+1;
+            int currentYear=c.get(Calendar.YEAR);
 
             db = AppDatabase.getDbInstance(this.getApplicationContext());
 
 
-            Order siparis = new Order();
-            siparis.setMinute(dakika);
-            siparis.setHour(saat);
-            siparis.setDriver(surucuNo);
-            siparis.setPaymentMethod(odemeYontemi);
-            siparis.setPrice(ucret);
-            siparis.setDeleted(false);
-            siparis.setOrderNo(siparisNo);
-            siparis.setRegistrationDay(bugun);
-            siparis.setRegistrationMonth(buAy);
-            siparis.setRegistrationYear(buYil);
-            System.out.println("siparis olusturulma tarihi yil-ay-gun: "+buYil+"-"+buAy+"-"+bugun);
-if(duzenlemeMi){//tablodaki veri duzeltilecek
-    db.orderDao().guncelleSiparis(duzenlenecekSiparisId,saat,dakika,surucuNo,odemeYontemi,ucret,siparisNo);
-}else {//tabloya yeni veri eklenecek
-    db.orderDao().insertOrder(siparis);
+            Order order = new Order();
+            order.setMinute(minute);
+            order.setHour(hour);
+            order.setDriver(driver);
+            order.setPaymentMethod(paymentMethod);
+            order.setPrice(price);
+            order.setDeleted(false);
+            order.setOrderNo(orderNo);
+            order.setRegistrationDay(currentDay);
+            order.setRegistrationMonth(currentMonth);
+            order.setRegistrationYear(currentYear);
+
+if(isEdit){//edits the order
+    db.orderDao().updateOrder(editingOrderId,hour,minute,driver,paymentMethod,price,orderNo);
+}else {//add new order
+    db.orderDao().insertOrder(order);
 
 }
 
 
-            anaEkranaGit();
+            goToMainActivity();
 
 
 
@@ -220,7 +223,7 @@ if(duzenlemeMi){//tablodaki veri duzeltilecek
 
 
 
-    public void anaEkranaGit() {
+    public void goToMainActivity() {
         Intent intent = new Intent(OrderAddActivity.this, MainActivity.class);
         startActivity(intent);
     }

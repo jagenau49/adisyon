@@ -80,7 +80,7 @@ public class PaymentDriver extends AppCompatActivity {
 
         //spinnera detaylar veriliyor
         ArrayAdapter<CharSequence> adapterSurucuNo = ArrayAdapter.createFromResource(this,// Create an ArrayAdapter using the string array and a default spinner layout
-                R.array.surucu_nolari, R.layout.spinner_item);
+                R.array.drivers, R.layout.spinner_item);
         spSurucuNo.setAdapter(adapterSurucuNo);
 
         //butonlara fonksiyon veriliyor

@@ -23,8 +23,8 @@ public interface OrderDao {
     @Query("UPDATE `ordersTable` SET hour=:hour, minute=:minute, driver=:driver, " +
             "paymentMethod=:paymentMethod, price=:price, orderNo=:orderNo " +
             "WHERE ID=:idEditingOrder")
-    void guncelleSiparis(int idEditingOrder, int hour, int minute, String driver,
-                         String paymentMethod, double price, String orderNo);
+    void updateOrder(int idEditingOrder, int hour, int minute, String driver,
+                     String paymentMethod, double price, String orderNo);
     //updates specified order with new values
 
 
