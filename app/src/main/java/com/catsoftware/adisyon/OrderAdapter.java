@@ -79,10 +79,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            tvUcret = itemView.findViewById(R.id.tvUcret);
-            tvOdemeYontemi = itemView.findViewById(R.id.tvOdemeYontemi);
-            tvSurucuNo = itemView.findViewById(R.id.tvSurucuNo);
-            tvSaatDakika = itemView.findViewById(R.id.tvSaatDakika);
+            tvUcret = itemView.findViewById(R.id.tvPrice);
+            tvOdemeYontemi = itemView.findViewById(R.id.tvPaymentMethod);
+            tvSurucuNo = itemView.findViewById(R.id.tvDriver);
+            tvSaatDakika = itemView.findViewById(R.id.tvHourAndMinute);
             tvSiparisNo=itemView.findViewById(R.id.tvSiparisNo);
             ivDuzenle = itemView.findViewById(R.id.ivDuzenle);
             ivSil = itemView.findViewById(R.id.ivSil);
@@ -134,7 +134,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         }
 
         private void siparisSil(int siparisId) {
-            db.orderDao().setSilindiMi(siparisId, true);
+            db.orderDao().setIsDeleted(siparisId, true);
             notifyItemRemoved(tiklanilanPosition);
 
             /*

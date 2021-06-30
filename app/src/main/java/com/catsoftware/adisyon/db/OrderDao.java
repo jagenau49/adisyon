@@ -29,7 +29,7 @@ public interface OrderDao {
 
 
     @Query("UPDATE `ordersTable` SET isDeleted=:isDeleted WHERE ID=:ID")
-    void setSilindiMi(int ID, boolean isDeleted);//updates selected order as deleted
+    void setIsDeleted(int ID, boolean isDeleted);//updates selected order as deleted
 
     @Query("SELECT COUNT(ID) FROM `ordersTable` " +
             "WHERE  registrationYear!=:registrationYear OR registrationMonth!=:registrationMonth OR  registrationDay!=:registrationDay")

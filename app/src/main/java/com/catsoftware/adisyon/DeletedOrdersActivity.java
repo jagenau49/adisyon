@@ -36,7 +36,7 @@ public class DeletedOrdersActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        AdapterSilinmisSiparisler siparisAdapter= new AdapterSilinmisSiparisler(this,getSilinmisSiparislerListesi());
+        AdapterDeletedOrders siparisAdapter= new AdapterDeletedOrders(this,getSilinmisSiparislerListesi());
         recyclerView.setAdapter(siparisAdapter);
 
     }
