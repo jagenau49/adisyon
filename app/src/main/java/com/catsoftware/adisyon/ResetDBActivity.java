@@ -32,8 +32,8 @@ public class ResetDBActivity extends AppCompatActivity {
         btSilmektenVazgec=findViewById(R.id.btSilmektenVazgec);
 
         //views updated
-        int rdSayi1=rd3haneliSayi();
-        int rdSayi2=rd3haneliSayi();
+        int rdSayi1= rd2haneliSayi();
+        int rdSayi2= rd2haneliSayi();
         int dogruCevap=rdSayi1+rdSayi2;
         tvSayi1.setText(""+rdSayi1);
         tvSayi2.setText(""+rdSayi2);
@@ -84,9 +84,9 @@ public class ResetDBActivity extends AppCompatActivity {
 
 
     }
-    private int rd3haneliSayi() {
+    private int rd2haneliSayi() {
         Random random=new Random();
-        return random.nextInt(900)+100;
+        return random.nextInt(90)+10;
 
     }
 }
