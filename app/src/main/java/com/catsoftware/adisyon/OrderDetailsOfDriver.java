@@ -15,26 +15,24 @@ import java.util.List;
 
 public class OrderDetailsOfDriver extends AppCompatActivity {
     RecyclerView recyclerView;
-    List<Order> listeSurucununSiparisleri;
+    List<Order> ordersOfDriver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_surucunun_paket_detaylari);
+        setContentView(R.layout.activity_order_details_of_driver);
 
 
-        //intent ile gelen veriler aliniyor
+        //get values from intent
         Intent i= getIntent();
-        String surucuNo=i.getStringExtra(PaymentDriver.SORGULANMIS_SURUCU_NO);
-        listeSurucununSiparisleri = (List<Order>)( i.getBundleExtra(PaymentDriver.KEY_LIST).getSerializable(PaymentDriver.SORGU_SONUCU_LISTESI));
+        String driver=i.getStringExtra(PaymentDriverActivity.SELECTED_DRIVER);
+        ordersOfDriver = (List<Order>)( i.getBundleExtra(PaymentDriverActivity.KEY_LIST).getSerializable(PaymentDriverActivity.LIST_OF_DRIVERS_ORDERS));
 
-        //surucuno ayarlaniyor
-        TextView tvSorguDetaySurucuNo=findViewById(R.id.tvSorguDetaySurucuNo);
-        tvSorguDetaySurucuNo.setText(surucuNo);
-
-        //button ayarlaniyor
-        Button btSorguyaGeriDon=findViewById(R.id.btSorguyaGeriDon);
-        btSorguyaGeriDon.setOnClickListener(v -> finish());
+        //Layout items are updated
+        TextView tvSelectedDriver=findViewById(R.id.tvSelectedDriver);
+        tvSelectedDriver.setText(driver);
+        Button btBackToPaymentDriverActivity=findViewById(R.id.btBackToPaymentDriverActivity);
+        btBackToPaymentDriverActivity.setOnClickListener(v -> finish());
 updateRecyclerview();
 
     }
@@ -49,12 +47,12 @@ updateRecyclerview();
 
     private void updateRecyclerview() {
 
-        //recycleviewer ayarlaniyor
-        recyclerView = findViewById(R.id.rvHesapDokumuRecyclerView);
+
+        recyclerView = findViewById(R.id.rvPaymentDriver);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        OrderAdapter orderAdapter = new OrderAdapter(this, listeSurucununSiparisleri, getClass().getName());//classname i iki tarafta da duzelt
+        OrderAdapter orderAdapter = new OrderAdapter(this, ordersOfDriver, getClass().getName());
         recyclerView.setAdapter(orderAdapter);
 
     }

@@ -26,9 +26,9 @@ import java.util.List;
 
 import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
 
-public class PaymentDriver extends AppCompatActivity {
-    public static final String SORGU_SONUCU_LISTESI="SORGU_SONUCU_LISTESI";
-    public static final String SORGULANMIS_SURUCU_NO="SORGULANMIS_SURUCU_NO";
+public class PaymentDriverActivity extends AppCompatActivity {
+    public static final String LIST_OF_DRIVERS_ORDERS ="SORGU_SONUCU_LISTESI";
+    public static final String SELECTED_DRIVER ="SORGULANMIS_SURUCU_NO";
     public static final String KEY_LIST="LIST";
 
     public static int saatIseBaslama = -1;
@@ -90,7 +90,7 @@ public class PaymentDriver extends AppCompatActivity {
         btHesapla.setOnClickListener(v -> {
 
             if (saatIseBaslama == 0 || saatIsiBitirme == 0 || etSaatlikUcreti.getText().toString().equals("")) {//eksik bilgiler var
-                Toast.makeText(PaymentDriver.this, "Sorgulama yapilamadi! Lütfen eksik bilgileri giriniz.", Toast.LENGTH_LONG).show();
+                Toast.makeText(PaymentDriverActivity.this, "Sorgulama yapilamadi! Lütfen eksik bilgileri giriniz.", Toast.LENGTH_LONG).show();
 
 
             } else {//bilgiler tam girilmis
@@ -112,7 +112,7 @@ public class PaymentDriver extends AppCompatActivity {
 
 
     private void odemeHesapla(String surucuNo, int saatIseBaslama, int dakikaIseBaslama, int saatIsiBitirme, int dakikaIsiBitirme, double surucuSaatlikUcret) {//
-        deleteOldOrders(PaymentDriver.this);
+        deleteOldOrders(PaymentDriverActivity.this);
         staticDriver =surucuNo;
          listeSurucununSiparisleri = db.orderDao().getAllOrdersOfDriver(surucuNo, false);
         int surucununSiparisSayisi = listeSurucununSiparisleri.size();
@@ -163,7 +163,7 @@ public class PaymentDriver extends AppCompatActivity {
     }
 
     public void anaEkranaGit() {
-        Intent intent = new Intent(PaymentDriver.this, MainActivity.class);
+        Intent intent = new Intent(PaymentDriverActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
@@ -210,9 +210,9 @@ public class PaymentDriver extends AppCompatActivity {
         Bundle b = new Bundle();
 
 
-        b.putSerializable(SORGU_SONUCU_LISTESI, (Serializable) listeSurucununSiparisleri);
+        b.putSerializable(LIST_OF_DRIVERS_ORDERS, (Serializable) listeSurucununSiparisleri);
         i.putExtra(KEY_LIST,b);
-        i.putExtra(SORGULANMIS_SURUCU_NO, staticDriver);
+        i.putExtra(SELECTED_DRIVER, staticDriver);
         startActivity(i);
     }
 }

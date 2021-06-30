@@ -12,7 +12,7 @@
         <activity android:name=".ResetDBActivity" />
         <activity android:name=".OrderDetailsOfDriver" />
         <activity android:name=".DeletedOrdersActivity" />
-        <activity android:name=".PaymentDriver" />
+        <activity android:name=".PaymentDriverActivity" />
         <activity android:name=".OrderAddActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

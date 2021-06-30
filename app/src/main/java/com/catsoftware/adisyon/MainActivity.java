@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }else if(item.getItemId()==R.id.mnCalculatePayment) {
 
-            intent = new Intent(MainActivity.this, PaymentDriver.class);
+            intent = new Intent(MainActivity.this, PaymentDriverActivity.class);
             startActivity(intent);
         }else if(item.getItemId()==R.id.mnDeletedOrders){
 

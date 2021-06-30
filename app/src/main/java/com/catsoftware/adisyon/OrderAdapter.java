@@ -159,7 +159,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     private void refreshListOfQuery() {
         deleteOldOrders(context);
-        mDataList = db.orderDao().getAllOrdersOfDriver(PaymentDriver.staticDriver, false);
+        mDataList = db.orderDao().getAllOrdersOfDriver(PaymentDriverActivity.staticDriver, false);
 
     }
 
