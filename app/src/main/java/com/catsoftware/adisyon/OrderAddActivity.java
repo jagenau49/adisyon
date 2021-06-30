@@ -14,7 +14,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.catsoftware.adisyon.db.AppDatabase;
-import com.catsoftware.adisyon.db.SiparisSatiri;
+import com.catsoftware.adisyon.db.Order;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -62,19 +62,19 @@ public class OrderAddActivity extends AppCompatActivity {
         if (duzenlemeMi) {//duzenleme yapmak icin acildiysa
            deleteOldOrders(OrderAddActivity.this);
         //duzenlenecek siparisin verileri cekiliyor
-            List<SiparisSatiri> listIdDetay= db.orderDao().siparisDetayGetir(duzenlenecekSiparisId);
-            int duzenlenecekSaat=listIdDetay.get(0).getSaat();
-            int duzenlenecekDakika=listIdDetay.get(0).getDakika();
-            String duzenlenecekSurucu=listIdDetay.get(0).getSurucu();
-            String duzenlenecekOdemeYontemi=listIdDetay.get(0).getOdemeYontemi();
+            List<Order> listIdDetay= db.orderDao().getDetailsOfOrder(duzenlenecekSiparisId);
+            int duzenlenecekSaat=listIdDetay.get(0).getHour();
+            int duzenlenecekDakika=listIdDetay.get(0).getMinute();
+            String duzenlenecekSurucu=listIdDetay.get(0).getDriver();
+            String duzenlenecekOdemeYontemi=listIdDetay.get(0).getPaymentMethod();
             int idOdemeYontemi;
             if (duzenlenecekOdemeYontemi.equals("Bar")){
                 idOdemeYontemi=0;
             }else{
                 idOdemeYontemi=1;
             }
-            double duzenlenecekUcret=listIdDetay.get(0).getUcret();
-            String duzenlenecekSiparisNo=listIdDetay.get(0).getSiparisNo();
+            double duzenlenecekUcret=listIdDetay.get(0).getPrice();
+            String duzenlenecekSiparisNo=listIdDetay.get(0).getOrderNo();
 
             //layout nesneleri duzenlenecek verilere gore guncelleniyor
             btSiparisKaydet.setText("Korrigieren");
@@ -183,22 +183,22 @@ public class OrderAddActivity extends AppCompatActivity {
             db = AppDatabase.getDbInstance(this.getApplicationContext());
 
 
-            SiparisSatiri siparis = new SiparisSatiri();
-            siparis.setDakika(dakika);
-            siparis.setSaat(saat);
-            siparis.setSurucu(surucuNo);
-            siparis.setOdemeYontemi(odemeYontemi);
-            siparis.setUcret(ucret);
-            siparis.setSilindiMi(false);
-            siparis.setSiparisNo(siparisNo);
-            siparis.setKayitGunu(bugun);
-            siparis.setKayitAyi(buAy);
-            siparis.setKayitYili(buYil);
+            Order siparis = new Order();
+            siparis.setMinute(dakika);
+            siparis.setHour(saat);
+            siparis.setDriver(surucuNo);
+            siparis.setPaymentMethod(odemeYontemi);
+            siparis.setPrice(ucret);
+            siparis.setDeleted(false);
+            siparis.setOrderNo(siparisNo);
+            siparis.setRegistrationDay(bugun);
+            siparis.setRegistrationMonth(buAy);
+            siparis.setRegistrationYear(buYil);
             System.out.println("siparis olusturulma tarihi yil-ay-gun: "+buYil+"-"+buAy+"-"+bugun);
 if(duzenlemeMi){//tablodaki veri duzeltilecek
     db.orderDao().guncelleSiparis(duzenlenecekSiparisId,saat,dakika,surucuNo,odemeYontemi,ucret,siparisNo);
 }else {//tabloya yeni veri eklenecek
-    db.orderDao().insertSiparis(siparis);
+    db.orderDao().insertOrder(siparis);
 
 }
 

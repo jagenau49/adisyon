@@ -13,7 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.catsoftware.adisyon.db.AppDatabase;
-import com.catsoftware.adisyon.db.SiparisSatiri;
+import com.catsoftware.adisyon.db.Order;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -25,7 +25,7 @@ import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder> {
     public static final String SIPARIS_ID = "siparisId";
     public static final String DUZENLEME_MI = "duzenlemeMi";
-    List<SiparisSatiri> mDataList;
+    List<Order> mDataList;
     final LayoutInflater layoutInflater;
     AppDatabase db;
     final Context context;
@@ -33,7 +33,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
 
 
-    public OrderAdapter(Context context, List<SiparisSatiri> siparisList, String className) {
+    public OrderAdapter(Context context, List<Order> siparisList, String className) {
         layoutInflater = LayoutInflater.from(context);
         this.mDataList = siparisList;
         this.context = context;
@@ -53,7 +53,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(OrderAdapter.MyViewHolder holder, int position) {
 
-        SiparisSatiri tiklanilanSiparis = mDataList.get(position);
+        Order tiklanilanSiparis = mDataList.get(position);
         holder.setData(tiklanilanSiparis, position);
 
     }
@@ -145,13 +145,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
         }
 
-        public void setData(SiparisSatiri tiklanilanSiparis, int position) {
-            this.tvUcret.setText(tiklanilanSiparis.getUcret().toString() + " €");
-            this.tvOdemeYontemi.setText(tiklanilanSiparis.getOdemeYontemi());
-            this.tvSurucuNo.setText(tiklanilanSiparis.getSurucu() + " .Fahrer");
-            this.tvSiparisNo.setText(tiklanilanSiparis.getSiparisNo());
-            this.tvSaatDakika.setText(ikiHaneliOlsun(tiklanilanSiparis.getSaat()) + ":" + ikiHaneliOlsun(tiklanilanSiparis.getDakika()));
-            siparisId = tiklanilanSiparis.getsId();
+        public void setData(Order tiklanilanSiparis, int position) {
+            this.tvUcret.setText(tiklanilanSiparis.getPrice().toString() + " €");
+            this.tvOdemeYontemi.setText(tiklanilanSiparis.getPaymentMethod());
+            this.tvSurucuNo.setText(tiklanilanSiparis.getDriver() + " .Fahrer");
+            this.tvSiparisNo.setText(tiklanilanSiparis.getOrderNo());
+            this.tvSaatDakika.setText(ikiHaneliOlsun(tiklanilanSiparis.getHour()) + ":" + ikiHaneliOlsun(tiklanilanSiparis.getMinute()));
+            siparisId = tiklanilanSiparis.getID();
             tiklanilanPosition = position;
 
 
@@ -162,7 +162,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     private void hesapDokumuListesiniGuncelle() {
         deleteOldOrders(context);
-        mDataList = db.orderDao().surucununSiparisleriniGetir(PaymentDriver.statikSurucuNo, false);
+        mDataList = db.orderDao().getAllOrdersOfDriver(PaymentDriver.statikSurucuNo, false);
 
     }
 

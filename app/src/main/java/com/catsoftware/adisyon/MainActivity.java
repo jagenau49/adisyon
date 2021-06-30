@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.catsoftware.adisyon.db.AppDatabase;
-import com.catsoftware.adisyon.db.SiparisSatiri;
+import com.catsoftware.adisyon.db.Order;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private List<SiparisSatiri> loadOrderList() {
+    private List<Order> loadOrderList() {
         deleteOldOrders(this);
         return db.orderDao().getOrders(false);
 

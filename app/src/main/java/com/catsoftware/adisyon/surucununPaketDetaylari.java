@@ -9,13 +9,13 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.catsoftware.adisyon.db.SiparisSatiri;
+import com.catsoftware.adisyon.db.Order;
 
 import java.util.List;
 
 public class surucununPaketDetaylari extends AppCompatActivity {
     RecyclerView recyclerView;
-    List<SiparisSatiri> listeSurucununSiparisleri;
+    List<Order> listeSurucununSiparisleri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class surucununPaketDetaylari extends AppCompatActivity {
         //intent ile gelen veriler aliniyor
         Intent i= getIntent();
         String surucuNo=i.getStringExtra(PaymentDriver.SORGULANMIS_SURUCU_NO);
-        listeSurucununSiparisleri = (List<SiparisSatiri>)( i.getBundleExtra(PaymentDriver.KEY_LIST).getSerializable(PaymentDriver.SORGU_SONUCU_LISTESI));
+        listeSurucununSiparisleri = (List<Order>)( i.getBundleExtra(PaymentDriver.KEY_LIST).getSerializable(PaymentDriver.SORGU_SONUCU_LISTESI));
 
         //surucuno ayarlaniyor
         TextView tvSorguDetaySurucuNo=findViewById(R.id.tvSorguDetaySurucuNo);

@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.catsoftware.adisyon.db.AppDatabase;
-import com.catsoftware.adisyon.db.SiparisSatiri;
+import com.catsoftware.adisyon.db.Order;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -45,7 +45,7 @@ public class PaymentDriver extends AppCompatActivity {
 
     LinearLayout linlayHesapSonuclari;
     AppDatabase db;
-    List<SiparisSatiri> listeSurucununSiparisleri;
+    List<Order> listeSurucununSiparisleri;
 
 
     @Override
@@ -114,7 +114,7 @@ public class PaymentDriver extends AppCompatActivity {
     private void odemeHesapla(String surucuNo, int saatIseBaslama, int dakikaIseBaslama, int saatIsiBitirme, int dakikaIsiBitirme, double surucuSaatlikUcret) {//
         deleteOldOrders(PaymentDriver.this);
         statikSurucuNo=surucuNo;
-         listeSurucununSiparisleri = db.orderDao().surucununSiparisleriniGetir(surucuNo, false);
+         listeSurucununSiparisleri = db.orderDao().getAllOrdersOfDriver(surucuNo, false);
         int surucununSiparisSayisi = listeSurucununSiparisleri.size();
         System.out.println("" + surucuNo + ".surucunun siparis sayisi : " + surucununSiparisSayisi);
         double surucudeToplananSiparisNakitUcreti = 0.0;
@@ -124,11 +124,11 @@ public class PaymentDriver extends AppCompatActivity {
         double surucununToplamSaatlikGeliri=((surucuSaatlikUcret / 6.0) * surucuToplamCalisma10min);
         double surucununCalismaUcreti = surucununToplamSaatlikGeliri+ surucununTeslimEttigiPaketSayisi;
 
-        for (SiparisSatiri siparisSatir : listeSurucununSiparisleri) {
-            if (siparisSatir.getOdemeYontemi().equals("Online")) {
-                surucudeToplananSiparisKartUcreti += siparisSatir.getUcret();
-            } else if (siparisSatir.getOdemeYontemi().equals("Bar")) {
-                surucudeToplananSiparisNakitUcreti += siparisSatir.getUcret();
+        for (Order siparisSatir : listeSurucununSiparisleri) {
+            if (siparisSatir.getPaymentMethod().equals("Online")) {
+                surucudeToplananSiparisKartUcreti += siparisSatir.getPrice();
+            } else if (siparisSatir.getPaymentMethod().equals("Bar")) {
+                surucudeToplananSiparisNakitUcreti += siparisSatir.getPrice();
             }
 
         }

@@ -48,7 +48,7 @@ public class ResetDBActivity extends AppCompatActivity {
                     verileriSifirla();
 
                 }else {//falsh or empty answer
-                    Toast.makeText(ResetDBActivity.this, "Lütfen cevabinizi kontrol edin.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ResetDBActivity.this, "Bitte korrigieren Sie Ihre Antwort!", Toast.LENGTH_LONG).show();
 
                 }
 

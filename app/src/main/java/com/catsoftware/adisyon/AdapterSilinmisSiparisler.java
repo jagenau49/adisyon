@@ -11,7 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.catsoftware.adisyon.db.AppDatabase;
-import com.catsoftware.adisyon.db.SiparisSatiri;
+import com.catsoftware.adisyon.db.Order;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,14 +22,14 @@ import static com.catsoftware.adisyon.MainActivity.deleteOldOrders;
 
 public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilinmisSiparisler.MyViewHolder> {
 
-    List<SiparisSatiri> mDataList;
+    List<Order> mDataList;
     final LayoutInflater layoutInflater;
     AppDatabase db;
     final Context context;
 
 
 
-    public AdapterSilinmisSiparisler(Context context, List<SiparisSatiri> siparisList) {
+    public AdapterSilinmisSiparisler(Context context, List<Order> siparisList) {
         layoutInflater = LayoutInflater.from(context);
         this.mDataList = siparisList;
         this.context = context;
@@ -47,7 +47,7 @@ public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilin
     @Override
     public void onBindViewHolder(AdapterSilinmisSiparisler.MyViewHolder holder, int position) {
 
-        SiparisSatiri tiklanilanSiparis = mDataList.get(position);
+        Order tiklanilanSiparis = mDataList.get(position);
         holder.setData(tiklanilanSiparis, position);
 
     }
@@ -113,12 +113,12 @@ public class AdapterSilinmisSiparisler extends RecyclerView.Adapter<AdapterSilin
 
         }
 
-        public void setData(SiparisSatiri tiklanilanSiparis, int position) {
-            this.tvUcret.setText(tiklanilanSiparis.getUcret().toString() + " €");
-            this.tvOdemeYontemi.setText(tiklanilanSiparis.getOdemeYontemi());
-            this.tvSurucuNo.setText(tiklanilanSiparis.getSurucu() + ".Fahrer");
-            this.tvSaatDakika.setText(ikiHaneliOlsun(tiklanilanSiparis.getSaat()) + ":" + ikiHaneliOlsun(tiklanilanSiparis.getDakika()));
-            siparisId = tiklanilanSiparis.getsId();
+        public void setData(Order tiklanilanSiparis, int position) {
+            this.tvUcret.setText(tiklanilanSiparis.getPrice().toString() + " €");
+            this.tvOdemeYontemi.setText(tiklanilanSiparis.getPaymentMethod());
+            this.tvSurucuNo.setText(tiklanilanSiparis.getDriver() + ".Fahrer");
+            this.tvSaatDakika.setText(ikiHaneliOlsun(tiklanilanSiparis.getHour()) + ":" + ikiHaneliOlsun(tiklanilanSiparis.getMinute()));
+            siparisId = tiklanilanSiparis.getID();
             tiklanilanPosition = position;
 
 

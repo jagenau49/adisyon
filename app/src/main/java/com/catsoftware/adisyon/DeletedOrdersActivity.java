@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.catsoftware.adisyon.db.AppDatabase;
-import com.catsoftware.adisyon.db.SiparisSatiri;
+import com.catsoftware.adisyon.db.Order;
 
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class DeletedOrdersActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private List<SiparisSatiri> getSilinmisSiparislerListesi() {
+    private List<Order> getSilinmisSiparislerListesi() {
         deleteOldOrders(DeletedOrdersActivity.this);
         return db.orderDao().getOrders(true);
 
