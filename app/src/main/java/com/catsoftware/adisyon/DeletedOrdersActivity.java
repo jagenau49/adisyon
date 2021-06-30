@@ -25,19 +25,19 @@ public class DeletedOrdersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_silinmis_siparisler);
 
 
-        db= AppDatabase.getDbInstance(this.getApplicationContext());//veritabani baglaniyor
+        db= AppDatabase.getDbInstance(this.getApplicationContext());//db is assigned
 
-        //layout nesneleri ataniyor
-        Button btSiparislereGeriDon = findViewById(R.id.btSparislereDon);
-        btSiparislereGeriDon.setOnClickListener(v -> anaEkranaGit());
+        //layout items are assigned
+        Button btBackToMainActivity = findViewById(R.id.btBackToMainActivity);
+        btBackToMainActivity.setOnClickListener(v -> returnToMainActivity());
 
-        //recycleviewer ayarlaniyor
-        recyclerView=findViewById(R.id.rvSilinmisSiparisler);
+        //recycleviewer is assigned
+        recyclerView=findViewById(R.id.rvDeletedOrders);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        AdapterDeletedOrders siparisAdapter= new AdapterDeletedOrders(this,getSilinmisSiparislerListesi());
-        recyclerView.setAdapter(siparisAdapter);
+        AdapterDeletedOrders adapterDeletedOrders= new AdapterDeletedOrders(this, getDeletedOrdersList());
+        recyclerView.setAdapter(adapterDeletedOrders);
 
     }
     @Override
@@ -48,14 +48,14 @@ public class DeletedOrdersActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private List<Order> getSilinmisSiparislerListesi() {
+    private List<Order> getDeletedOrdersList() {
         deleteOldOrders(DeletedOrdersActivity.this);
         return db.orderDao().getOrders(true);
 
     }
 
 
-    public void anaEkranaGit() {
+    public void returnToMainActivity() {
         Intent intent = new Intent(DeletedOrdersActivity.this, MainActivity.class);
         startActivity(intent);
     }
