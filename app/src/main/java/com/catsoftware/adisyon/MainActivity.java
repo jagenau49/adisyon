@@ -91,9 +91,9 @@ public class MainActivity extends AppCompatActivity {
 
         //database processes
         AppDatabase db = AppDatabase.getDbInstance(context);
-        int beforeDeleteCountOfOldOrders = db.orderDao().getCountOldOrders(currentYear, currentYear, currentToday);// get the counts before delete
+        int beforeDeleteCountOfOldOrders = db.orderDao().getCountOldOrders(currentYear, currentMonth, currentToday);// get the counts before delete
         db.orderDao().deleteOldYear(currentYear);
-        db.orderDao().deleteOldMonth(currentYear);
+        db.orderDao().deleteOldMonth(currentMonth);
         db.orderDao().deleteOldDay(currentToday);
         int afterDeleteCountOfOldOrders = db.orderDao().getCountOldOrders(currentYear, currentYear, currentToday);// get the counts after delete
 
@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         int countOrders = loadOrderList().size();
+
         tvCountTotalOrders.setText(""+ countOrders);
 
     }

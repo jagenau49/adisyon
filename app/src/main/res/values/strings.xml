@@ -32,7 +32,7 @@
     <string name="dikkat">Achtung!</string>
     <string name="onayla">Bestätigen</string>
     <string name="vazgec">Zurück</string>
-    <string name="siparis_no">Bestellungsnummer :</string>
+    <string name="siparis_no">Bestellnr. :</string>
     <string name="text_warning">Sie sind dabei, alle Daten in der Datenbank zu löschen. Diese Transaktion kann nicht rückgängig gemacht werden. Wenn Sie sicher sind, dass Sie alle Daten löschen möchten, schließen Sie den folgenden Vorgang ab und bestätigen Sie.</string>
     <string name="bugunun_siparisleri">Bestellungen:</string>
     <string name="_000_00" translatable="false">000,00</string>
