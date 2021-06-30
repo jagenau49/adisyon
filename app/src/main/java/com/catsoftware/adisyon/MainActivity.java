@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intent;
         if(item.getItemId()==R.id.mnResetDb) {
-            intent = new Intent(MainActivity.this, resetDBActivity.class);
+            intent = new Intent(MainActivity.this, ResetDBActivity.class);
             startActivity(intent);
 
 

@@ -14,7 +14,7 @@ import com.catsoftware.adisyon.db.AppDatabase;
 
 import java.util.Random;
 
-public class resetDBActivity extends AppCompatActivity {
+public class ResetDBActivity extends AppCompatActivity {
     TextView  tvSayi1,tvSayi2;
     EditText etIslemSonucu;
     Button btSilmeyiOnayla, btSilmektenVazgec;
@@ -38,14 +38,23 @@ public class resetDBActivity extends AppCompatActivity {
         tvSayi1.setText(""+rdSayi1);
         tvSayi2.setText(""+rdSayi2);
         btSilmeyiOnayla.setOnClickListener(v -> {
-            int kullanicininCevabi=Integer.parseInt(etIslemSonucu.getText().toString());
-            if(kullanicininCevabi==dogruCevap){ //user entered right answer
-                verileriSifirla();
+            String answerOfQuestion=etIslemSonucu.getText().toString();
+            if(answerOfQuestion.equals("")){ //user sent empty answer
+                Toast.makeText(ResetDBActivity.this, "Bitte korrigieren Sie Ihre Antwort!", Toast.LENGTH_LONG).show();
 
-            }else {//falsh or empty answer
-                Toast.makeText(resetDBActivity.this, "Lütfen cevabinizi kontrol edin.", Toast.LENGTH_LONG).show();
+            }else{ //user sent an answer
+                int kullanicininCevabi=Integer.parseInt(answerOfQuestion);
+                if(kullanicininCevabi==dogruCevap){ //user entered right answer
+                    verileriSifirla();
+
+                }else {//falsh or empty answer
+                    Toast.makeText(ResetDBActivity.this, "Lütfen cevabinizi kontrol edin.", Toast.LENGTH_LONG).show();
+
+                }
 
             }
+
+
         });
         btSilmektenVazgec.setOnClickListener(v -> finish());
     }
@@ -59,7 +68,7 @@ public class resetDBActivity extends AppCompatActivity {
 
             AppDatabase db = AppDatabase.getDbInstance(this);
             db.clearAllTables();
-            Intent intent=new Intent(resetDBActivity.this,MainActivity.class);
+            Intent intent=new Intent(ResetDBActivity.this,MainActivity.class);
             startActivity(intent);
 
 
