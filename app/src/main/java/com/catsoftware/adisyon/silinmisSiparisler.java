@@ -40,6 +40,13 @@ public class silinmisSiparisler extends AppCompatActivity {
         recyclerView.setAdapter(siparisAdapter);
 
     }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
+        Intent intent=new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
 
     private List<SiparisSatiri> getSilinmisSiparislerListesi() {
         deleteOldOrders(silinmisSiparisler.this);

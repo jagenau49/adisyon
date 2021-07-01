@@ -6,5 +6,5 @@
     <item android:title="@string/hesap_dokumu" android:id="@+id/mnHesapDokumu"/>
     <item android:id="@+id/mnSilinmisSiparisler" android:title="@string/MN_silinmis_siparisler"/>
 <item android:title="@string/tum_siparisleri_sifirla" android:id="@+id/mnSifirla"/>
-    <!-- test icin yazildi<item android:title="VERITABANINI SISIR" android:id="@+id/mnVeriTabaniniSisir"/>-->
+    <!--TODO test icin acildi tekrar kapa  test icin yazildi--><item android:title="VERITABANINI SISIR" android:id="@+id/mnVeriTabaniniSisir"/>
 </menu>
