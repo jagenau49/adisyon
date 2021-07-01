@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SiparisGirmeEkrani">
+    tools:context=".activities.OrderAddActivity">
 
 
     <TimePicker
@@ -22,74 +22,73 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginStart="133dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/surucu_no"
+        android:text="@string/driver"
         android:textColor="#050505"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/spSurucuNo"
-        app:layout_constraintEnd_toStartOf="@+id/spSurucuNo"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/spDrivers"
+        app:layout_constraintEnd_toStartOf="@+id/spDrivers"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/spSurucuNo" />
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/spDrivers" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
 
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/siparis_no"
+        android:text="@string/order_no"
         android:textColor="#050505"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/etSiparisNo"
-        app:layout_constraintEnd_toStartOf="@+id/etSiparisNo"
-        app:layout_constraintHorizontal_bias="0.92"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etSiparisNo" />
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/etOrderNo"
+        app:layout_constraintEnd_toStartOf="@+id/etOrderNo"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/etOrderNo" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        android:layout_marginStart="104dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/tutar"
+        android:text="@string/price"
         android:textColor="#050505"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/etUcret"
-        app:layout_constraintEnd_toStartOf="@+id/etUcret"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/etPrice"
+        app:layout_constraintEnd_toStartOf="@+id/etPrice"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/etUcret"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/etPrice"
         app:layout_constraintVertical_bias="0.476" />
 
     <Spinner
-        android:id="@+id/spSurucuNo"
+        android:id="@+id/spDrivers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
 
         android:layout_marginTop="24dp"
         android:scrollbarSize="28dp"
-        app:layout_constraintStart_toStartOf="@+id/etSiparisNo"
-        app:layout_constraintTop_toBottomOf="@+id/etSiparisNo" />
+        app:layout_constraintStart_toStartOf="@+id/etOrderNo"
+        app:layout_constraintTop_toBottomOf="@+id/etOrderNo" />
 
     <Spinner
-        android:id="@+id/spOdemeYontemi"
+        android:id="@+id/spPaymentMethods"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:layout_marginTop="24dp"
         android:scrollbarSize="28dp"
-        app:layout_constraintStart_toStartOf="@+id/spSurucuNo"
-        app:layout_constraintTop_toBottomOf="@+id/spSurucuNo" />
+        app:layout_constraintStart_toStartOf="@+id/spDrivers"
+        app:layout_constraintTop_toBottomOf="@+id/spDrivers" />
 
     <EditText
-        android:id="@+id/etUcret"
+        android:id="@+id/etPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -100,11 +99,11 @@
 
         android:maxLength="6"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/spOdemeYontemi"
-        app:layout_constraintTop_toBottomOf="@+id/spOdemeYontemi" />
+        app:layout_constraintStart_toStartOf="@+id/spPaymentMethods"
+        app:layout_constraintTop_toBottomOf="@+id/spPaymentMethods" />
 
     <EditText
-        android:id="@+id/etSiparisNo"
+        android:id="@+id/etOrderNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -118,19 +117,21 @@
         app:layout_constraintTop_toBottomOf="@+id/timePicker1" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/odeme_yontemi"
+        android:text="@string/Payment_method"
         android:textColor="#050505"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/spOdemeYontemi"
-        app:layout_constraintEnd_toStartOf="@+id/spOdemeYontemi"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@+id/spPaymentMethods"
+        app:layout_constraintEnd_toStartOf="@+id/spPaymentMethods"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/spOdemeYontemi" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/spPaymentMethods" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -138,9 +139,9 @@
         android:text="@string/euro_symbol"
         android:textColor="#050505"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/etUcret"
-        app:layout_constraintStart_toEndOf="@+id/etUcret"
-        app:layout_constraintTop_toTopOf="@+id/etUcret" />
+        app:layout_constraintBottom_toBottomOf="@+id/etPrice"
+        app:layout_constraintStart_toEndOf="@+id/etPrice"
+        app:layout_constraintTop_toTopOf="@+id/etPrice" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -149,37 +150,37 @@
         android:layout_marginEnd="8dp"
         android:text="@string/saat"
         android:textColor="#050505"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="@+id/timePicker1"
         app:layout_constraintEnd_toStartOf="@+id/timePicker1"
         app:layout_constraintTop_toTopOf="@+id/timePicker1" />
 
     <Button
-        android:id="@+id/btVazgec"
+        android:id="@+id/btCancel"
         android:layout_width="411dp"
         android:layout_height="wrap_content"
 
 
         android:layout_marginTop="24dp"
         android:padding="10dp"
-        android:text="@string/vazgec"
+        android:text="@string/back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btKaydet" />
+        app:layout_constraintTop_toBottomOf="@+id/btAddOrder" />
 
     <Button
-        android:id="@+id/btKaydet"
+        android:id="@+id/btAddOrder"
         android:layout_width="411dp"
         android:layout_height="wrap_content"
 
 
         android:layout_marginTop="16dp"
         android:padding="10dp"
-        android:text="@string/siparisi_kaydet"
+        android:text="@string/register_order"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUcret" />
+        app:layout_constraintTop_toBottomOf="@+id/etPrice" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

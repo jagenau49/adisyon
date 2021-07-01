@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VeritabaniSifirlamaEkrani"
+    tools:context=".activities.ResetDBActivity"
     android:orientation="vertical">
 
     <TextView
@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="@string/dikkat"
+        android:text="@string/attention"
         android:textColor="#F80202"
         android:textSize="36sp" />
 
@@ -31,7 +31,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tvSayi1"
+            android:id="@+id/tvRndNum1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -43,12 +43,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/arti"
+            android:text="@string/symbol_plus"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvSayi2"
+            android:id="@+id/tvRndNum2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -60,12 +60,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/sembolEsittir"
+            android:text="@string/equals_symbol"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/etIslemSonucu"
+            android:id="@+id/etAnswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -74,14 +74,14 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btSilmeyiOnayla"
+        android:id="@+id/btDeleteConfirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/onayla" />
+        android:text="@string/confirm" />
 
     <Button
-        android:id="@+id/btSilmektenVazgec"
+        android:id="@+id/btCancelReset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/vazgec" />
+        android:text="@string/back" />
 </LinearLayout>

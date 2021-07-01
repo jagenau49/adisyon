@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="surucu_nolari">
+    <string-array name="drivers">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -12,7 +12,7 @@
         <item>9</item>
         <item>10</item>
     </string-array>
-    <string-array name="odeme_yontemi">
+    <string-array name="payment_methods">
         <item>Bar</item>
         <item>Online</item>
     </string-array>
