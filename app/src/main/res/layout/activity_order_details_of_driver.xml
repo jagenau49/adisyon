@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".surucununPaketDetaylari">
+    tools:context=".activitys.OrderDetailsOfDriverActivity">
 
 
     <LinearLayout
@@ -15,7 +15,7 @@
         android:visibility="visible">
 
         <TextView
-            android:id="@+id/tvSorguDetaySurucuNo"
+            android:id="@+id/tvSelectedDriver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingEnd="7dp"
@@ -34,13 +34,13 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvHesapDokumuRecyclerView"
+        android:id="@+id/rvPaymentDriver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp" />
 
     <Button
-        android:id="@+id/btSorguyaGeriDon"
+        android:id="@+id/btBackToPaymentDriverActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

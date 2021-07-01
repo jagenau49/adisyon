@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".surucuHesapDokumu"
+    tools:context=".activitys.PaymentDriverActivity"
     android:orientation="vertical">
 
     <LinearLayout
@@ -30,7 +30,7 @@
                 android:textStyle="bold" />
 
             <Spinner
-                android:id="@+id/spSurucuNoHesaplik"
+                android:id="@+id/spDriversForPayment"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
 
@@ -61,7 +61,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tvIseBaslamaSaati"
+                    android:id="@+id/tvBeginHourOfWork"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -72,7 +72,7 @@
                     android:id="@+id/btIseBaslamaSaatiSec"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:onClick="saatSec"
+                    android:onClick="pickHour"
                     app:srcCompat="@android:drawable/presence_away" />
             </LinearLayout>
 
@@ -100,7 +100,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tvIsiBitirmeSaati"
+                    android:id="@+id/tvEndHourOfWork"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -111,7 +111,7 @@
                     android:id="@+id/btIsiBitirmeSaatiSec"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:onClick="saatSec"
+                    android:onClick="pickHour"
                     app:srcCompat="@android:drawable/presence_away" />
             </LinearLayout>
 
@@ -133,7 +133,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/etSaatlikUcret"
+                android:id="@+id/etHourlyRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
@@ -156,7 +156,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btGeriDon"
+            android:id="@+id/btBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="7dp"
@@ -166,7 +166,7 @@
             style="?android:attr/buttonBarButtonStyle" />
 
         <Button
-            android:id="@+id/btHesapla"
+            android:id="@+id/btCalculate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="7dp"
@@ -177,7 +177,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linlayHesapSonuclari"
+        android:id="@+id/layoutResults"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -191,7 +191,7 @@
             android:visibility="visible">
 
             <TextView
-                android:id="@+id/tvSurucuNoSorguSonucu"
+                android:id="@+id/tvDriverResultNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingEnd="7dp"
@@ -222,7 +222,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvTeslimEttigiPaketKartUcreti"
+                android:id="@+id/tvTotalCardCostOfOrders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/eu_kart" />
@@ -240,7 +240,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvTeslimEttigiPaketNakitUcreti"
+                android:id="@+id/tvTotalCashCostOfOrders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end|center_vertical"
@@ -261,13 +261,13 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvSurucununToplamCalismaSaati"
+                android:id="@+id/tvWorkHoursTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_10_saat_50_dakika" />
 
             <TextView
-                android:id="@+id/tvSurucununToplamSaatlikGeliri"
+                android:id="@+id/tvDriverGainedFromHourlyRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="7dp"
@@ -286,7 +286,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvSurucununTeslimEttigiPaketSayisi"
+                android:id="@+id/tvDeliveredOrders"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -306,7 +306,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvSurcununCalismaUcreti"
+                android:id="@+id/tvDriversTodaysPaymet"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -327,7 +327,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvIadeEtmesiGerekenTutar"
+                android:id="@+id/tvReturnAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -339,7 +339,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btPaketlerinDetaylariniGoster"
+            android:id="@+id/btShowDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/paketlerin_detaylarini_goster" />
