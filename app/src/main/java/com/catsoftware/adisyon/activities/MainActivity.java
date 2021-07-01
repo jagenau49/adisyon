@@ -1,4 +1,4 @@
-package com.catsoftware.adisyon.activitys;
+package com.catsoftware.adisyon.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

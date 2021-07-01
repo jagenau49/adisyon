@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activitys.OrderAddActivity">
+    tools:context=".activities.OrderAddActivity">
 
 
     <TimePicker
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
 
         android:layout_marginEnd="8dp"
-        android:text="@string/surucu_no"
+        android:text="@string/driver"
         android:textColor="#050505"
         android:textSize="16sp"
         android:textStyle="normal"
@@ -39,7 +39,7 @@
 
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:text="@string/siparis_no"
+        android:text="@string/order_no"
         android:textColor="#050505"
         android:textSize="16sp"
         android:textStyle="normal"
@@ -55,7 +55,7 @@
 
         android:layout_marginStart="104dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/tutar"
+        android:text="@string/price"
         android:textColor="#050505"
         android:textSize="16sp"
         android:textStyle="normal"
@@ -123,7 +123,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/odeme_yontemi"
+        android:text="@string/Payment_method"
         android:textColor="#050505"
         android:textSize="16sp"
         android:textStyle="normal"
@@ -164,7 +164,7 @@
 
         android:layout_marginTop="24dp"
         android:padding="10dp"
-        android:text="@string/vazgec"
+        android:text="@string/back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btAddOrder" />
@@ -177,7 +177,7 @@
 
         android:layout_marginTop="16dp"
         android:padding="10dp"
-        android:text="@string/siparisi_kaydet"
+        android:text="@string/register_order"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPrice" />

@@ -1,4 +1,4 @@
-package com.catsoftware.adisyon.activitys;
+package com.catsoftware.adisyon.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

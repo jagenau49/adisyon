@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activitys.PaymentDriverActivity"
+    tools:context=".activities.PaymentDriverActivity"
     android:orientation="vertical">
 
     <LinearLayout
@@ -21,7 +21,7 @@
             android:padding="7dp">
 
             <TextView
-                android:text="@string/surucu_no"
+                android:text="@string/driver"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -50,7 +50,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="start|center_vertical"
-                android:text="@string/ise_baslama_saati"
+                android:text="@string/begin_work"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -89,7 +89,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="start|center_vertical"
-                android:text="@string/isi_bitirme_saati"
+                android:text="@string/end_work"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -128,7 +128,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="start|center_vertical"
-                android:text="@string/saatlik_ucret"
+                android:text="@string/hourly_rate"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -162,7 +162,7 @@
             android:layout_margin="7dp"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="@string/geri_don"
+            android:text="@string/back"
             style="?android:attr/buttonBarButtonStyle" />
 
         <Button
@@ -172,7 +172,7 @@
             android:layout_margin="7dp"
             android:layout_weight="1"
             android:padding="10dp"
-            android:text="@string/hesapla"
+            android:text="@string/calculate"
             style="?android:attr/buttonBarButtonStyle" />
     </LinearLayout>
 
@@ -203,7 +203,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/sorgulama_sonuclari"
+                android:text="@string/query_results"
                 android:textColor="#2196F3"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -218,14 +218,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/kart_ile_odenen_paketlerin_toplami"
+                android:text="@string/sum_cost_card"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvTotalCardCostOfOrders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/eu_kart" />
+                android:text="@string/eu_card" />
         </LinearLayout>
 
         <LinearLayout
@@ -236,7 +236,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/nakit_odenen_paketlerin_toplami"
+                android:text="@string/sum_cost_bar"
                 android:textStyle="bold" />
 
             <TextView
@@ -244,7 +244,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end|center_vertical"
-                android:text="@string/eu_nakit" />
+                android:text="@string/eu_cash" />
 
         </LinearLayout>
 
@@ -257,14 +257,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/toplam_calisma_saati"
+                android:text="@string/total_workhour"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvWorkHoursTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/_10_saat_50_dakika" />
+                android:text="@string/_10_hours_50_minutes" />
 
             <TextView
                 android:id="@+id/tvDriverGainedFromHourlyRate"
@@ -282,7 +282,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/teslim_ettigi_paket_sayisi"
+                android:text="@string/payment_for_delivered_order_pieces"
                 android:textStyle="bold" />
 
             <TextView
@@ -302,7 +302,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/surucunun_calisma_ucreti"
+                android:text="@string/drivers_wage"
                 android:textStyle="bold" />
 
             <TextView
@@ -323,7 +323,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/surucunun_iade_etmesi_gereken_nakit_tutar"
+                android:text="@string/debt_of_driver"
                 android:textStyle="bold" />
 
             <TextView
@@ -342,7 +342,7 @@
             android:id="@+id/btShowDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/paketlerin_detaylarini_goster" />
+            android:text="@string/show_delivered_order_details" />
 
 
     </LinearLayout>

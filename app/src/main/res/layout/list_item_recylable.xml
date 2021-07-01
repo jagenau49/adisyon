@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:text="@string/nakit"
+                android:text="@string/cash"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -55,7 +55,7 @@
                 android:layout_margin="7dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/_5_nolu_surucu"
+                android:text="@string/x_fahrer"
                 android:textSize="18sp" />
 
             <LinearLayout
@@ -76,7 +76,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/siparis_no"
+                    android:text="@string/order_no"
                     android:textSize="10sp" />
 
                 <TextView
@@ -99,7 +99,7 @@
                 android:id="@+id/btRecycle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/geri_al" />
+                android:text="@string/recycle" />
 
         </LinearLayout>
     </LinearLayout>

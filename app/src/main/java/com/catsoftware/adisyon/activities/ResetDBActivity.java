@@ -1,4 +1,4 @@
-package com.catsoftware.adisyon.activitys;
+package com.catsoftware.adisyon.activities;
 
 //TODO: continue to translate
 
@@ -25,7 +25,7 @@ public class ResetDBActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_veritabani_sifirlama_ekrani);
+        setContentView(R.layout.activity_reset_db);
 
         //Layout views assigned
         tvRndNum1 =findViewById(R.id.tvRndNum1);

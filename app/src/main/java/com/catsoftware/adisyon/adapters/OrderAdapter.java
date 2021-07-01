@@ -13,10 +13,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.catsoftware.adisyon.R;
-import com.catsoftware.adisyon.activitys.MainActivity;
-import com.catsoftware.adisyon.activitys.OrderAddActivity;
-import com.catsoftware.adisyon.activitys.OrderDetailsOfDriverActivity;
-import com.catsoftware.adisyon.activitys.PaymentDriverActivity;
+import com.catsoftware.adisyon.activities.MainActivity;
+import com.catsoftware.adisyon.activities.OrderAddActivity;
+import com.catsoftware.adisyon.activities.OrderDetailsOfDriverActivity;
+import com.catsoftware.adisyon.activities.PaymentDriverActivity;
 import com.catsoftware.adisyon.db.AppDatabase;
 import com.catsoftware.adisyon.db.Order;
 
@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import static com.catsoftware.adisyon.activitys.MainActivity.deleteOldOrders;
+import static com.catsoftware.adisyon.activities.MainActivity.deleteOldOrders;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder> {
     public static final String ID = "ID";

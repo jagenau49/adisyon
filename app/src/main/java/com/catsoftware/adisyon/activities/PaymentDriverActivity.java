@@ -1,4 +1,4 @@
-package com.catsoftware.adisyon.activitys;
+package com.catsoftware.adisyon.activities;
 
 
 
@@ -26,7 +26,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-import static com.catsoftware.adisyon.activitys.MainActivity.deleteOldOrders;
+import static com.catsoftware.adisyon.activities.MainActivity.deleteOldOrders;
 
 public class PaymentDriverActivity extends AppCompatActivity {
     public static final String LIST_OF_DRIVERS_ORDERS ="LIST_OF_DRIVERS_ORDERS";

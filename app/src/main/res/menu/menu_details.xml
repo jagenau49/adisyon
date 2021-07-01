@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<item android:id="@+id/mnAddOrder" app:showAsAction="always"  android:title="@string/siparis_ekle"/>
-    <item android:title="@string/hesap_dokumu" android:id="@+id/mnCalculatePayment"/>
-    <item android:id="@+id/mnDeletedOrders" android:title="@string/MN_silinmis_siparisler"/>
-<item android:title="@string/tum_siparisleri_sifirla" android:id="@+id/mnResetDb"/>
+<item android:id="@+id/mnAddOrder" app:showAsAction="always"  android:title="@string/add_order"/>
+    <item android:title="@string/wage_details" android:id="@+id/mnCalculatePayment"/>
+    <item android:id="@+id/mnDeletedOrders" android:title="@string/mn_deleted_orders"/>
+<item android:title="@string/reset_db" android:id="@+id/mnResetDb"/>
     <!--test icin yazildi <item android:title="VERITABANINI SISIR" android:id="@+id/mnVeriTabaniniSisir"/> -->
 </menu>

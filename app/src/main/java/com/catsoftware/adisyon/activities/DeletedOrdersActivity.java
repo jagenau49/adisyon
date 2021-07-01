@@ -1,4 +1,4 @@
-package com.catsoftware.adisyon.activitys;
+package com.catsoftware.adisyon.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,7 +15,7 @@ import com.catsoftware.adisyon.db.Order;
 
 import java.util.List;
 
-import static com.catsoftware.adisyon.activitys.MainActivity.deleteOldOrders;
+import static com.catsoftware.adisyon.activities.MainActivity.deleteOldOrders;
 
 public class DeletedOrdersActivity extends AppCompatActivity {
     AppDatabase db;
@@ -24,7 +24,7 @@ public class DeletedOrdersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_silinmis_siparisler);
+        setContentView(R.layout.activity_deleted_orders);
 
 
         db= AppDatabase.getDbInstance(this.getApplicationContext());//db is assigned

@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import static com.catsoftware.adisyon.activitys.MainActivity.deleteOldOrders;
+import static com.catsoftware.adisyon.activities.MainActivity.deleteOldOrders;
 
 public class AdapterDeletedOrders extends RecyclerView.Adapter<AdapterDeletedOrders.MyViewHolder> {
 

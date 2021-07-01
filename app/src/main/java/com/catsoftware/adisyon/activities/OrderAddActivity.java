@@ -1,4 +1,4 @@
-package com.catsoftware.adisyon.activitys;
+package com.catsoftware.adisyon.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,7 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static com.catsoftware.adisyon.activitys.MainActivity.deleteOldOrders;
+import static com.catsoftware.adisyon.activities.MainActivity.deleteOldOrders;
 
 public class OrderAddActivity extends AppCompatActivity {
     AppDatabase db;
