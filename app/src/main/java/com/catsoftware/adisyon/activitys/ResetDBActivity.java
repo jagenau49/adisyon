@@ -18,9 +18,9 @@ import com.catsoftware.adisyon.db.AppDatabase;
 import java.util.Random;
 
 public class ResetDBActivity extends AppCompatActivity {
-    TextView  tvSayi1,tvSayi2;
-    EditText etIslemSonucu;
-    Button btSilmeyiOnayla, btSilmektenVazgec;
+    TextView tvRndNum1, tvRndNum2;
+    EditText etAnswer;
+    Button btDeleteConfirm, btCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,27 +28,27 @@ public class ResetDBActivity extends AppCompatActivity {
         setContentView(R.layout.activity_veritabani_sifirlama_ekrani);
 
         //Layout views assigned
-        tvSayi1=findViewById(R.id.tvSayi1);
-        tvSayi2=findViewById(R.id.tvSayi2);
-        etIslemSonucu=findViewById(R.id.etIslemSonucu);
-        btSilmeyiOnayla=findViewById(R.id.btSilmeyiOnayla);
-        btSilmektenVazgec=findViewById(R.id.btSilmektenVazgec);
+        tvRndNum1 =findViewById(R.id.tvRndNum1);
+        tvRndNum2 =findViewById(R.id.tvRndNum2);
+        etAnswer =findViewById(R.id.etAnswer);
+        btDeleteConfirm =findViewById(R.id.btDeleteConfirm);
+        btCancel =findViewById(R.id.btCancelReset);
 
         //views updated
-        int rdSayi1= rd2haneliSayi();
-        int rdSayi2= rd2haneliSayi();
-        int dogruCevap=rdSayi1+rdSayi2;
-        tvSayi1.setText(""+rdSayi1);
-        tvSayi2.setText(""+rdSayi2);
-        btSilmeyiOnayla.setOnClickListener(v -> {
-            String answerOfQuestion=etIslemSonucu.getText().toString();
+        int rdNum1= generateRandomNumber();
+        int rdNum2= generateRandomNumber();
+        int solution=rdNum1+rdNum2;
+        tvRndNum1.setText(""+rdNum1);
+        tvRndNum2.setText(""+rdNum2);
+        btDeleteConfirm.setOnClickListener(v -> {
+            String answerOfQuestion= etAnswer.getText().toString();
             if(answerOfQuestion.equals("")){ //user sent empty answer
                 Toast.makeText(ResetDBActivity.this, "Bitte korrigieren Sie Ihre Antwort!", Toast.LENGTH_LONG).show();
 
             }else{ //user sent an answer
-                int kullanicininCevabi=Integer.parseInt(answerOfQuestion);
-                if(kullanicininCevabi==dogruCevap){ //user entered right answer
-                    verileriSifirla();
+                int answerOfUser=Integer.parseInt(answerOfQuestion);
+                if(answerOfUser==solution){ //user entered right answer
+                    resetDb();
 
                 }else {//falsh or empty answer
                     Toast.makeText(ResetDBActivity.this, "Bitte korrigieren Sie Ihre Antwort!", Toast.LENGTH_LONG).show();
@@ -59,11 +59,11 @@ public class ResetDBActivity extends AppCompatActivity {
 
 
         });
-        btSilmektenVazgec.setOnClickListener(v -> finish());
+        btCancel.setOnClickListener(v -> finish());
     }
-    public void verileriSifirla() {
+    public void resetDb() {
 
-        //kullaniciya emin olup olmadigi soruluyor
+        //checks if user sure
         AlertDialog.Builder mAlert = new AlertDialog.Builder(this);
         mAlert.setTitle("Alle Daten werden gelöscht?");
         mAlert.setMessage("Sind Sie sicher? Diese Transaktion kann nicht rückgängig gemacht werden.");
@@ -79,7 +79,7 @@ public class ResetDBActivity extends AppCompatActivity {
             finish();
         });
         mAlert.setNegativeButton("Abbruch", (dialog, which) -> {
-            //vazgecildigi icin hicbir islem yapilmiyor
+            //cancel
 
             finish();
         });
@@ -87,7 +87,7 @@ public class ResetDBActivity extends AppCompatActivity {
 
 
     }
-    private int rd2haneliSayi() {
+    private int generateRandomNumber() {
         Random random=new Random();
         return random.nextInt(90)+10;
 
