@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Adisyon">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-5791953598568781~8354400803"/>
+
         <activity android:name=".VeritabaniSifirlamaEkrani" />
         <activity android:name=".surucununPaketDetaylari" />
         <activity android:name=".silinmisSiparisler" />
