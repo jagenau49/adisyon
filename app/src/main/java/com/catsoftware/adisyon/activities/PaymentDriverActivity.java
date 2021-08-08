@@ -122,9 +122,9 @@ public class PaymentDriverActivity extends AppCompatActivity {
         int countDeliveredOrders = orders.size();
         double sumOfDeliveredCashOrders = 0.0;
         double sumOfDeliveredCardOrders = 0.0;
-        int sumOfDrivers10Mins = calculate10Mins(hourAtBegin, minuteAtBegin, hourAtEnd, minuteAtEnd);
+        int sumOfDrivers5Mins = calculate5Mins(hourAtBegin, minuteAtBegin, hourAtEnd, minuteAtEnd);
 
-        double paymentForHourlyRates=((hourlyRate / 6.0) * sumOfDrivers10Mins);
+        double paymentForHourlyRates=((hourlyRate / 12.0) * sumOfDrivers5Mins);
         double paymentTotalForDriver = paymentForHourlyRates+ countDeliveredOrders;
 
         for (Order order : orders) {
@@ -140,7 +140,7 @@ public class PaymentDriverActivity extends AppCompatActivity {
         tvTotalCardCostOfOrders.setText(sumOfDeliveredCardOrders + "€");
         tvDriversTodaysPaymet.setText(paymentTotalForDriver + " €");
         tvReturnAmount.setText(sumOfExtrasAtDriver + " €");
-        tvWorkHoursTotal.setText(calculateWorkTime(sumOfDrivers10Mins));
+        tvWorkHoursTotal.setText(calculateWorkTime(sumOfDrivers5Mins));
         tvDeliveredOrders.setText("" + countDeliveredOrders);
         tvDriverGainedFromHourlyRate.setText("( "+paymentForHourlyRates+"€ )");
         tvDriverResultNumber.setText(driver);
@@ -161,8 +161,8 @@ public class PaymentDriverActivity extends AppCompatActivity {
 
     }
 
-    private int calculate10Mins(int hourBeginWork, int minutesBeginWork, int hourEndWork, int minuteEndWork) {
-        return ((60 - minutesBeginWork) + ((hourEndWork - hourBeginWork - 1) * 60) + minuteEndWork) / 10;
+    private int calculate5Mins(int hourBeginWork, int minutesBeginWork, int hourEndWork, int minuteEndWork) {
+        return ((60 - minutesBeginWork) + ((hourEndWork - hourBeginWork - 1) * 60) + minuteEndWork) / 5;
     }
 
     public void goToMainActivity() {
